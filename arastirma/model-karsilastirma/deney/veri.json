@@ -1,0 +1,726 @@
+{
+  "title": "TR–EN kaynak erişimi tanı kümesi v1",
+  "synthetic": true,
+  "independent_annotation": false,
+  "documents": [
+    {
+      "id": "D01",
+      "lang": "tr",
+      "text": "Atlas projesinde hasta kayıtları hassas olduğu için bulut işleme reddedildi. Veriler yalnız kurumun cihazında işlenecek. Kararın nedeni internet kesintisi değil, mahremiyet gereksinimidir."
+    },
+    {
+      "id": "D02",
+      "lang": "tr",
+      "text": "Liman sipariş uygulamasında stok düşümü ve sipariş kaydı aynı işlem içinde tamamlanmalı. PostgreSQL seçiminin gerekçesi bu iki değişikliğin birlikte başarılı olması veya birlikte geri alınmasıdır."
+    },
+    {
+      "id": "D03",
+      "lang": "tr",
+      "text": "Defter arama aracının indeksi yalnız kullanıcı güncelle komutunu verdiğinde yenilenir. Bu işlem yeni ve değişen dosyaları işler, silinen kaynakların eski sonuçlarını kaldırır. Arka planda izleyici çalışmaz."
+    },
+    {
+      "id": "D04",
+      "lang": "tr",
+      "text": "Kuzey servisinde hata günlükleri otuz gün saklanır. Sonrasında günlük içerikleri silinir; toplam hata sayısı gibi kişisel veri içermeyen istatistikler kalabilir."
+    },
+    {
+      "id": "D05",
+      "lang": "tr",
+      "text": "Ada oturum tasarımında erişim belirteçlerinin ömrü on dakikadır. Süre kısa tutulur çünkü çalınmış bir belirtecin kötüye kullanılabileceği pencereyi daraltmak istiyoruz."
+    },
+    {
+      "id": "D06",
+      "lang": "tr",
+      "text": "Mercek uygulaması fotoğrafları yüklemeden önce en uzun kenarı 1600 piksele indirir. Amaç mobil ağda aktarılacak baytı ve bekleme süresini azaltmaktır; arşivdeki asıl fotoğraf değişmez."
+    },
+    {
+      "id": "D07",
+      "lang": "tr",
+      "text": "Fener projesinin yedeklerinden biri farklı bir fiziksel binada tutulur. Aynı binadaki yangın veya su baskınının hem asıl veriyi hem yedeği yok etmesini önlemek hedeflenir."
+    },
+    {
+      "id": "D08",
+      "lang": "tr",
+      "text": "Kıyı asistanında değişmeyen sistem talimatları ön ek önbelleğine alınır. Yeniden kullanım aynı içeriğin tekrar hesaplanmasını azaltabilir. Bu mekanizma eski kararların hangisinin doğru olduğunu seçmez."
+    },
+    {
+      "id": "D09",
+      "lang": "tr",
+      "text": "Işık sensörünün açma eşiği 300, kapama eşiği 400 olarak ayrıldı. Ölçüm sınır çevresinde dalgalanırken lambanın sürekli açılıp kapanmasını önlemek için histerezis kullanılır."
+    },
+    {
+      "id": "D10",
+      "lang": "tr",
+      "text": "Rota uygulamasının ekonomik profilinde ücretli otoyollar dışlanır. En kısa yol birkaç kilometre daha uzun olsa bile geçiş ücreti olmayan güzergâh seçilir."
+    },
+    {
+      "id": "D11",
+      "lang": "tr",
+      "text": "Not kutusunda kesinleşmemiş kullanıcı çıkarımları tahmin etiketiyle tutulur. Kullanıcı düzeltirse önceki çıkarım güncel profil bilgisi sayılmaz. Bir tahminin kaydedilmesi onun doğrulandığı anlamına gelmez."
+    },
+    {
+      "id": "D12",
+      "lang": "tr",
+      "text": "Ders çalışma planında sekizinci hafta vize sınavlarına ayrıldı. Bu hafta yeni modül geliştirme işi planlanmadı; önceki konuların tekrarı yapılacak."
+    },
+    {
+      "id": "D13",
+      "lang": "en",
+      "text": "Orion field notes must remain searchable at a conference venue without reliable internet. Offline operation was selected for connectivity resilience; these notes contain no confidential patient information."
+    },
+    {
+      "id": "D14",
+      "lang": "en",
+      "text": "Pebble is a single-user desktop notebook. SQLite was selected to keep deployment simple and avoid running a separate database server. It is not the database chosen for Liman orders."
+    },
+    {
+      "id": "D15",
+      "lang": "en",
+      "text": "Harbor stores login sessions on the server. Signing out revokes the server-side session immediately, so an old browser token cannot continue to authorize requests."
+    },
+    {
+      "id": "D16",
+      "lang": "en",
+      "text": "The journal export tool preserves original file names because existing links refer to those paths. Export compression is a separate option and was not the reason for preserving names."
+    },
+    {
+      "id": "D17",
+      "lang": "en",
+      "text": "The research assistant returns brief source excerpts under a fixed context budget. Whole documents can be opened later when needed. This limits the amount of irrelevant text sent during initial source selection."
+    },
+    {
+      "id": "D18",
+      "lang": "en",
+      "text": "Nimbus retrieval may return no match when available sources do not support the question. The top-ranked item is not automatically treated as evidence simply because it ranks first."
+    },
+    {
+      "id": "D19",
+      "lang": "en",
+      "text": "The tagging prototype assigns each message to a predefined category such as billing or technical support. It does not search a document collection to find evidence for an open-ended question."
+    },
+    {
+      "id": "D20",
+      "lang": "en",
+      "text": "Cedar distributes its application to customers. The team checks the exact model license before packaging weights, because permission to download a model does not by itself settle redistribution conditions."
+    },
+    {
+      "id": "D21",
+      "lang": "en",
+      "text": "The E5 trial prefixes questions with query and source passages with passage. These markers identify the retrieval roles expected during training, including when the text itself is Turkish."
+    },
+    {
+      "id": "D22",
+      "lang": "en",
+      "text": "The container cannot read the notes directory because the host folder was not mounted. The fix is to provide the correct volume mapping; changing the embedding model will not grant filesystem access."
+    },
+    {
+      "id": "D23",
+      "lang": "en",
+      "text": "The event graph stores both when a fact was recorded and the period when it was true. This allows the system to distinguish the user’s former address from the current address."
+    },
+    {
+      "id": "D24",
+      "lang": "en",
+      "text": "Checkout retries reuse an idempotency key. If the network drops after payment succeeds, resending the request with the same key must not charge the customer a second time."
+    },
+    {
+      "id": "N01",
+      "lang": "tr",
+      "text": "Atlasın eski tasarımında bulut işleme önerilmişti. Bu öneri yürürlükte değildir; kararlı internet ve merkezi bakım kolaylığı o zamanki gerekçelerdi."
+    },
+    {
+      "id": "N02",
+      "lang": "en",
+      "text": "Liman interface colors were chosen for visual consistency. PostgreSQL documentation was linked during the design review, but this note records no database transaction decision."
+    },
+    {
+      "id": "N03",
+      "lang": "tr",
+      "text": "Defterin arayüz renkleri yeni sürümle güncellenir. Kullanıcı güncelle düğmesine basınca tema dosyaları yenilenir; bu not arama indeksi hakkında değildir."
+    },
+    {
+      "id": "N04",
+      "lang": "en",
+      "text": "Kuzey retains aggregate service uptime metrics for one year. These metrics contain counts rather than the contents of individual error logs."
+    },
+    {
+      "id": "N05",
+      "lang": "tr",
+      "text": "Adada kullanıcı parolasının belirli aralıklarla değiştirilmesi zorunlu değildir. Bu tercih, erişim belirteçlerinin on dakikalık süresini uzatmaz."
+    },
+    {
+      "id": "N06",
+      "lang": "en",
+      "text": "Mercek preserves original photo resolution in the archive so that prints remain sharp. Thumbnail colors are not used for image search."
+    },
+    {
+      "id": "N07",
+      "lang": "tr",
+      "text": "Fenerde aynı makinedeki ikinci diske her saat kopya alınır. Bu ek kopya fiziksel bina kaybına karşı tek başına yeterli değildir."
+    },
+    {
+      "id": "N08",
+      "lang": "en",
+      "text": "Kıyı stores the user’s recent decisions in text notes. Correcting these notes updates durable knowledge; it is a different operation from caching an unchanged prompt prefix."
+    },
+    {
+      "id": "N09",
+      "lang": "tr",
+      "text": "Işık denemesinin ilk sürümünde tek eşik kullanılıyordu ve lamba ölçüm sınırında titriyordu. Bu eski tasarım güncel ayar değildir."
+    },
+    {
+      "id": "N10",
+      "lang": "en",
+      "text": "Rota’s fastest profile may include toll roads when they reduce travel time. This is a different preference from its economical profile."
+    },
+    {
+      "id": "N11",
+      "lang": "tr",
+      "text": "Orionda mahrem hasta kayıtları tutulmaz. Konferans notlarının arama ekranı için küçük yazı boyutu seçilmiştir; bu karar ağ bağlantısı gereksinimini açıklamaz."
+    },
+    {
+      "id": "N12",
+      "lang": "en",
+      "text": "Checkout logs request identifiers for debugging. Logging alone does not make a payment retry idempotent, and it does not guarantee that a customer is charged only once."
+    }
+  ],
+  "queries": [
+    {
+      "id": "D01-a",
+      "lang": "tr",
+      "direction": "tr-tr",
+      "text": "Atlas hasta verilerini neden dışarıdaki bir servise göndermiyor?",
+      "relevant": [
+        "D01"
+      ],
+      "cluster": "D01"
+    },
+    {
+      "id": "D01-b",
+      "lang": "en",
+      "direction": "en-tr",
+      "text": "Why does Atlas keep medical records on the institution’s own machine?",
+      "relevant": [
+        "D01"
+      ],
+      "cluster": "D01"
+    },
+    {
+      "id": "D02-a",
+      "lang": "tr",
+      "direction": "tr-tr",
+      "text": "Liman uygulamasında veritabanı tercihinin işlemsel gerekçesi neydi?",
+      "relevant": [
+        "D02"
+      ],
+      "cluster": "D02"
+    },
+    {
+      "id": "D02-b",
+      "lang": "en",
+      "direction": "en-tr",
+      "text": "Why must an order and its stock deduction succeed or fail together in Liman?",
+      "relevant": [
+        "D02"
+      ],
+      "cluster": "D02"
+    },
+    {
+      "id": "D03-a",
+      "lang": "tr",
+      "direction": "tr-tr",
+      "text": "Defterden sildiğim notun arama sonucundan çıkması için ne yapmalıyım?",
+      "relevant": [
+        "D03"
+      ],
+      "cluster": "D03"
+    },
+    {
+      "id": "D03-b",
+      "lang": "en",
+      "direction": "en-tr",
+      "text": "How do I remove deleted notes from Defter search results?",
+      "relevant": [
+        "D03"
+      ],
+      "cluster": "D03"
+    },
+    {
+      "id": "D04-a",
+      "lang": "tr",
+      "direction": "tr-tr",
+      "text": "Kuzeyde eski hata kayıtlarına hangi süre dolunca erişemeyiz?",
+      "relevant": [
+        "D04"
+      ],
+      "cluster": "D04"
+    },
+    {
+      "id": "D04-b",
+      "lang": "en",
+      "direction": "en-tr",
+      "text": "For how long does Kuzey keep the contents of error logs?",
+      "relevant": [
+        "D04"
+      ],
+      "cluster": "D04"
+    },
+    {
+      "id": "D05-a",
+      "lang": "tr",
+      "direction": "tr-tr",
+      "text": "Adada oturum anahtarları neden kısa sürede geçersiz oluyor?",
+      "relevant": [
+        "D05"
+      ],
+      "cluster": "D05"
+    },
+    {
+      "id": "D05-b",
+      "lang": "en",
+      "direction": "en-tr",
+      "text": "Why do Ada access tokens expire after only ten minutes?",
+      "relevant": [
+        "D05"
+      ],
+      "cluster": "D05"
+    },
+    {
+      "id": "D06-a",
+      "lang": "tr",
+      "direction": "tr-tr",
+      "text": "Mercek fotoğraf gönderirken neden çözünürlüğü küçültüyor?",
+      "relevant": [
+        "D06"
+      ],
+      "cluster": "D06"
+    },
+    {
+      "id": "D06-b",
+      "lang": "en",
+      "direction": "en-tr",
+      "text": "Why does Mercek downscale photos before uploading them?",
+      "relevant": [
+        "D06"
+      ],
+      "cluster": "D06"
+    },
+    {
+      "id": "D07-a",
+      "lang": "tr",
+      "direction": "tr-tr",
+      "text": "Fenerin yedeği neden ana sunucuyla aynı yerde tutulmuyor?",
+      "relevant": [
+        "D07"
+      ],
+      "cluster": "D07"
+    },
+    {
+      "id": "D07-b",
+      "lang": "en",
+      "direction": "en-tr",
+      "text": "Why is one Fener backup stored in another building?",
+      "relevant": [
+        "D07"
+      ],
+      "cluster": "D07"
+    },
+    {
+      "id": "D08-a",
+      "lang": "tr",
+      "direction": "tr-tr",
+      "text": "Kıyıda sabit yönergelerin tekrar işlenme giderini ne düşürüyor?",
+      "relevant": [
+        "D08"
+      ],
+      "cluster": "D08"
+    },
+    {
+      "id": "D08-b",
+      "lang": "en",
+      "direction": "en-tr",
+      "text": "What reduces repeated computation of Kıyı’s unchanged system instructions?",
+      "relevant": [
+        "D08"
+      ],
+      "cluster": "D08"
+    },
+    {
+      "id": "D09-a",
+      "lang": "tr",
+      "direction": "tr-tr",
+      "text": "Sensörde açma ve kapama sınırlarını neden farklı belirledik?",
+      "relevant": [
+        "D09"
+      ],
+      "cluster": "D09"
+    },
+    {
+      "id": "D09-b",
+      "lang": "en",
+      "direction": "en-tr",
+      "text": "Why does the lamp controller use different switch-on and switch-off thresholds?",
+      "relevant": [
+        "D09"
+      ],
+      "cluster": "D09"
+    },
+    {
+      "id": "D10-a",
+      "lang": "tr",
+      "direction": "tr-tr",
+      "text": "Ekonomik rota neden bazen daha uzun bir yoldan gidiyor?",
+      "relevant": [
+        "D10"
+      ],
+      "cluster": "D10"
+    },
+    {
+      "id": "D10-b",
+      "lang": "en",
+      "direction": "en-tr",
+      "text": "Why can the economical route be longer than the shortest route?",
+      "relevant": [
+        "D10"
+      ],
+      "cluster": "D10"
+    },
+    {
+      "id": "D11-a",
+      "lang": "tr",
+      "direction": "tr-tr",
+      "text": "Kullanıcının reddettiği kişisel tahmini sonraki yanıtlarda kullanabilir miyiz?",
+      "relevant": [
+        "D11"
+      ],
+      "cluster": "D11"
+    },
+    {
+      "id": "D11-b",
+      "lang": "en",
+      "direction": "en-tr",
+      "text": "Should a personal inference rejected by the user still count as current profile information?",
+      "relevant": [
+        "D11"
+      ],
+      "cluster": "D11"
+    },
+    {
+      "id": "D12-a",
+      "lang": "tr",
+      "direction": "tr-tr",
+      "text": "Sekizinci haftada neden geliştirme görevi bulunmuyor?",
+      "relevant": [
+        "D12"
+      ],
+      "cluster": "D12"
+    },
+    {
+      "id": "D12-b",
+      "lang": "en",
+      "direction": "en-tr",
+      "text": "Why are no new development tasks scheduled in week eight?",
+      "relevant": [
+        "D12"
+      ],
+      "cluster": "D12"
+    },
+    {
+      "id": "D13-a",
+      "lang": "en",
+      "direction": "en-en",
+      "text": "Why must Orion notes work without an internet connection?",
+      "relevant": [
+        "D13"
+      ],
+      "cluster": "D13"
+    },
+    {
+      "id": "D13-b",
+      "lang": "tr",
+      "direction": "tr-en",
+      "text": "Orion notlarını internetsiz arayabilmemizin temel gerekçesi nedir?",
+      "relevant": [
+        "D13"
+      ],
+      "cluster": "D13"
+    },
+    {
+      "id": "D14-a",
+      "lang": "en",
+      "direction": "en-en",
+      "text": "Why does Pebble use an embedded database rather than a server?",
+      "relevant": [
+        "D14"
+      ],
+      "cluster": "D14"
+    },
+    {
+      "id": "D14-b",
+      "lang": "tr",
+      "direction": "tr-en",
+      "text": "Pebble için ayrıca veritabanı sunucusu kurmama kararını neden aldık?",
+      "relevant": [
+        "D14"
+      ],
+      "cluster": "D14"
+    },
+    {
+      "id": "D15-a",
+      "lang": "en",
+      "direction": "en-en",
+      "text": "How does Harbor make logout take effect immediately?",
+      "relevant": [
+        "D15"
+      ],
+      "cluster": "D15"
+    },
+    {
+      "id": "D15-b",
+      "lang": "tr",
+      "direction": "tr-en",
+      "text": "Harborda çıkış yaptıktan sonra eski tarayıcı anahtarının kullanılması nasıl engelleniyor?",
+      "relevant": [
+        "D15"
+      ],
+      "cluster": "D15"
+    },
+    {
+      "id": "D16-a",
+      "lang": "en",
+      "direction": "en-en",
+      "text": "Why must exported journal notes keep their original names?",
+      "relevant": [
+        "D16"
+      ],
+      "cluster": "D16"
+    },
+    {
+      "id": "D16-b",
+      "lang": "tr",
+      "direction": "tr-en",
+      "text": "Günlük dışa aktarılırken dosya adlarını neden aynen koruyoruz?",
+      "relevant": [
+        "D16"
+      ],
+      "cluster": "D16"
+    },
+    {
+      "id": "D17-a",
+      "lang": "en",
+      "direction": "en-en",
+      "text": "Why are initial search results short excerpts rather than entire documents?",
+      "relevant": [
+        "D17"
+      ],
+      "cluster": "D17"
+    },
+    {
+      "id": "D17-b",
+      "lang": "tr",
+      "direction": "tr-en",
+      "text": "İlk arama sonucunda bütün belgeyi göndermek yerine neden kısa kaynak parçaları veriyoruz?",
+      "relevant": [
+        "D17"
+      ],
+      "cluster": "D17"
+    },
+    {
+      "id": "D18-a",
+      "lang": "en",
+      "direction": "en-en",
+      "text": "What should Nimbus do when its notes contain no support for the question?",
+      "relevant": [
+        "D18"
+      ],
+      "cluster": "D18"
+    },
+    {
+      "id": "D18-b",
+      "lang": "tr",
+      "direction": "tr-en",
+      "text": "Nimbusun notlarında soruya dayanak yoksa ilk sonucu yine de sunmalı mı?",
+      "relevant": [
+        "D18"
+      ],
+      "cluster": "D18"
+    },
+    {
+      "id": "D19-a",
+      "lang": "en",
+      "direction": "en-en",
+      "text": "What does the message tagging prototype predict?",
+      "relevant": [
+        "D19"
+      ],
+      "cluster": "D19"
+    },
+    {
+      "id": "D19-b",
+      "lang": "tr",
+      "direction": "tr-en",
+      "text": "Mesaj etiketleme prototipi hangi tür çıktıyı tahmin ediyor?",
+      "relevant": [
+        "D19"
+      ],
+      "cluster": "D19"
+    },
+    {
+      "id": "D20-a",
+      "lang": "en",
+      "direction": "en-en",
+      "text": "Why does Cedar review licensing before bundling model weights?",
+      "relevant": [
+        "D20"
+      ],
+      "cluster": "D20"
+    },
+    {
+      "id": "D20-b",
+      "lang": "tr",
+      "direction": "tr-en",
+      "text": "Cedarda model ağırlıklarını uygulamayla dağıtmadan önce lisansı neden inceliyoruz?",
+      "relevant": [
+        "D20"
+      ],
+      "cluster": "D20"
+    },
+    {
+      "id": "D21-a",
+      "lang": "en",
+      "direction": "en-en",
+      "text": "Why are different role prefixes added to E5 questions and source passages?",
+      "relevant": [
+        "D21"
+      ],
+      "cluster": "D21"
+    },
+    {
+      "id": "D21-b",
+      "lang": "tr",
+      "direction": "tr-en",
+      "text": "E5 denemesinde soruların ve kaynakların başına niçin farklı rol işaretleri ekleniyor?",
+      "relevant": [
+        "D21"
+      ],
+      "cluster": "D21"
+    },
+    {
+      "id": "D22-a",
+      "lang": "en",
+      "direction": "en-en",
+      "text": "Why can the container not see the notes that exist on the host?",
+      "relevant": [
+        "D22"
+      ],
+      "cluster": "D22"
+    },
+    {
+      "id": "D22-b",
+      "lang": "tr",
+      "direction": "tr-en",
+      "text": "Bilgisayarda bulunan not klasörü konteynerin içinden neden görünmüyor?",
+      "relevant": [
+        "D22"
+      ],
+      "cluster": "D22"
+    },
+    {
+      "id": "D23-a",
+      "lang": "en",
+      "direction": "en-en",
+      "text": "Why does the event graph track validity intervals as well as recording time?",
+      "relevant": [
+        "D23"
+      ],
+      "cluster": "D23"
+    },
+    {
+      "id": "D23-b",
+      "lang": "tr",
+      "direction": "tr-en",
+      "text": "Olay grafiğinde kayıt zamanının yanında geçerlilik aralığını neden tutuyoruz?",
+      "relevant": [
+        "D23"
+      ],
+      "cluster": "D23"
+    },
+    {
+      "id": "D24-a",
+      "lang": "en",
+      "direction": "en-en",
+      "text": "How do checkout retries avoid duplicate payments after a connection failure?",
+      "relevant": [
+        "D24"
+      ],
+      "cluster": "D24"
+    },
+    {
+      "id": "D24-b",
+      "lang": "tr",
+      "direction": "tr-en",
+      "text": "Ödeme başarılı olduktan sonra bağlantı koparsa yeniden deneme müşteriden iki kez para çekmeyi nasıl önlüyor?",
+      "relevant": [
+        "D24"
+      ],
+      "cluster": "D24"
+    }
+  ],
+  "pairs": [
+    {
+      "id": "P01",
+      "kind": "Türkçe farklı ifade",
+      "a": "Verileri gizlilik nedeniyle kendi cihazımızda işliyoruz.",
+      "b": "Mahrem bilgilerin dış sunuculara gitmemesi için yerel işlemeyi seçtik."
+    },
+    {
+      "id": "P02",
+      "kind": "TR–EN yakın anlam",
+      "a": "Verileri gizlilik nedeniyle kendi cihazımızda işliyoruz.",
+      "b": "We process sensitive data locally to protect privacy."
+    },
+    {
+      "id": "P03",
+      "kind": "Olumsuzlama",
+      "a": "Bulut hizmetlerine izin veriliyor.",
+      "b": "Bulut hizmetlerine izin verilmiyor."
+    },
+    {
+      "id": "P04",
+      "kind": "İlgisiz konu",
+      "a": "Verileri gizlilik nedeniyle kendi cihazımızda işliyoruz.",
+      "b": "Bisikletin arka lastiğini değiştirdim."
+    },
+    {
+      "id": "P05",
+      "kind": "Benzer konu, farklı gerekçe",
+      "a": "Yerel işleme gizlilik için seçildi.",
+      "b": "Yerel işleme internet bağlantısı olmadığı için seçildi."
+    },
+    {
+      "id": "P06",
+      "kind": "Benzer sözler, farklı proje",
+      "a": "Atlas projesi PostgreSQL kullanıyor.",
+      "b": "Orion projesi PostgreSQL kullanıyor."
+    },
+    {
+      "id": "P07",
+      "kind": "Geçmiş ve güncel durum",
+      "a": "Eski kararımız bulut kullanmaktı.",
+      "b": "Güncel kararımız bulut kullanmamak."
+    },
+    {
+      "id": "P08",
+      "kind": "İngilizce farklı ifade",
+      "a": "Retries must not charge the customer twice.",
+      "b": "Repeated payment requests should not create duplicate charges."
+    }
+  ],
+  "limitations": [
+    "Asistan tarafından hazırlanmış, bağımsız insan etiketi olmayan küçük sentetik küme.",
+    "24 hedef kaynağın iki dildeki soruları bağımsız 48 örnek sayılmaz.",
+    "Olumsuzlama ve zaman örnekleri tanı amaçlıdır; doğruluk etiketi olmayan cümle çiftleri başarı metriğine katılmaz.",
+    "Cevapsız sorgular ve ret eşiği bu deneyde ölçülmez.",
+    "Kısa paragraflar; büyük arşiv ve uzun dosya başarısı ölçülmez."
+  ]
+}

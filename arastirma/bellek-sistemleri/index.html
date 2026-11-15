@@ -1,0 +1,378 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bellek Sistemleri — NLP Araştırma Defteri</title>
+<meta name="description" content="Kişisel bilgi bankaları ve yapay zekâ belleği: çıkış hedefleri, tasarımlar, farklar ve token maliyeti üzerine kaynaklı araştırma.">
+<style>
+:root{color-scheme:light;--bg:#f6f5f0;--paper:#fffefa;--ink:#223c35;--text:#39483f;--muted:#64736a;--line:#dedfd5;--soft:#edeee6;--accent:#ad4c2d;--font:18px}
+html[data-theme=dark]{color-scheme:dark;--bg:#17251f;--paper:#1e3028;--ink:#e5ecdd;--text:#ced8cd;--muted:#a4b5a6;--line:#3c5144;--soft:#263b30;--accent:#e0a282}
+*{box-sizing:border-box}html{scroll-padding-top:100px}body{margin:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;line-height:1.8}a{color:var(--accent);text-underline-offset:4px;overflow-wrap:anywhere}button,input,select{font:inherit}button,a,input,select,summary{touch-action:manipulation}button{cursor:pointer}button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--accent);outline-offset:4px}button{background:var(--paper);border:1px solid var(--line);color:var(--ink);border-radius:5px;padding:7px 12px;min-height:42px}button:hover{background:var(--soft)}button:disabled{opacity:.4;cursor:default}[hidden]{display:none!important}.skip{position:fixed;top:-80px;left:20px;z-index:30;background:var(--paper);padding:10px}.skip:focus{top:10px}
+.sidebar{position:fixed;inset:0 auto 0 0;width:260px;padding:34px 25px;background:#193b31;color:#dbe5dc;overflow-y:auto}.brand{color:#f0f2e8;text-decoration:none;font-size:16px;font-weight:650;line-height:1.5;display:block;margin-bottom:32px}.brand small{display:block;font-size:10px;letter-spacing:.14em;color:#a9c0b2;margin-top:6px}.sidebar-label{font-size:10px;letter-spacing:.16em;color:#a9c0b2}.sidebar nav{display:grid;gap:5px;margin:14px 0 28px}.sidebar nav a{font-size:12px;line-height:1.55;color:#dbe5dc;text-decoration:none;padding:10px 8px;display:flex;gap:12px;border-radius:4px}.sidebar nav a:hover,.sidebar nav a[aria-current]{background:#ffffff10}.sidebar nav span{flex:none;white-space:nowrap;width:18px;font-size:10px;color:#a9c0b2;padding-top:2px}.side-note{font-size:12px;color:#a9c0b2;border-top:1px solid #365548;padding-top:24px}.side-back{font-size:12px;color:#dbe5dc;display:block;margin-top:28px}
+.shell{margin-left:260px}.topbar{position:sticky;top:0;z-index:10;background:var(--bg);border-bottom:1px solid var(--line);padding:13px 38px;display:flex;justify-content:space-between;align-items:center;gap:10px;min-height:70px}.crumb{font-size:12px;color:var(--muted)}.toolbar{display:flex;gap:5px}.toolbar button{font-size:13px}.mobile-toc{display:none}main{max-width:1150px;margin:0 auto;padding:48px 48px 70px;min-width:0}.eyebrow{font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:21px}h1,h2,h3{color:var(--ink)}h1{font-family:Charter,"Iowan Old Style",Georgia,serif;font-size:clamp(39px,4.6vw,64px);font-weight:500;line-height:1.14;letter-spacing:-.035em;margin:0 0 22px;max-width:790px}.lede{font-size:18px;line-height:1.8;max-width:720px;color:var(--muted)}.hero-meta{display:flex;gap:22px;flex-wrap:wrap;padding:20px 0 27px;border-bottom:1px solid var(--line);font-size:12px;color:var(--muted)}.hero-meta strong{color:var(--ink);font-size:19px;margin-right:6px}.hero-links{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}.hero-links a{border:1px solid var(--line);border-radius:5px;background:var(--paper);padding:9px 15px;text-decoration:none;font-size:13px;color:var(--ink)}.pathway{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);margin:30px 0}.pathway div{background:var(--paper);padding:18px}.pathway small{font-size:10px;color:var(--accent);display:block;margin-bottom:4px}.pathway strong{display:block;color:var(--ink);font-size:14px}.pathway span{font-size:12px;color:var(--muted);display:block;line-height:1.6;margin-top:5px}.caption{font-size:12px;color:var(--muted);margin-top:-19px}
+.prose{font-size:var(--font);line-height:1.9;overflow-wrap:anywhere}.prose>p,.prose>ul,.prose>ol{max-width:790px}.prose p{margin:17px 0}.prose h2{font-family:Charter,"Iowan Old Style",Georgia,serif;font-size:32px;font-weight:500;line-height:1.3;letter-spacing:-.015em;border-top:1px solid var(--line);padding-top:34px;margin:49px 0 22px;scroll-margin-top:100px}.prose h3{font-size:20px;line-height:1.5;margin:28px 0 14px}.prose strong{color:var(--ink)}.prose code{font-size:.85em;background:var(--soft);padding:2px 5px;border-radius:3px;overflow-wrap:anywhere}.prose pre{white-space:pre-wrap;font-size:14px;line-height:1.9;background:var(--soft);padding:22px;border-radius:5px}.prose pre code{background:none;padding:0}.table-wrap{overflow-x:auto;max-width:100%;margin:24px 0;border:1px solid var(--line);border-radius:5px}table{border-collapse:collapse;width:100%;font-size:14px;line-height:1.7;min-width:650px}th,td{text-align:left;vertical-align:top;padding:14px 15px;border-bottom:1px solid var(--line)}th{background:var(--soft);color:var(--ink);font-size:12px;font-weight:650}td{background:var(--paper)}tr:last-child td{border-bottom:0}.system{background:var(--paper);border:1px solid var(--line);border-radius:5px;margin:12px 0;scroll-margin-top:100px}.system summary{list-style:none;cursor:pointer;padding:21px 56px 21px 24px;position:relative}.system summary::-webkit-details-marker{display:none}.family{display:block;color:var(--accent);font-size:10px;letter-spacing:.1em;text-transform:uppercase;margin-bottom:5px}.system summary strong{display:block;font-family:Charter,"Iowan Old Style",Georgia,serif;font-size:24px;font-weight:500;line-height:1.4}.goal{display:block;font-size:14px;line-height:1.7;color:var(--muted);margin-top:9px;max-width:730px}.expand{position:absolute;right:25px;top:29px;font-size:23px;color:var(--accent)}details[open] .expand{transform:rotate(45deg)}.system-body{border-top:1px solid var(--line);padding:7px 24px 19px;font-size:16px}.system-body p{max-width:780px}.system-tools{padding:19px;background:var(--soft);display:grid;grid-template-columns:1.3fr 1fr auto;gap:12px;align-items:end;border:1px solid var(--line);border-radius:5px;margin:24px 0}.system-tools label{font-size:11px;color:var(--muted)}.system-tools input,.system-tools select{display:block;width:100%;min-width:0;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:4px;padding:10px;font-size:14px;margin-top:4px;min-height:44px}.system-tools button{font-size:12px;height:44px}.system-tools #count{grid-column:1/-1;margin:0;font-size:12px}#empty{font-size:15px;border:1px dashed var(--line);padding:20px}footer{border-top:1px solid var(--line);margin-top:40px;padding-top:20px;color:var(--muted);font-size:12px}.progress{position:fixed;top:69px;left:260px;right:0;height:2px;background:var(--accent);transform:scaleX(0);transform-origin:left;z-index:11}
+@media(max-width:1050px){main{padding:38px 30px}.topbar{padding:13px 30px}.pathway{grid-template-columns:repeat(2,1fr)}.system-tools{grid-template-columns:1fr 1fr}.system-tools button{grid-column:2}.system-tools #count{grid-column:1;grid-row:2;align-self:center}}
+@media(max-width:760px){.sidebar{display:none}.shell{margin-left:0}.progress{left:0}.topbar{padding:10px 18px}.crumb{font-size:11px;max-width:100px;line-height:1.5}.toolbar{gap:4px}.toolbar button{padding:6px 10px}.toolbar .print{display:none}main{padding:30px 20px 50px}.lede{font-size:16px}.hero-meta{gap:13px}.hero-meta strong{font-size:17px}.mobile-toc{display:block;border:1px solid var(--line);padding:12px 16px;background:var(--paper);border-radius:4px;margin-top:25px;font-size:14px}.mobile-toc summary{cursor:pointer;color:var(--ink)}.mobile-toc nav{display:grid;gap:10px;margin-top:15px}.mobile-toc nav a{text-decoration:none;font-size:13px;line-height:1.7}.mobile-toc nav span{margin-right:10px}.prose{font-size:calc(var(--font) - 1px)}.prose h2{font-size:28px}.system summary{padding:19px 43px 19px 18px}.system summary strong{font-size:22px}.expand{right:17px}.system-body{padding:5px 18px 17px}.system-tools{grid-template-columns:1fr;padding:15px}.system-tools button,.system-tools #count{grid-column:auto;grid-row:auto}.pathway div{padding:14px}.pathway strong{font-size:13px}.hero-links a{font-size:12px}.prose pre{padding:15px;font-size:12px}}
+@media print{.sidebar,.topbar,.mobile-toc,.progress,.hero-links,.system-tools,#empty,.skip{display:none!important}.shell{margin:0}main{padding:0;max-width:none}body{background:white;color:black}.prose{font-size:11pt}.prose h2{break-after:avoid}.system{break-inside:avoid}.table-wrap{overflow:visible}table{min-width:0;font-size:9pt}a{color:inherit}.system-body{font-size:11pt}.pathway{break-inside:avoid}}
+</style>
+</head><body>
+<a href="#content" class="skip">İçeriğe geç</a>
+<aside class="sidebar" aria-label="Bölümler"><a class="brand" href="../index.html">NLP Araştırma Defteri<small>BELLEK SİSTEMLERİ</small></a><div class="sidebar-label">PROBLEMİN KÖKENİ</div><nav><a href="#bolum-1"><span>01</span>Problemin çıkış noktası</a><a href="#bolum-2"><span>02</span>Hatırladığın üç referans</a><a href="#bolum-3"><span>03</span>Kim, neyi, nasıl tasarlamış?</a><a href="#bolum-4"><span>04</span>Temel farklar aynı tabloda</a><a href="#bolum-5"><span>05</span>Token maliyetini nasıl azaltıyorlar?</a><a href="#bolum-6"><span>06</span>Sayısal iddiaların kanıtı ve sınırı</a><a href="#bolum-7"><span>07</span>Bizim araştırmamız için neyi gerekçelendiriyor?</a><a href="#bolum-8"><span>08</span>Okuma sırası ve inceleme sınırı</a></nav><p class="side-note">Sistemlerin amaçlarını ve tasarımlarını karşılaştıran başlangıç taraması.<br><br>Yöntem seçimi açık.</p><a href="../index.html" class="side-back">← NLP yöntem taramasına dön</a></aside>
+<div class="shell"><header class="topbar"><span class="crumb">Araştırma defteri / Bellek sistemleri</span><div class="toolbar" aria-label="Okuma ayarları"><button id="smaller" aria-label="Yazıyı küçült">A−</button><button id="larger" aria-label="Yazıyı büyüt">A+</button><button id="theme" aria-pressed="false">Koyu</button><button class="print" id="print">Yazdır</button></div></header><div class="progress" aria-hidden="true"></div>
+<main id="content" tabindex="-1"><div class="eyebrow">Problemin kökeni · 12 Kasım 2026</div><h1>Kaydetmekten<br>hatırlamaya.</h1><p class="lede">Yapay zekâ belleği ve kişisel bilgi bankaları neden ortaya çıktı? Kim nasıl tasarlıyor, neleri farklı yapıyor ve maliyet nerede oluşuyor?</p><div class="hero-meta"><span><strong>12</strong> yaklaşım</span><span><strong>3</strong> tanıdık referans</span><span>Birincil kaynaklar · Açık kanıt sınırları</span></div><div class="hero-links"><a href="#bolum-2">Karpathy, Avenox, Cobanov ↗</a><a href="#bolum-3">Sistemleri karşılaştır →</a><a href="#bolum-6">Token iddialarını incele →</a></div>
+<div class="pathway" role="group" aria-label="Bellek yaşam döngüsünün dört ayrı işi"><div><small>01 / KORU</small><strong>Kaynak ve deneyim</strong><span>Ne saklanacak?</span></div><div><small>02 / DÜZENLE</small><strong>Not, profil, grafik</strong><span>Ne çıkarılacak ve güncellenecek?</span></div><div><small>03 / BUL</small><strong>İlgili kaynak</strong><span>Bu soruda hangisi gerekli?</span></div><div><small>04 / KULLAN</small><strong>Sınırlı bağlam</strong><span>Modele ne kadar taşınacak?</span></div></div><p class="caption">Araştırmanın kavramsal ayrımı. Bir ürün mimarisi veya seçilmiş uygulama planı değildir.</p>
+<details class="mobile-toc"><summary>Bu bölümde neler var?</summary><nav><a href="#bolum-1"><span>01</span>Problemin çıkış noktası</a><a href="#bolum-2"><span>02</span>Hatırladığın üç referans</a><a href="#bolum-3"><span>03</span>Kim, neyi, nasıl tasarlamış?</a><a href="#bolum-4"><span>04</span>Temel farklar aynı tabloda</a><a href="#bolum-5"><span>05</span>Token maliyetini nasıl azaltıyorlar?</a><a href="#bolum-6"><span>06</span>Sayısal iddiaların kanıtı ve sınırı</a><a href="#bolum-7"><span>07</span>Bizim araştırmamız için neyi gerekçelendiriyor?</a><a href="#bolum-8"><span>08</span>Okuma sırası ve inceleme sınırı</a></nav><a href="../index.html">← NLP yöntem taramasına dön</a></details>
+<article class="prose">
+<p>Kişisel bilgi bankaları, ajan belleği ve token maliyeti üzerine karşılaştırmalı araştırma. <strong>Tarama tarihi: 12 Kasım 2026.</strong> Bu çalışma problem gerekçesine ve yöntem seçimine girdidir; nihai model veya algoritma seçilmedi.</p>
+<h2 id="bolum-1">Problemin çıkış noktası</h2>
+<p><strong>Bilginin saklanması, ihtiyaç anında bulunması ve doğru kullanılması ayrı problemlerdir.</strong> Kişisel not sistemleri ile yapay zekâ belleği bu zincirin farklı halkalarından yola çıkar.</p>
+<p>İnsan tarafında sorun, okunan ve deneyimlenen bilginin dağılması, unutulması ve bir sonraki çalışmada yeniden kullanılamamasıdır. Tiago Forte’nin <em>Building a Second Brain</em> yaklaşımı bunu yakalama, düzenleme, damıtma ve üretime dönüştürme adımlarıyla ele alır (CODE). Buradaki amaç daha çok dosya biriktirmekten ziyade bilgiyi çalışmaya dönüştürmektir. Bu, bir NLP algoritması veya LLM ürünü değildir. <a href="https://fortelabs.com/blog/basboverview/" rel="noopener noreferrer" target="_blank">Forte’nin kendi açıklaması</a></p>
+<p>Yapay zekâ tarafında geçmiş konuşma, sıradan bir çıkarım çağrısıyla kendiliğinden model ağırlıklarına yazılmaz. Oturumlar arasındaki devamlılığı uygulamanın sakladığı durum, notlar ve yeniden sağladığı bağlam kurar. <strong>Modelin eğitimden gelen bilgisi, aktif bağlamı ve dış belleği aynı şey değildir.</strong> Mert Cobanov’un anlatımı bu ayrımı etkileşimli örneklerle açar. <a href="https://memory.cobanov.dev/" rel="noopener noreferrer" target="_blank">How AI Agent Memory Works</a></p>
+<p>Büyük bağlam penceresi tek başına yeterli çözüm değildir: uzun konuşmada gereksiz içerik birikir; özetleme ise sonradan gerekli olacak ayrıntıları kaybedebilir. Anthropic’in mühendislik yazısı bağlam sıkıştırma ve kalıcı not tutmayı bu nedenle ayrı teknikler olarak ele alır. <a href="https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents" rel="noopener noreferrer" target="_blank">Effective context engineering</a></p>
+<p><strong>Bu kaynaklardan çıkan problem haritası — araştırmacı yorumu:</strong></p>
+<div aria-label="Karşılaştırma tablosu, yatay kaydırılabilir" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Baskı</th>
+<th>İlk çözüm</th>
+<th>Çözümün oluşturduğu yeni ihtiyaç</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>İnsan her ayrıntıyı hatırlayamıyor</td>
+<td>Haricî not ve kaynak deposu</td>
+<td>Dosya adı veya ilk kullanılan kelime bilinmeden erişim</td>
+</tr>
+<tr>
+<td>Ajan yeni oturumda devam edemiyor</td>
+<td>Kalıcı durum ve devir notları</td>
+<td>Hangi notların yeni bağlama alınacağını seçme</td>
+</tr>
+<tr>
+<td>Geçmiş büyüyor</td>
+<td>Özetleme ve seçici erişim</td>
+<td>Bilgi kaybını ve kaçırılan kanıtı ölçme</td>
+</tr>
+<tr>
+<td>Bilgi değişiyor</td>
+<td>Güncelleme, sürüm ve zaman bilgisi</td>
+<td>Eski karar ile güncel kararın ayrılması</td>
+</tr>
+<tr>
+<td>Her tur daha fazla içerik taşınıyor</td>
+<td>İndeks, bütçe ve önbellek</td>
+<td>Toplam maliyeti kaliteyle birlikte değerlendirme</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="bolum-2">Hatırladığın üç referans</h2>
+<p><strong>Karpathy:</strong> Doğruladığım birincil kaynak, Andrej Karpathy’nin 4 Nisan 2026 tarihli <strong>LLM Wiki</strong> tasarım notu. Hazır bir “Karpathy Memory Bank” paketi olarak tanıtılmıyor. Kastettiğin kaynakla en güçlü eşleşme bu; ad benzerliğinden kesin özdeşlik çıkarmıyorum. <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" rel="noopener noreferrer" target="_blank">Orijinal gist</a></p>
+<p><strong>Avenox Beyin:</strong> Doğrulanan proje <strong>avenoxai/avenoxbeyin</strong>. Güncel README V3.12.0’ı anlatıyor; kod incelemesi <code>main</code> dalının <strong>7eccf32b099c0925d467e2d610cfb4367a4dc3e3</strong> anlık görüntüsüne sabitlendi. <code>main</code> içeriği ile yayınlanmış sürüm paketinin birebir aynı olduğu varsayılmadı. <a href="https://github.com/avenoxai/avenoxbeyin" rel="noopener noreferrer" target="_blank">Depo</a></p>
+<p><strong>Mert Cobanov:</strong> Yazının tam adı <strong>How AI Agent Memory Works</strong>. Kısa/uzun süreli bellek, anlamsal erişim, bellek türleri, erişim hattı ve üretim sorunlarını anlatan etkileşimli bir eğitim sayfası. Bir bellek ürününün başarı veya maliyet deneyi olarak kullanılmamalı. Örnek gösterimler gerçek ölçüm yerine kavramı açıklıyor. <a href="https://memory.cobanov.dev/" rel="noopener noreferrer" target="_blank">Yazıyı aç</a></p>
+<p>“Memory Bank” ayrıca <strong>Cline’ın dosya düzeni yaklaşımının</strong>, <strong>MemoryBank</strong> ise Zhong ve arkadaşlarının akademik sisteminin adı. Aşağıda ayrı kayıtlar olarak inceleniyorlar.</p>
+<h2 id="bolum-3">Kim, neyi, nasıl tasarlamış?</h2>
+<p>Kartlardaki <strong>maliyet yorumu</strong>, mekanizmanın olası sonucudur; açıkça ölçüm denmediği sürece doğrulanmış tasarruf oranı değildir.</p>
+<div class="system-tools"><label>Sistemlerde ara<input id="search" placeholder="Örn. Avenox, token, grafik…" type="search"/></label><label>Yaklaşım ailesi<select id="family"><option value="all">Bütün aileler</option><option>Dosya ve bilgi bankası</option><option>Ajan ve konuşma belleği</option><option>Bağlantılı ve zamansal bellek</option><option>Verimlilik ve erişim</option></select></label><button id="reset" type="button">Sıfırla</button><p id="count" role="status">12 / 12 yaklaşım</p></div><p hidden="" id="empty">Bu aramada sonuç yok. Aramayı temizle veya bütün aileleri seç.</p><details class="system" data-family="Dosya ve bilgi bankası" id="sistem-01"><summary><span class="family">Dosya ve bilgi bankası</span><strong>01 · Karpathy — LLM Wiki</strong><span class="goal">Aynı kaynakları her soruda yeniden birleştirmek yerine biriken bir kişisel bilgi tabanı oluşturmak.</span><span aria-hidden="true" class="expand">+</span></summary><div class="system-body">
+<p><strong>Aile:</strong> Dosya ve bilgi bankası</p>
+<p><strong>Çıkış hedefi:</strong> Aynı kaynakları her soruda yeniden birleştirmek yerine biriken bir kişisel bilgi tabanı oluşturmak.</p>
+<p><strong>Tasarım:</strong> Değiştirilmeyen ham kaynaklar, LLM’nin düzenlediği bağlantılı Markdown wiki ve çalışma kurallarını belirleyen şema. Kaynak işleme, sorgulama ve bakım döngüleri var. Ajan önce içerik indeksini, sonra ilgili sayfaları okur.</p>
+<p><strong>Maliyet yaklaşımı:</strong> Sentezi kaynak alımında yapmak, sonraki sorularda yeniden kullanmak. Ancak kaynak alımı ve wiki bakımı da model işi gerektirir. Net tasarruf sorgu sıklığına bağlıdır; gist maliyet benchmark’ı sunmaz.</p>
+<p><strong>Ayırıcı sınır:</strong> Hazır ürün veya tek bir arama algoritması değil, uyarlanabilir tasarım deseni. Büyüyen wiki için arama aracı ihtiyacını kendisi de belirtir.</p>
+<p><strong>Kanıt:</strong> Tasarım notu okundu; çalışan kurulum denenmedi. <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" rel="noopener noreferrer" target="_blank">Karpathy, LLM Wiki</a></p>
+</div></details><details class="system" data-family="Dosya ve bilgi bankası" id="sistem-02"><summary><span class="family">Dosya ve bilgi bankası</span><strong>02 · Cline topluluğu — Memory Bank</strong><span class="goal">Kodlama ajanının yeni görev veya oturumda proje amacını, kararları ve kaldığı yeri yeniden kurabilmesi.</span><span aria-hidden="true" class="expand">+</span></summary><div class="system-body">
+<p><strong>Aile:</strong> Dosya ve bilgi bankası</p>
+<p><strong>Çıkış hedefi:</strong> Kodlama ajanının yeni görev veya oturumda proje amacını, kararları ve kaldığı yeri yeniden kurabilmesi.</p>
+<p><strong>Tasarım:</strong> Proje özeti, ürün bağlamı, aktif durum, sistem desenleri, teknik bağlam ve ilerleme için altı temel Markdown dosyası; bunları okuma ve güncelleme talimatları.</p>
+<p><strong>Maliyet yaklaşımı:</strong> Uzun sohbet yerine düzenlenmiş proje durumu taşınır. Fakat belgelenen talimat her görev başında tüm bellek dosyalarını okumayı ister. Dosyalar büyürse tekrarlanan okuma da büyür; seçici bir indeks zorunlu parça değildir.</p>
+<p><strong>Ayırıcı sınır:</strong> Bir dokümantasyon yöntemi; vektör veritabanı veya otomatik öğrenen model değil. Küçük proje belleğinde anlaşılır bir başlangıç, büyük kişisel arşiv için ayrıca erişim tasarımı gerekir.</p>
+<p><strong>Kanıt:</strong> Resmî doküman ve örnek talimat incelendi; maliyet ölçülmedi. <a href="https://docs.cline.bot/best-practices/memory-bank" rel="noopener noreferrer" target="_blank">Cline Memory Bank</a></p>
+</div></details><details class="system" data-family="Dosya ve bilgi bankası" id="sistem-03"><summary><span class="family">Dosya ve bilgi bankası</span><strong>03 · Avenox — Beyin V3</strong><span class="goal">Kullanıcının notlarını ve iş devamlılığını farklı AI istemcileri arasında, yerel ve taşınabilir biçimde korumak.</span><span aria-hidden="true" class="expand">+</span></summary><div class="system-body">
+<p><strong>Aile:</strong> Dosya ve bilgi bankası</p>
+<p><strong>Çıkış hedefi:</strong> Kullanıcının notlarını ve iş devamlılığını farklı AI istemcileri arasında, yerel ve taşınabilir biçimde korumak.</p>
+<p><strong>Tasarım:</strong> Kalıcı kaynaklar Markdown; yerel durum ve indeks SQLite. Aktif ajan anlamlandırır ve not yazar. Kaynak, proje, durum ve değişiklik bilgileri erişimi sınırlar. V2’nin arka planda model çağıran derleyicisi V3’ün çalışma biçimiyle karıştırılmamalı. <a href="https://github.com/avenoxai/avenoxbeyin/blob/7eccf32b099c0925d467e2d610cfb4367a4dc3e3/README.md" rel="noopener noreferrer" target="_blank">README ve geçiş açıklaması</a></p>
+<p><strong>Kodda görüldü:</strong> <code>_tokens</code> sözcük normalleştirir; <code>_weighted_rank</code> BM25 puanı hesaplar; <code>pack_context</code> karakter bütçesine göre kaynakları paketler. Bu mekanizma tek başına genel anlamsal veya diller arası erişim kanıtı değildir. <a href="https://github.com/avenoxai/avenoxbeyin/blob/7eccf32b099c0925d467e2d610cfb4367a4dc3e3/template/.claude/scripts/beyin_v3.py#L1496" rel="noopener noreferrer" target="_blank">İncelenen çekirdek kod</a></p>
+<p><strong>Maliyet yaklaşımı:</strong> Çekirdek yerel işlemler model çağırmaz; eklenen bağlam ve aktif ajanın yazma/okuma işi yine istemci tüketimidir. Normal, ekonomik ve manuel profiller bağlam sıklığını ve boyutunu yönetir. Ayrıntılar maliyet bölümünde.</p>
+<p><strong>Ayırıcı sınır:</strong> Çalışma sürekliliği ile anlamca doğru kaynak bulma ayrı yeteneklerdir. Bu taramada kişisel vault veya uçtan uca başarı testi yapılmadı. <a href="https://github.com/avenoxai/avenoxbeyin/blob/7eccf32b099c0925d467e2d610cfb4367a4dc3e3/docs/v3/RUNTIME.md" rel="noopener noreferrer" target="_blank">Runtime sözleşmesi</a></p>
+</div></details><details class="system" data-family="Ajan ve konuşma belleği" id="sistem-04"><summary><span class="family">Ajan ve konuşma belleği</span><strong>04 · Packer ve arkadaşları — MemGPT; Letta’daki devamı</strong><span class="goal">Sınırlı bağlamla uzun belge ve çok oturumlu konuşma yönetmek.</span><span aria-hidden="true" class="expand">+</span></summary><div class="system-body">
+<p><strong>Aile:</strong> Ajan ve konuşma belleği</p>
+<p><strong>Çıkış hedefi:</strong> Sınırlı bağlamla uzun belge ve çok oturumlu konuşma yönetmek.</p>
+<p><strong>Tasarım:</strong> MemGPT (2023), işletim sistemi belleğinden esinlenerek bağlam içi ve dışı katmanlar arasında araç çağrılarıyla bilgi taşır. Daha çok bilgi saklamak, hepsini aynı anda modele vermeyi gerektirmez. <a href="https://arxiv.org/abs/2310.08560" rel="noopener noreferrer" target="_blank">MemGPT makalesi</a></p>
+<p><strong>Sürüm ayrımı:</strong> Letta’nın güncel Agent SDK dokümanı <strong>MemFS</strong> adlı Git destekli dosya belleği anlatıyor: <code>system/</code> içeriği her tur bağlama girerken diğer dosyalar gerektiğinde okunur. Arka plan “dreaming” işlemleri konuşmaları inceleyip belleği güncelleyebilir. Eski core/archival memory anlatımıyla bugünkü SDK birebir eşitlenmemeli. <a href="https://docs.letta.com/agent-sdk/memory" rel="noopener noreferrer" target="_blank">Güncel Letta Memory</a></p>
+<p><strong>Maliyet yaklaşımı:</strong> Seçici yükleme aktif bağlamı sınırlar; ek okuma, bellek düzenleme ve arka plan model çağrıları toplam hesaba katılmalıdır.</p>
+<p><strong>Ayırıcı sınır:</strong> Ajanın bellek işlemini doğru seçmesi gerekir. Katmanlı depolama, hatasız hatırlama garantisi değildir.</p>
+<p><strong>Kanıt:</strong> Makale özeti ve resmî mimari belgeleri; canlı deneme yapılmadı.</p>
+</div></details><details class="system" data-family="Ajan ve konuşma belleği" id="sistem-05"><summary><span class="family">Ajan ve konuşma belleği</span><strong>05 · Chhikara ve arkadaşları / Mem0 ekibi — Mem0</strong><span class="goal">Uzun konuşmalarda kişiselleştirmeyi daha küçük bir bellek bağlamıyla sürdürebilmek.</span><span aria-hidden="true" class="expand">+</span></summary><div class="system-body">
+<p><strong>Aile:</strong> Ajan ve konuşma belleği</p>
+<p><strong>Çıkış hedefi:</strong> Uzun konuşmalarda kişiselleştirmeyi daha küçük bir bellek bağlamıyla sürdürebilmek.</p>
+<p><strong>Tasarım:</strong> 2025 makalesi bilgi çıkarma, mevcut anıları güncelleme ve erişim hattını; ayrıca grafik varyantını anlatır. Güncel <code>add</code> dokümanı ise eklemeli saklama tarif eder: yeni anılar eklenir, bu işlem mevcut kayıtları silmez veya üzerlerine yazmaz. Tarihsel mimariyle güncel API davranışı eşitlenmemeli. <a href="https://docs.mem0.ai/core-concepts/memory-operations/add" rel="noopener noreferrer" target="_blank">Güncel Add Memory belgesi</a></p>
+<p><strong>Maliyet yaklaşımı:</strong> Her sorguda tüm geçmiş yerine seçilmiş anıları taşımak. Bellek çıkarma ve güncelleme maliyeti ayrıca hesaba katılmalı.</p>
+<p><strong>Ayırıcı sınır:</strong> Kısa bağlamın kalite karşılığı 6. bölümde.</p>
+<p><strong>Kanıt:</strong> Belge ve makale incelemesi; hizmet testi değil. <a href="https://arxiv.org/html/2504.19413v1" rel="noopener noreferrer" target="_blank">Mem0, v1</a></p>
+</div></details><details class="system" data-family="Bağlantılı ve zamansal bellek" id="sistem-06"><summary><span class="family">Bağlantılı ve zamansal bellek</span><strong>06 · Rasmussen ve arkadaşları / Zep — Graphiti</strong><span class="goal">Konuşma ve iş verisi değişirken ilişkileri ve tarihsel bilgiyi birlikte korumak.</span><span aria-hidden="true" class="expand">+</span></summary><div class="system-body">
+<p><strong>Aile:</strong> Bağlantılı ve zamansal bellek</p>
+<p><strong>Çıkış hedefi:</strong> Konuşma ve iş verisi değişirken ilişkileri ve tarihsel bilgiyi birlikte korumak.</p>
+<p><strong>Tasarım:</strong> Bölümlerden varlık ve ilişkiler çıkaran zamansal bilgi grafiği. Bilginin sistemde kaydedildiği zaman ile dünyada geçerli olduğu zaman ayrılır; geçersizleşen ilişkiler işaretlenir.</p>
+<p><strong>Maliyet yaklaşımı:</strong> İlgili ilişkileri ve bağlamı seçerek okumayı daraltmak. Buna karşılık varlık çıkarma, birleştirme ve grafiği güncel tutmanın işlem/model maliyeti vardır; maliyet yalnız sorguda oluşmaz.</p>
+<p><strong>Ayırıcı sınır:</strong> “Hangi tarihte doğruydu?” sorusu için anlamlı bir tasarım. Grafiğe hatalı çıkarım yazılırsa yapılandırılmış olması onu doğru yapmaz.</p>
+<p><strong>Kanıt:</strong> 2025 mimari makalesi, zamansal çıkarma ve geçersizleştirme bölümleri okundu; güncel bulut ürününün maliyet testi yapılmadı. <a href="https://arxiv.org/html/2501.13956v1" rel="noopener noreferrer" target="_blank">Zep makalesi</a></p>
+</div></details><details class="system" data-family="Ajan ve konuşma belleği" id="sistem-07"><summary><span class="family">Ajan ve konuşma belleği</span><strong>07 · LangChain — LangMem</strong><span class="goal">Uygulama geliştiricisine bilgiyi saklama, güncelleme ve davranışa aktarma bileşenleri sağlamak.</span><span aria-hidden="true" class="expand">+</span></summary><div class="system-body">
+<p><strong>Aile:</strong> Ajan ve konuşma belleği</p>
+<p><strong>Çıkış hedefi:</strong> Uygulama geliştiricisine bilgiyi saklama, güncelleme ve davranışa aktarma bileşenleri sağlamak.</p>
+<p><strong>Tasarım:</strong> Bilgi/profil belleği, deneyim örnekleri ve davranış kuralları ayrılır. Bellek konuşma sırasında veya konuşmalar arasında arka planda oluşturulabilir; kayıtlar birleştirilebilir, güncellenebilir veya kaldırılabilir.</p>
+<p><strong>Maliyet yaklaşımı:</strong> Arka plan işleme kullanıcı yanıtındaki beklemeyi azaltabilir. Bu işlem ücretsiz hale gelmez; model çağrısı yalnız farklı zamanda yapılır. Profilin tamamını taşımak ile koleksiyondan seçici erişim farklı bütçeler doğurur.</p>
+<p><strong>Ayırıcı sınır:</strong> Hazır kişisel not uygulamasından çok geliştirici araç takımı. Sonucun niteliği seçilen depoya, modele, bellek talimatlarına ve çağrı politikasına bağlıdır.</p>
+<p><strong>Kanıt:</strong> Resmî kavramsal rehber incelendi. <a href="https://langchain-ai.github.io/langmem/concepts/conceptual_guide/" rel="noopener noreferrer" target="_blank">LangMem Core Concepts</a></p>
+</div></details><details class="system" data-family="Bağlantılı ve zamansal bellek" id="sistem-08"><summary><span class="family">Bağlantılı ve zamansal bellek</span><strong>08 · Xu ve arkadaşları — A-MEM</strong><span class="goal">Belleği sabit bir kayıt deposu olmaktan çıkarıp yeni deneyimlerle ilişkileri gelişen bir yapıya dönüştürmek.</span><span aria-hidden="true" class="expand">+</span></summary><div class="system-body">
+<p><strong>Aile:</strong> Bağlantılı ve zamansal bellek</p>
+<p><strong>Çıkış hedefi:</strong> Belleği sabit bir kayıt deposu olmaktan çıkarıp yeni deneyimlerle ilişkileri gelişen bir yapıya dönüştürmek.</p>
+<p><strong>Tasarım:</strong> Zettelkasten’den esinlenen notlar; bağlamsal açıklamalar, anahtar kelimeler ve etiketler. Yeni kayıt önceki anılarla bağlantı kurar; geçmiş kayıtların temsilleri de güncellenebilir.</p>
+<p><strong>Maliyet yaklaşımı:</strong> Bağlantılar gelecekte erişimi kolaylaştırabilir. Ancak not üretimi, bağlantı kararı ve eski notları güncelleme model maliyeti getirir. Ucuz sorgu, ucuz bellek oluşturma anlamına gelmez.</p>
+<p><strong>Ayırıcı sınır:</strong> Karpathy’nin insan tarafından gezilen wiki deseniyle akraba bir fikir taşısa da aynı sistem değildir; deneysel ajan belleği mimarisidir.</p>
+<p><strong>Kanıt:</strong> Makalenin mimari açıklaması incelendi; deneyler tekrarlanmadı. <a href="https://arxiv.org/abs/2502.12110" rel="noopener noreferrer" target="_blank">A-MEM, 2025</a></p>
+</div></details><details class="system" data-family="Ajan ve konuşma belleği" id="sistem-09"><summary><span class="family">Ajan ve konuşma belleği</span><strong>09 · Park ve arkadaşları — Generative Agents</strong><span class="goal">Sanal ortamda geçmiş deneyimlerine uygun davranan, plan kuran inandırıcı ajanlar oluşturmak.</span><span aria-hidden="true" class="expand">+</span></summary><div class="system-body">
+<p><strong>Aile:</strong> Ajan ve konuşma belleği</p>
+<p><strong>Çıkış hedefi:</strong> Sanal ortamda geçmiş deneyimlerine uygun davranan, plan kuran inandırıcı ajanlar oluşturmak.</p>
+<p><strong>Tasarım:</strong> Doğal dilde olay akışı, bu olaylardan çıkarılan üst düzey değerlendirmeler ve planlama. Erişim puanı yakın zamanda erişilmiş olmayı, önem derecesini ve anlamsal ilgiyi birleştirir.</p>
+<p><strong>Maliyet yaklaşımı:</strong> Bağlama sığan üst sıralı anılar seçilir. Önem puanlama ve değerlendirme üretme de model kullanır; sistemin ana hedefi token ekonomisi değildir.</p>
+<p><strong>Ayırıcı sınır:</strong> İnsan benzeri davranış simülasyonu, kişisel arşivde doğru kanıt bulmayla aynı başarı ölçütü değildir. “Önemli” veya “yakın zamanda görülmüş” anı, sorunun doğru kaynağı olmayabilir.</p>
+<p><strong>Kanıt:</strong> 2023 makalesinin bellek erişimi bölümü incelendi. <a href="https://arxiv.org/html/2304.03442v2" rel="noopener noreferrer" target="_blank">Generative Agents, §4.1</a></p>
+</div></details><details class="system" data-family="Ajan ve konuşma belleği" id="sistem-10"><summary><span class="family">Ajan ve konuşma belleği</span><strong>10 · Zhong ve arkadaşları — MemoryBank</strong><span class="goal">Uzun süreli kişisel sohbetlerde kullanıcının geçmişini ve özelliklerini hatırlayan bir eşlikçi oluşturmak.</span><span aria-hidden="true" class="expand">+</span></summary><div class="system-body">
+<p><strong>Aile:</strong> Ajan ve konuşma belleği</p>
+<p><strong>Çıkış hedefi:</strong> Uzun süreli kişisel sohbetlerde kullanıcının geçmişini ve özelliklerini hatırlayan bir eşlikçi oluşturmak.</p>
+<p><strong>Tasarım:</strong> Geçmiş etkileşimlerden bellek ve kullanıcı bilgisi üretme, ilgili anıları çağırma, zaman ve önemle ilişkili unutma/güçlendirme. Ebbinghaus unutma eğrisinden esinlenir; SiliconFriend örneğiyle sunulur.</p>
+<p><strong>Maliyet yaklaşımı:</strong> Seçici hatırlama ve unutma taşınacak bilgiyi sınırlayabilir. İncelenen özet, bizim kullanımımız için uçtan uca token tasarruf oranı kanıtlamaz.</p>
+<p><strong>Ayırıcı sınır:</strong> İnsan benzeri unutma, güvenilir belge arşivinde istenen davranış olmayabilir. Cline Memory Bank ve Karpathy LLM Wiki ile aynı proje değildir.</p>
+<p><strong>Kanıt:</strong> 2023 arXiv kaydı ve özeti; ayrıntılı kod/deney denetimi yapılmadı. <a href="https://arxiv.org/abs/2305.10250" rel="noopener noreferrer" target="_blank">MemoryBank</a></p>
+</div></details><details class="system" data-family="Verimlilik ve erişim" id="sistem-11"><summary><span class="family">Verimlilik ve erişim</span><strong>11 · Fang ve arkadaşları — LightMem</strong><span class="goal">Bellek sisteminin kendi oluşturma ve güncelleme işlemlerinin aşırı maliyetini azaltmak.</span><span aria-hidden="true" class="expand">+</span></summary><div class="system-body">
+<p><strong>Aile:</strong> Verimlilik ve erişim</p>
+<p><strong>Çıkış hedefi:</strong> Bellek sisteminin kendi oluşturma ve güncelleme işlemlerinin aşırı maliyetini azaltmak.</p>
+<p><strong>Tasarım:</strong> Hafif ön sıkıştırma ve konu gruplama; kısa süreli bellekte özetleme; uzun süreli bellekte çevrimdışı birleştirme. İncelenen deneyde LLMLingua-2 ön sıkıştırıcı kullanılır.</p>
+<p><strong>Maliyet yaklaşımı:</strong> Her küçük etkileşimde pahalı bakım yerine daha az içerikle, gruplanmış işlemler yapmak. Bakımı yanıt yolundan ayırmak gecikmeyi azaltabilir; bilgi kaybı ve bakım maliyeti yine ölçülmelidir.</p>
+<p><strong>Ayırıcı sınır:</strong> Buradaki çalışma <strong>2510.18866</strong> numaralı makaledir; aynı adı kullanan başka yayınlarla karıştırılmamalı. Sayısal sonuçların ölçüm kapsamı 6. bölümde açıklanıyor.</p>
+<p><strong>Kanıt:</strong> 2025 v1 yöntem ve deney/maliyet bölümleri incelendi. <a href="https://arxiv.org/html/2510.18866v1" rel="noopener noreferrer" target="_blank">LightMem makalesi</a></p>
+</div></details><details class="system" data-family="Verimlilik ve erişim" id="sistem-12"><summary><span class="family">Verimlilik ve erişim</span><strong>12 · tobi / QMD — Yerel kaynak erişimi</strong><span class="goal">Markdown notları, belgeler ve bilgi tabanlarını cihaz üzerinde aranabilir hale getirmek.</span><span aria-hidden="true" class="expand">+</span></summary><div class="system-body">
+<p><strong>Aile:</strong> Verimlilik ve erişim</p>
+<p><strong>Çıkış hedefi:</strong> Markdown notları, belgeler ve bilgi tabanlarını cihaz üzerinde aranabilir hale getirmek.</p>
+<p><strong>Tasarım:</strong> BM25, vektör araması, sorgu genişletme, sıra birleştirme ve yerel LLM yeniden sıralaması. CLI ve MCP çıktıları; dosya yolu, kısa sonuç ve gerektiğinde satır aralığıyla içerik alma seçenekleri.</p>
+<p><strong>Maliyet yaklaşımı:</strong> Önce kaynak seçmek, sonra gerekli içeriği almak; yerel modellerle dış API kullanımını azaltmak. Yerel hesaplama, model belleği ve indeksleme maliyeti ortadan kalkmaz.</p>
+<p><strong>Ayırıcı sınır:</strong> Kişisel belleği baştan sona yöneten sistemden çok erişim bileşeni. Projemize doğrudan yakın bir karşılaştırma örneği; Türkçe–İngilizce başarısı bu taramada doğrulanmadı.</p>
+<p><strong>Kanıt:</strong> Güncel depo README’sinin mimari ve çıktı seçenekleri incelendi; kurulum, kod denetimi ve benchmark yapılmadı. <a href="https://github.com/tobi/qmd/blob/main/README.md" rel="noopener noreferrer" target="_blank">QMD</a></p>
+</div></details><h2 id="bolum-4">Temel farklar aynı tabloda</h2>
+<p>Bu tablo yukarıdaki kaynakların <strong>nitel sentezidir</strong>, başarı sıralaması değildir. Sistemler farklı hedeflere ve olgunluk düzeylerine sahiptir.</p>
+<div aria-label="Karşılaştırma tablosu, yatay kaydırılabilir" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Yaklaşım</th>
+<th>Asıl saklanan şey</th>
+<th>Belleği kim düzenler?</th>
+<th>Bağlama taşıma ilkesi</th>
+<th>Ana maliyet riski</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LLM Wiki</td>
+<td>Kaynaklardan sentezlenmiş bilgi</td>
+<td>Ajan, kullanıcı yönlendirmesiyle</td>
+<td>İndeks → ilgili sayfalar</td>
+<td>Sentez ve bakım tekrarı</td>
+</tr>
+<tr>
+<td>Cline</td>
+<td>Proje amacı ve çalışma durumu</td>
+<td>Kodlama ajanı</td>
+<td>Bellek dosyalarını yeniden okuma</td>
+<td>Büyüyen dosyalar</td>
+</tr>
+<tr>
+<td>Avenox V3</td>
+<td>Not, kaynak, görev, devir kaydı</td>
+<td>Aktif ajan + yerel motor</td>
+<td>Filtreli arama ve sınırlı bağlam</td>
+<td>İstemciye eklenen metin</td>
+</tr>
+<tr>
+<td>MemGPT / Letta</td>
+<td>Ajanın kalıcı durumu</td>
+<td>Ajan ve bellek araçları</td>
+<td>Katmanlar / gerektiğinde dosya</td>
+<td>Ek araç ve bakım çağrıları</td>
+</tr>
+<tr>
+<td>Mem0</td>
+<td>Seçilmiş konuşma bilgileri</td>
+<td>Çıkarma ve güncelleme hattı</td>
+<td>İlgili anıları getirme</td>
+<td>Bellek çıkarma maliyeti</td>
+</tr>
+<tr>
+<td>Zep / Graphiti</td>
+<td>Zamanlı varlık ve ilişkiler</td>
+<td>Grafiği güncelleyen hat</td>
+<td>İlişkili grafik bağlamı</td>
+<td>Grafik oluşturma</td>
+</tr>
+<tr>
+<td>LangMem</td>
+<td>Profil, örnek, davranış bilgisi</td>
+<td>Yapılandırılmış bellek işlemleri</td>
+<td>Profil veya koleksiyondan erişim</td>
+<td>Sıklık ve arka plan işleri</td>
+</tr>
+<tr>
+<td>A-MEM</td>
+<td>Birbirine bağlı anı notları</td>
+<td>Bellek düzenleyen model</td>
+<td>İlişkili notlar</td>
+<td>Bağlantı ve temsil güncelleme</td>
+</tr>
+<tr>
+<td>Generative Agents</td>
+<td>Olaylar ve değerlendirmeler</td>
+<td>Simülasyon ajanı</td>
+<td>İlgi + önem + erişim yakınlığı</td>
+<td>Değerlendirme üretimi</td>
+</tr>
+<tr>
+<td>MemoryBank</td>
+<td>Geçmiş ve kullanıcı bilgisi</td>
+<td>Bellek güncelleme hattı</td>
+<td>Seçici hatırlama</td>
+<td>Özetleme / bilgi kaybı</td>
+</tr>
+<tr>
+<td>LightMem</td>
+<td>Sıkıştırılmış, gruplanmış anılar</td>
+<td>Aşamalı bellek hattı</td>
+<td>İşlenmiş bellekten erişim</td>
+<td>Sıkıştırma–kalite dengesi</td>
+</tr>
+<tr>
+<td>QMD</td>
+<td>Kaynak belgelerin indeksi</td>
+<td>İndeksleyici; kaynak ayrı</td>
+<td>Sıralı sonuç → içerik</td>
+<td>Yerel model ve indeks</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Saklama yeri ile modelin çalışma yeri ayrı sorulardır.</strong> Markdown’ın yerelde bulunması, onu okuyan ajan bulut modeliyse içeriğin cihazdan hiç çıkmadığı anlamına gelmez. Tersine yerel arama, her sorguda ücretli üretici model gerektirmeyebilir. Bu ayrım ürün seçimi ve maliyet değerlendirmesinde ayrıca kontrol edilmelidir.</p>
+<h2 id="bolum-5">Token maliyetini nasıl azaltıyorlar?</h2>
+<h3>Maliyeti hangi aşamaya taşıdıklarını izle</h3>
+<p><strong>Seçici erişim:</strong> Bütün geçmiş yerine kısa bir kanıt kümesi taşıma. Az sonuç döndürmek ucuz olabilir; doğru kaynağı kaçırmak ise ek aramalara yol açabilir. Mem0, QMD ve katmanlı bellek örnekleri bu açıdan incelenebilir.</p>
+<p><strong>Önceden işleme ve biriktirme:</strong> Kaynağı bir kez anlamlandırıp sonraki sorularda kullanma. Wiki oluşturma ve notlar arası bağlantı bunun örnekleridir. Az tekrar kullanılan veya sürekli değişen bilgi için ilk yatırım geri kazanılamayabilir.</p>
+<p><strong>Sıkıştırma ve bakım sıklığı:</strong> Geçmişi özetleme, ilgisiz araç çıktısını çıkarma, işlemleri gruplama. Özetin kalitesi ile boyutu birlikte değerlendirilmelidir. Arka plana taşınan iş, kullanıcı gecikmesini azaltabilir ama token tüketmeye devam eder. <a href="https://platform.claude.com/cookbook/tool-use-context-engineering-context-engineering-tools" rel="noopener noreferrer" target="_blank">Anthropic: bağlam sıkıştırma ve araç sonucu temizleme</a></p>
+<p><strong>Yerel işlem ve açık bağlam bütçesi:</strong> Avenox V3’ün belgelenen normal profili en çok 5.000 karakterlik ek bağlam; ekonomik profili yalnız oturum başında en çok 2.000 karakter ve en az 15 dakika kontrol aralığı kullanır. Manuel profil otomatik işlemleri kapatır. Bunlar <strong>karakter sınırıdır, token kotası değildir</strong>; açılış belleği ve istemci sınırları için ayrı ayarlar da vardır. %60 daha az karakter tavanı, %60 daha az toplam fatura demek değildir. <a href="https://github.com/avenoxai/avenoxbeyin/blob/7eccf32b099c0925d467e2d610cfb4367a4dc3e3/docs/v3/PREFERENCES.md" rel="noopener noreferrer" target="_blank">Avenox tercihleri</a></p>
+<p><strong>Önbellekleme:</strong> Değişmeyen prompt ön ekini yeniden hesaplamamak maliyet ve gecikmeyi azaltabilir. Ön ek değişimi ve süre sonu cache isabetini etkiler. Bu, doğru anıyı seçme mekanizması veya kalıcı bilgi bankası değildir. <a href="https://claude.com/blog/reducing-cost-and-improving-performance-with-claude-platform" rel="noopener noreferrer" target="_blank">Anthropic’in maliyet ve cache açıklaması</a></p>
+<h3>Toplam maliyet hesabı</h3>
+<p>Aşağıdaki ifade belirli bir sağlayıcının fiyatı değil, <strong>bu araştırma için maliyet muhasebesi çerçevesidir</strong>:</p>
+<pre><code class="language-text">Toplam maliyet = ilk hazırlık + güncelleme/bakım + tüm sorguların maliyeti
+
+Her model çağrısı =
+  (normal giriş tokenı × giriş fiyatı
+   + cache okuma tokenı × cache okuma fiyatı
+   + cache yazma tokenı × cache yazma fiyatı
+   + çıkış tokenı × çıkış fiyatı) / 1.000.000
+
+Ayrıca: embedding + yeniden sıralama + araç çağrıları
+        + yerel hesaplama/depolama + başarısız erişim sonrası tekrarlar
+</code></pre>
+<p>Fiyatlar milyon token başına tanımlandığında bu formül geçerlidir. Normal, cache okuma ve cache yazma miktarları çift sayılmadan ayrılmalı; farklı modellerin çağrıları kendi fiyatlarıyla toplanmalıdır. Abonelik kotası, yerel enerji/zaman maliyeti ve API faturası aynı ölçü birimi değildir.</p>
+<p><strong>Temsili amortisman örneği — ölçülmüş sonuç veya fiyat teklifi değil:</strong> Aynı kaliteyi sağlayan iki yöntemde her sorgunun ilgili giriş bölümü 20.000’den 2.000 tokena insin. Hazırlık işlemi aynı birim maliyette 180.000 ek giriş tokenı gerektirsin; çıkış, cache ve güncelleme farkı olmasın. Sorgu başına 18.000 token fark oluşur; <strong>10 sorguda başa baş</strong>, 11. sorgudan itibaren net kazanç olur. Çıkış tokenı veya bakım maliyeti artarsa bu eşik değişir.</p>
+<p><strong>Bizim projede ayrı ölçülecekler:</strong> İndeks oluştururken okunan kaynak; sorguda okunan indeks ve kaynak; araçtan dönen çıktı; sonradan ajanın okuduğu dosyalar; bunların kaç model çağrısında tekrar taşındığı. Dosya yolunu kısa döndürmek, ajanın daha sonra büyük dosyaları okumasını ücretsiz yapmaz.</p>
+<h2 id="bolum-6">Sayısal iddiaların kanıtı ve sınırı</h2>
+<h3>Mem0: Daha kısa sorgu bağlamı, kalite karşılığıyla birlikte</h3>
+<p>2025 v1 makalesi, LoCoMo ve GPT-4o-mini düzeninde şu değerleri raporluyor:</p>
+<div aria-label="Karşılaştırma tablosu, yatay kaydırılabilir" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Yöntem</th>
+<th style="text-align: right;">Sorguya getirilen bağlam tokenı</th>
+<th style="text-align: right;">LLM-as-judge skoru</th>
+<th style="text-align: right;">Toplam p95 yanıt süresi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tam geçmiş</td>
+<td style="text-align: right;">26.031</td>
+<td style="text-align: right;">%72,90</td>
+<td style="text-align: right;">17,117 sn</td>
+</tr>
+<tr>
+<td>Mem0</td>
+<td style="text-align: right;">1.764</td>
+<td style="text-align: right;">%66,88</td>
+<td style="text-align: right;">1,440 sn</td>
+</tr>
+</tbody>
+</table></div>
+<p>Tablodan hesaplanan bağlam azalması yaklaşık <strong>%93,2</strong>. Ancak kalite skoru da daha düşük. Buradaki token ölçümü <strong>erişimden gelen bağlamı</strong> sayıyor; bellek oluşturma/güncelleme, bütün çıkışlar ve cache dahil toplam faturanın aynı oranda düşeceğini kanıtlamıyor. Bunlar yazarların sonuçları; bu taramada yeniden çalıştırılmadı. <a href="https://arxiv.org/html/2504.19413v1" rel="noopener noreferrer" target="_blank">Mem0, §3.2 ve Tablo 2</a></p>
+<h3>LightMem: Bellek bakım maliyetinin azaltılması</h3>
+<p>v1 çalışması LongMemEval-S üzerinde GPT-4o-mini ve Qwen3-30B-A3B-Instruct-2507 kullanır; özetleme ve güncellemenin giriş/çıkış tokenlarını, çağrılarını ve süresini ölçer. Bazı karşılaştırmalarda yaklaşık <strong>117 kat</strong> token azalması bildirilir. <strong>Sonraki retrieval ve soru-cevap maliyeti özellikle bu hesaba dahil edilmemiştir.</strong> Sonuç baseline, sıkıştırma oranı ve tampon eşiğine bağlıdır. Mem0’un sorgu bağlamı yüzdesiyle aynı eksene konamaz. <a href="https://arxiv.org/html/2510.18866v1" rel="noopener noreferrer" target="_blank">LightMem, Tablo 1 ve §4.1</a></p>
+<h3>Diğer örneklerde ne biliyoruz?</h3>
+<p>Cline, Karpathy ve QMD için incelenen belgeler mekanizmayı anlatıyor; bu tarama üzerinden evrensel tasarruf yüzdesi verilemez. Avenox’un karakter sınırları yapılandırma bilgisidir. Bu dört örnek için kendi Türkçe–İngilizce veri kümemizde eşit kalite altında maliyet ölçülmedi.</p>
+<p>Bir karşılaştırma kullanılmadan önce <strong>veri kümesi, sürüm, üretici model, değerlendiren model, belleği oluşturma biçimi, ölçülen aşama ve kalite metriği</strong> birlikte kaydedilmelidir. Farklı deneylerin en iyi sayılarını toplayıp ürün sıralaması yapmak yanıltıcı olur.</p>
+<h2 id="bolum-7">Bizim araştırmamız için neyi gerekçelendiriyor?</h2>
+<p><strong>Sentez:</strong> Bellek sistemleri çoğaldıkça kalıcı bilgi depoları oluşuyor. Bu depoların büyüklüğü, ifade çeşitliliği ve dil farklılığı, depolamadan ayrı bir kaynak erişimi problemi doğuruyor. Projemiz bu sistemlerin tamamını yeniden kurmayı değil, yerel metin depolarında ilgili dosyaları bulmayı ele alıyor. <a href="../../PROJE_TANIMI.md">Mevcut proje kapsamı</a></p>
+<p>Bu tarama şu iddiayı desteklemez: “Mevcut sistemler her sorguda bütün dosyaları okumak zorunda.” Karpathy seçici sayfa okuması, Avenox bütçeli erişim, QMD ise doğrudan arama hattı sunuyor. Dolayısıyla araştırma gerekçesi <strong>arama yokluğu</strong> üzerine kurulmamalı.</p>
+<p><strong>Araştırılacak soru:</strong> Mevcut erişim yaklaşımları Türkçe/İngilizce, farklı ifadeyle sorma ve diller arası sorgularda hangi dosyaları kaçırıyor; eşit erişim kalitesinde okuma ve bağlam aktarımı ne kadar azaltılabiliyor?</p>
+<p>LongMemEval, bellek başarısını bilgi çıkarma, çok oturumdan akıl yürütme, zaman, bilgi güncelleme ve cevap vermekten kaçınma boyutlarında ele alır. Bu, “buldu mu?” sorusunun tek başına yetmediğini gösterir. Fakat onun konuşma cevabı metriği bizim dosya sıralama metriğimizle aynı değildir. <a href="https://arxiv.org/abs/2410.10813" rel="noopener noreferrer" target="_blank">LongMemEval</a></p>
+<div aria-label="Karşılaştırma tablosu, yatay kaydırılabilir" class="table-wrap" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Senaryo</th>
+<th>Erişim açısından incelenecek davranış</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aynı niyet, farklı kelimeler</td>
+<td>Doğru kaynak üst sıralarda mı?</td>
+</tr>
+<tr>
+<td>Türkçe soru, İngilizce not ve tersi</td>
+<td>Ortak kelime olmadan kaynak bulunuyor mu?</td>
+</tr>
+<tr>
+<td>Benzer iki proje</td>
+<td>Yanlış projenin dosyası öne çıkıyor mu?</td>
+</tr>
+<tr>
+<td>Eski ve yeni karar</td>
+<td>Kaynak tarihi/durumu görünür mü; iki kanıt ayırt edilebiliyor mu?</td>
+</tr>
+<tr>
+<td>Depoda cevabı olmayan soru</td>
+<td>Sırf birinci sonuç var diye eşleşme sunuluyor mu?</td>
+</tr>
+<tr>
+<td>Birden fazla dosyada gerekçe</td>
+<td>Gerekli dosyaların tümü getirilebiliyor mu?</td>
+</tr>
+<tr>
+<td>Değiştirilmiş veya silinmiş not</td>
+<td>İndeks güncellemesi sonucu doğru yansıtıyor mu?</td>
+</tr>
+</tbody>
+</table></div>
+<p>Bu senaryolar değerlendirme girdisidir. Geçerli kararı otomatik seçmek, bellek notu yazmak ve nihai cevap üretmek mevcut ilk sürüm kapsamına eklenmedi. Model, sıralama yöntemi ve indeks tasarımı <strong>kararlaştırılacak</strong>.</p>
+<h2 id="bolum-8">Okuma sırası ve inceleme sınırı</h2>
+<p>Önce <a href="https://memory.cobanov.dev/" rel="noopener noreferrer" target="_blank">Mert Cobanov’un etkileşimli anlatımı</a>, ardından <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f" rel="noopener noreferrer" target="_blank">Karpathy’nin tasarım notu</a> ile <a href="https://docs.cline.bot/best-practices/memory-bank" rel="noopener noreferrer" target="_blank">Cline’ın dosya yaklaşımı</a> okunabilir. Sonra <a href="https://github.com/avenoxai/avenoxbeyin" rel="noopener noreferrer" target="_blank">Avenox</a> ve <a href="https://github.com/tobi/qmd" rel="noopener noreferrer" target="_blank">QMD</a> ile mevcut yerel erişim seçenekleri; <a href="https://arxiv.org/html/2504.19413v1" rel="noopener noreferrer" target="_blank">Mem0</a>, <a href="https://arxiv.org/html/2510.18866v1" rel="noopener noreferrer" target="_blank">LightMem</a> ve <a href="https://arxiv.org/abs/2410.10813" rel="noopener noreferrer" target="_blank">LongMemEval</a> ile ölçümün kapsamı incelenebilir.</p>
+<p><strong>Tarama türü:</strong> Birincil kaynaklara dayalı, amaçlı örneklemle yapılmış karşılaştırmalı başlangıç taraması. Sistematik derleme veya bütün ürünleri kapsayan pazar envanteri değildir. Akademik çalışmalar, uygulanabilir desenler ve araçlar aynı tür kanıt sayılmadı.</p>
+<p><strong>İnceleme düzeyi:</strong> Mert’in sayfası ve Karpathy’nin notu doğrudan okundu. Ürünlerde resmî belgeler kullanıldı. Avenox’ta ayrıca sabit commit üzerinde normalleştirme, BM25 sıralama ve bağlam paketleme kodu okundu. Mem0 ve LightMem’de maliyet bölümünün neyi saydığı kontrol edildi; diğer makalelerde kartlarda belirtilen kapsam izlendi. Hiçbir sistem kurulup karşılaştırmalı olarak çalıştırılmadı; token faturası ve Türkçe–İngilizce erişim başarısı ölçülmedi.</p>
+<p><strong>Güncellik:</strong> Akademik bulgular bağlantıdaki tarih/sürüme aittir; güncel ürün özelliği gibi sunulmamalı. Letta’nın tarihsel MemGPT yaklaşımı ile güncel SDK belgesi ayrıldı. Avenox için eski araştırma notlarına dayanmak yerine güncel depo yeniden kontrol edildi. Belgelerde açıklanan her davranışın canlı istemcide gerçekleştiği ayrıca doğrulanmadı.</p>
+<p>Bu bölüm önceki NLP yöntem taramasını tamamlar. <a href="../index.html">NLP araştırma defterine dön</a>.</p></article><footer>Çevrimdışı okuma için hazırlanmıştır. Dış kaynak bağlantıları internet gerektirir. <a href="ARASTIRMA.md">Kaynak metni</a> · <a href="../index.html">NLP yöntem taraması</a> · <a href="../model-karsilastirma/index.html">Model karşılaştırması</a></footer></main></div>
+<script>
+(()=>{'use strict';const $=s=>document.querySelector(s),all=s=>[...document.querySelectorAll(s)];
+const storage={get(k){try{return localStorage.getItem('nlp-reader-'+k)}catch{return null}},set(k,v){try{localStorage.setItem('nlp-reader-'+k,v)}catch{}}};
+let size=Math.min(21,Math.max(15,Number(storage.get('size'))||18));function font(){document.documentElement.style.setProperty('--font',size+'px');$('#smaller').disabled=size<=15;$('#larger').disabled=size>=21;storage.set('size',size)}font();$('#smaller').onclick=()=>{size=Math.max(15,size-1);font()};$('#larger').onclick=()=>{size=Math.min(21,size+1);font()};
+function theme(value){document.documentElement.dataset.theme=value;$('#theme').textContent=value==='dark'?'Açık':'Koyu';$('#theme').setAttribute('aria-label',value==='dark'?'Açık temaya geç':'Koyu temaya geç');$('#theme').setAttribute('aria-pressed',String(value==='dark'));storage.set('theme',value)}theme(storage.get('theme')||'light');$('#theme').onclick=()=>theme(document.documentElement.dataset.theme==='dark'?'light':'dark');
+const cards=all('.system');const norm=t=>t.toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ı/g,'i');const texts=new Map(cards.map(c=>[c,norm(c.textContent)]));function filter(){const terms=norm($('#search').value.trim()).split(/\s+/).filter(Boolean);let count=0;cards.forEach(c=>{c.hidden=!(terms.every(t=>texts.get(c).includes(t))&&($('#family').value==='all'||c.dataset.family===$('#family').value));if(!c.hidden)count++});$('#count').textContent=count+' / 12 yaklaşım';$('#empty').hidden=count!==0}$('#search').oninput=filter;$('#family').onchange=filter;$('#reset').onclick=()=>{$('#search').value='';$('#family').value='all';filter();$('#search').focus()};
+function deepLink(){const el=document.getElementById(location.hash.slice(1));if(el?.classList.contains('system')){$('#search').value='';$('#family').value='all';filter();el.open=true;el.scrollIntoView()}}window.addEventListener('hashchange',deepLink);deepLink();
+all('.mobile-toc a').forEach(a=>a.addEventListener('click',()=>{$('.mobile-toc').open=false}));
+let queued=false;function progress(){const max=document.documentElement.scrollHeight-innerHeight;$('.progress').style.transform='scaleX('+(max>0?Math.min(1,scrollY/max):0)+')';let current='';all('.prose h2').forEach(h=>{if(h.getBoundingClientRect().top<180)current=h.id});all('.sidebar nav a').forEach(a=>{if(a.hash==='#'+current)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')});queued=false}addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(progress)}},{passive:true});addEventListener('resize',progress);progress();
+let before=[];addEventListener('beforeprint',()=>{before=cards.map(c=>({c,open:c.open,hidden:c.hidden}));cards.forEach(c=>{c.open=true;c.hidden=false})});addEventListener('afterprint',()=>{before.forEach(x=>{x.c.open=x.open;x.c.hidden=x.hidden});before=[]});$('#print').onclick=()=>print();
+})();
+</script></body></html>

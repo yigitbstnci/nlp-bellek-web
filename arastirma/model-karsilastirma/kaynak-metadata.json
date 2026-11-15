@@ -1,0 +1,191 @@
+[
+  {
+    "key": "minilm",
+    "repo": "sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "revision": "e8f8c211226b894fcb81acc59f3b34ba3efd5f42",
+    "url": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2",
+    "license": "apache-2.0",
+    "parameter_count": 117654272,
+    "config": {
+      "architectures": [
+        "BertModel"
+      ],
+      "model_type": "bert",
+      "hidden_size": 384,
+      "num_hidden_layers": 12,
+      "num_attention_heads": 12,
+      "max_position_embeddings": 512,
+      "vocab_size": 250037,
+      "torch_dtype": null
+    },
+    "retrieved_at": "2026-11-13T18:51:35.165462+00:00"
+  },
+  {
+    "key": "mpnet",
+    "repo": "sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+    "revision": "4328cf26390c98c5e3c738b4460a05b95f4911f5",
+    "url": "https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2",
+    "license": "apache-2.0",
+    "parameter_count": 278044162,
+    "config": {
+      "architectures": [
+        "XLMRobertaModel"
+      ],
+      "model_type": "xlm-roberta",
+      "hidden_size": 768,
+      "num_hidden_layers": 12,
+      "num_attention_heads": 12,
+      "max_position_embeddings": 514,
+      "vocab_size": 250002,
+      "torch_dtype": null
+    },
+    "retrieved_at": "2026-11-13T18:51:35.161680+00:00"
+  },
+  {
+    "key": "e5-small",
+    "repo": "intfloat/multilingual-e5-small",
+    "revision": "614241f622f53c4eeff9890bdc4f31cfecc418b3",
+    "url": "https://huggingface.co/intfloat/multilingual-e5-small",
+    "license": "mit",
+    "parameter_count": 117654272,
+    "config": {
+      "architectures": [
+        "BertModel"
+      ],
+      "model_type": "bert",
+      "hidden_size": 384,
+      "num_hidden_layers": 12,
+      "num_attention_heads": 12,
+      "max_position_embeddings": 512,
+      "vocab_size": 250037,
+      "torch_dtype": "float32"
+    },
+    "retrieved_at": "2026-11-13T18:51:35.498132+00:00"
+  },
+  {
+    "key": "e5-base",
+    "repo": "intfloat/multilingual-e5-base",
+    "revision": "d128750597153bb5987e10b1c3493a34e5a4502a",
+    "url": "https://huggingface.co/intfloat/multilingual-e5-base",
+    "license": "mit",
+    "parameter_count": 278044162,
+    "config": {
+      "architectures": [
+        "XLMRobertaModel"
+      ],
+      "model_type": "xlm-roberta",
+      "hidden_size": 768,
+      "num_hidden_layers": 12,
+      "num_attention_heads": 12,
+      "max_position_embeddings": 514,
+      "vocab_size": 250002,
+      "torch_dtype": "float32"
+    },
+    "retrieved_at": "2026-11-13T18:51:36.183426+00:00"
+  },
+  {
+    "key": "e5-large",
+    "repo": "intfloat/multilingual-e5-large",
+    "revision": "3d7cfbdacd47fdda877c5cd8a79fbcc4f2a574f3",
+    "url": "https://huggingface.co/intfloat/multilingual-e5-large",
+    "license": "mit",
+    "parameter_count": 559890946,
+    "config": {
+      "architectures": [
+        "XLMRobertaModel"
+      ],
+      "model_type": "xlm-roberta",
+      "hidden_size": 1024,
+      "num_hidden_layers": 24,
+      "num_attention_heads": 16,
+      "max_position_embeddings": 514,
+      "vocab_size": 250002,
+      "torch_dtype": "float32"
+    },
+    "retrieved_at": "2026-11-13T18:51:36.156281+00:00"
+  },
+  {
+    "key": "bge-m3",
+    "repo": "BAAI/bge-m3",
+    "revision": "5617a9f61b028005a4858fdac845db406aefb181",
+    "url": "https://huggingface.co/BAAI/bge-m3",
+    "license": "mit",
+    "parameter_count": null,
+    "config": {
+      "architectures": [
+        "XLMRobertaModel"
+      ],
+      "model_type": "xlm-roberta",
+      "hidden_size": 1024,
+      "num_hidden_layers": 24,
+      "num_attention_heads": 16,
+      "max_position_embeddings": 8194,
+      "vocab_size": 250002,
+      "torch_dtype": "float32"
+    },
+    "retrieved_at": "2026-11-13T18:51:36.241424+00:00"
+  },
+  {
+    "key": "qwen-06",
+    "repo": "Qwen/Qwen3-Embedding-0.6B",
+    "revision": "97b0c614be4d77ee51c0cef4e5f07c00f9eb65b3",
+    "url": "https://huggingface.co/Qwen/Qwen3-Embedding-0.6B",
+    "license": "apache-2.0",
+    "parameter_count": 595776512,
+    "config": {
+      "architectures": [
+        "Qwen3ForCausalLM"
+      ],
+      "model_type": "qwen3",
+      "hidden_size": 1024,
+      "num_hidden_layers": 28,
+      "num_attention_heads": 16,
+      "max_position_embeddings": 32768,
+      "vocab_size": 151669,
+      "torch_dtype": "bfloat16"
+    },
+    "retrieved_at": "2026-11-13T18:51:36.910523+00:00"
+  },
+  {
+    "key": "labse",
+    "repo": "sentence-transformers/LaBSE",
+    "revision": "836121a0533e5664b21c7aacc5d22951f2b8b25b",
+    "url": "https://huggingface.co/sentence-transformers/LaBSE",
+    "license": "apache-2.0",
+    "parameter_count": 470927360,
+    "config": {
+      "architectures": [
+        "BertModel"
+      ],
+      "model_type": "bert",
+      "hidden_size": 768,
+      "num_hidden_layers": 12,
+      "num_attention_heads": 12,
+      "max_position_embeddings": 512,
+      "vocab_size": 501153,
+      "torch_dtype": null
+    },
+    "retrieved_at": "2026-11-13T18:51:36.919365+00:00"
+  },
+  {
+    "key": "jina-v3",
+    "repo": "jinaai/jina-embeddings-v3",
+    "revision": "ab036b023d30b4d1138c4c3bfa9f0c445ab455d6",
+    "url": "https://huggingface.co/jinaai/jina-embeddings-v3",
+    "license": "cc-by-nc-4.0",
+    "parameter_count": 572310396,
+    "config": {
+      "architectures": [
+        "XLMRobertaModel"
+      ],
+      "model_type": null,
+      "hidden_size": 1024,
+      "num_hidden_layers": 24,
+      "num_attention_heads": 16,
+      "max_position_embeddings": 8194,
+      "vocab_size": 250002,
+      "torch_dtype": "bfloat16"
+    },
+    "retrieved_at": "2026-11-13T18:51:37.364848+00:00"
+  }
+]

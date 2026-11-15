@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="Yerel ve çok dilli kaynak bulma üzerine araştırma rehberi. Literatür, NLP modelleri, algoritmalar ve açıklamalı kaynakça.">
+<title>NLP Araştırma Defteri — Çok dilli kaynak bulma</title>
+<link rel="icon" href="data:,">
+<!-- Kaynak: KAYNAKLAR.md, LITERATUR_TARAMASI.md, ILK_HAFTA.md.
+     Yeniden üretim: python3 arastirma/web/olustur.py -->
+<style>
+:root{--bg:#f6f5f0;--paper:#fffefa;--ink:#223c35;--text:#39483f;--muted:#64736a;--line:#dedfd5;--soft:#edeee6;--green:#234c3e;--accent:#ad4c2d;--accent-soft:#f3e9df;--sidebar:#193b31;--side-ink:#dbe5dc;--side-muted:#a9c0b2;--reader-size:17px;--sidebar-width:260px;--sans:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;--serif:Charter,"Iowan Old Style","Palatino Linotype",Palatino,Georgia,serif}
+html[data-theme="dark"]{--bg:#17251f;--paper:#1e3028;--ink:#e5ecdd;--text:#ced8cd;--muted:#a4b5a6;--line:#3c5144;--soft:#263b30;--green:#a7cbb0;--accent:#e0a282;--accent-soft:#433a2d;--sidebar:#11261e;--side-ink:#e0e8df;--side-muted:#afc3b3}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:94px}body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);font-size:15px;line-height:1.6}button,input,select{font:inherit}button,a,summary,input,select{-webkit-tap-highlight-color:transparent}a{color:var(--green);text-decoration-thickness:1px;text-underline-offset:4px}button{cursor:pointer}button:disabled{opacity:.4;cursor:default}button:focus-visible,a:focus-visible,summary:focus-visible,select:focus-visible,input:focus-visible,[tabindex="0"]:focus-visible{outline:2px solid var(--accent);outline-offset:5px}button svg,a svg{flex-shrink:0}svg{vertical-align:middle}h1,h2,h3,p{margin-top:0}h1,h2,h3{color:var(--ink)}[hidden]{display:none!important}.skip{position:fixed;top:-80px;left:20px;z-index:30;background:var(--paper);padding:12px 20px}.skip:focus{top:12px}
+.sidebar{position:fixed;inset:0 auto 0 0;width:var(--sidebar-width);background:var(--sidebar);color:var(--side-ink);padding:36px 26px 24px;display:flex;flex-direction:column;z-index:20;overflow-y:auto}.brand{display:flex;align-items:center;gap:13px;color:#f0f2e8;text-decoration:none;margin-bottom:45px}.brand-mark{display:grid;place-items:center;width:40px;height:44px;border:1px solid #758f76;border-radius:3px;color:#cfddbd}.brand-text{font-size:14px;font-weight:650;line-height:1.4;letter-spacing:.02em}.brand-text small{display:block;font-size:10px;font-weight:400;letter-spacing:.15em;color:var(--side-muted);margin-top:4px}.sidebar-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--side-muted);margin:0 10px 14px}.nav{display:grid;gap:7px}.nav a{display:flex;align-items:center;gap:11px;padding:12px 10px;color:var(--side-ink);font-size:13px;border-radius:4px;text-decoration:none;border:1px solid transparent;line-height:1.45}.nav .nav-num{color:var(--side-muted);font-size:10px;font-variant-numeric:tabular-nums}.nav a:hover{background:#ffffff09}.nav a[aria-current="page"]{background:#ffffff0e;border-color:#5b7766;color:#fff}.nav a[aria-current="page"] .nav-num{color:#d4dfb5}.nav-divider{height:1px;background:#365548;margin:28px 10px}.side-note{padding:0 10px;color:var(--side-muted);font-size:12px;line-height:1.8}.side-note strong{display:block;color:var(--side-ink);font-size:12px;font-weight:500;margin-bottom:6px}.side-footer{margin-top:auto;padding:50px 10px 0;font-size:10px;letter-spacing:.06em;color:var(--side-muted)}.side-footer span{display:block;margin-top:6px;letter-spacing:0}
+.shell{margin-left:var(--sidebar-width);min-height:100vh}.topbar{height:74px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 46px;background:var(--bg);position:sticky;top:0;z-index:10;gap:16px}.breadcrumb{color:var(--muted);font-size:12px;display:flex;align-items:center;gap:12px;white-space:nowrap}.breadcrumb .crumb-section{color:var(--ink);font-weight:500}.toolbar{display:flex;align-items:center;gap:4px}.toolbar button{border:0;background:transparent;color:var(--muted);width:34px;height:34px;border-radius:4px;display:grid;place-items:center}.toolbar button:hover{background:var(--soft);color:var(--ink)}.toolbar .size-label{font-family:var(--serif);font-size:16px;color:var(--ink);padding:0 6px;user-select:none}.tool-divider{height:18px;width:1px;background:var(--line);margin:0 8px}.menu-toggle{display:none!important}.reading-progress{position:fixed;top:73px;left:var(--sidebar-width);height:2px;background:var(--accent);right:0;width:auto;z-index:12;transform:scaleX(0);transform-origin:left;transition:transform .1s}
+.main{max-width:1280px;margin:0 auto;padding:50px 48px 36px}.view{display:none}.view.active{display:block;animation:appear .22s ease-out}@keyframes appear{from{opacity:.3;transform:translateY(5px)}to{opacity:1;transform:none}}.eyebrow{font-size:10px;letter-spacing:.17em;text-transform:uppercase;font-weight:650;color:var(--accent);display:flex;align-items:center;gap:10px;margin-bottom:22px}.eyebrow::before{content:"";height:1px;width:24px;background:var(--accent)}.page-title{font-family:var(--serif);font-size:43px;font-weight:500;line-height:1.17;letter-spacing:-.035em;margin-bottom:18px;max-width:800px}.page-lede{font-size:16px;line-height:1.85;color:var(--muted);max-width:700px;margin-bottom:28px}.hero{display:grid;grid-template-columns:1.35fr 1fr;gap:38px;padding:8px 0 42px;align-items:center}.hero .page-title{font-size:clamp(40px,4.5vw,62px);margin-bottom:22px}.hero .page-lede{max-width:490px}.actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}.button{display:inline-flex;align-items:center;justify-content:center;gap:18px;text-decoration:none;padding:11px 18px;border:1px solid var(--line);border-radius:4px;font-size:12px;font-weight:550;background:var(--paper);color:var(--ink);min-height:42px}.button.primary{background:var(--green);color:var(--paper);border-color:var(--green)}.button:hover{filter:brightness(.95)}.button.ghost{background:transparent}.hero-figure{border:1px solid var(--line);border-radius:5px;padding:25px 25px 18px;background:var(--paper);position:relative}.figure-label{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}.query-sample{font-family:var(--serif);font-size:23px;color:var(--ink);line-height:1.55;padding:20px 0 18px;border-bottom:1px dashed var(--line)}.sample-langs{display:flex;align-items:center;gap:12px;font-size:10px;letter-spacing:.08em;color:var(--muted);padding-top:15px}.sample-langs .lang{background:var(--soft);padding:4px 8px;border-radius:2px;color:var(--green);font-weight:600}.sample-doc{margin:12px 0 20px;background:var(--bg);padding:15px;border-left:2px solid var(--accent);font-family:var(--serif);font-size:17px;color:var(--ink);line-height:1.6}.sample-caption{font-size:10px;color:var(--muted);line-height:1.7}.facts{display:flex;gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:20px 0;margin:0 0 44px;align-items:center;justify-content:space-between}.fact{display:flex;align-items:baseline;gap:9px;padding:0 24px;border-left:1px solid var(--line);font-size:12px;color:var(--muted)}.fact:first-child{border:0;padding-left:0}.fact strong{font-family:var(--serif);font-size:28px;font-weight:500;line-height:1;color:var(--ink)}.status{display:inline-flex;align-items:center;gap:7px;color:var(--green);font-size:11px;background:var(--soft);border:1px solid var(--line);padding:6px 10px;border-radius:30px;white-space:nowrap}.status::before{content:"";width:5px;height:5px;border-radius:100%;background:currentColor}.section-head{display:flex;justify-content:space-between;gap:20px;align-items:baseline;margin-bottom:22px}.section-head h2{font-family:var(--serif);font-size:27px;font-weight:500;letter-spacing:-.02em;margin:0}.section-head small{font-size:11px;color:var(--muted)}.reading-map{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px}.map-card{padding:24px 23px;border:1px solid var(--line);border-radius:4px;background:var(--paper);text-decoration:none;position:relative;display:flex;flex-direction:column;min-height:225px;transition:border-color .2s,transform .2s}.map-card:hover{border-color:var(--green);transform:translateY(-3px)}.map-card .map-no{font-family:var(--serif);font-size:23px;color:var(--accent);margin-bottom:22px}.map-card h3{font-size:15px;line-height:1.5;margin-bottom:10px}.map-card p{font-size:12px;color:var(--muted);line-height:1.9;margin:0 0 20px}.map-card .map-foot{display:flex;justify-content:space-between;align-items:center;margin-top:auto;font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--green)}.research-question{border-left:2px solid var(--accent);padding:2px 0 2px 24px;margin:22px 0 34px}.research-question p{font-family:var(--serif);font-size:22px;line-height:1.65;max-width:800px;color:var(--ink);margin:8px 0}.field-label{display:block;font-size:10px;font-weight:650;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:9px}.scope-note{display:flex;gap:14px;background:var(--soft);padding:18px 22px;border-radius:3px;font-size:12px;line-height:1.9;margin-top:25px}.scope-note svg{flex-shrink:0;margin-top:4px;color:var(--green)}.scope-note p{margin:0}.scope-note a{font-weight:550}
+.reader-grid{display:grid;grid-template-columns:minmax(0,1fr) 195px;gap:40px;align-items:start}.prose{min-width:0;font-size:var(--reader-size);line-height:1.9;color:var(--text);overflow-wrap:break-word}.prose>p,.prose>ul,.prose>ol,.prose>blockquote{max-width:72ch}.prose>p{margin:0 0 23px}.prose h2{font-family:var(--serif);font-size:29px;font-weight:500;line-height:1.4;margin:50px 0 20px;letter-spacing:-.02em}.prose h2:first-child{margin-top:0}.prose h3{font-size:19px;margin-top:32px}.prose ul,.prose ol{padding-left:23px;margin-bottom:26px}.prose li{margin-bottom:11px;padding-left:3px}.prose strong{font-weight:600;color:var(--ink)}.prose code{font-size:.82em;font-family:ui-monospace,SFMono-Regular,Consolas,monospace;background:var(--soft);padding:3px 6px;border-radius:3px;overflow-wrap:anywhere}.prose blockquote{margin:26px 0;padding:15px 23px;border-left:2px solid var(--accent);background:var(--paper);font-family:var(--serif);color:var(--ink);font-size:1.15em;line-height:1.8}.prose blockquote p{margin:0}.ref{font-size:.88em;font-weight:600;white-space:nowrap;text-decoration:none;border-bottom:1px solid var(--line)}.ref:hover{border-color:var(--green)}.table-scroll{max-width:100%;overflow-x:auto;border:1px solid var(--line);border-radius:4px;margin:25px 0 30px;background:var(--paper)}table{border-collapse:collapse;width:100%;font-size:13px;line-height:1.8}th,td{padding:15px 17px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);min-width:130px}th{background:var(--soft);font-size:10px;text-transform:uppercase;letter-spacing:.05em;line-height:1.7;color:var(--green);font-weight:650}tr:last-child td{border-bottom:0}td:first-child{color:var(--ink);font-weight:500}table p:last-child{margin-bottom:0}.toc{position:sticky;top:111px;padding-left:18px;border-left:1px solid var(--line);max-height:calc(100vh - 146px);overflow-y:auto}.toc-title{font-size:10px;text-transform:uppercase;letter-spacing:.12em;color:var(--muted);margin-bottom:14px}.toc a{font-size:11px;line-height:1.7;display:flex;align-items:baseline;gap:9px;color:var(--muted);text-decoration:none;margin:0 0 12px}.toc a span{font-size:9px;font-variant-numeric:tabular-nums;opacity:.7}.toc a:hover,.toc a.current{color:var(--green)}.toc a.current{font-weight:600}.toc-mobile{display:none}.doc-meta{display:flex;flex-wrap:wrap;gap:10px 20px;font-size:11px;color:var(--muted);margin-bottom:33px;padding-bottom:20px;border-bottom:1px solid var(--line)}.doc-meta a{color:var(--muted)}.done-item{list-style:none;position:relative}.done-item::before{content:"✓";color:var(--green);position:absolute;left:-23px;top:1px;font-size:13px;font-weight:600}
+.method-cards{display:grid;gap:12px;margin-top:30px}.method-card{border:1px solid var(--line);background:var(--paper);border-radius:4px;overflow:hidden}.method-card summary{display:flex;align-items:center;gap:22px;padding:22px 24px;list-style:none;cursor:pointer;position:relative}.method-card summary::-webkit-details-marker{display:none}.method-index{font-family:var(--serif);font-size:24px;color:var(--accent);width:28px;flex-shrink:0}.method-tag{display:block;font-size:10px;letter-spacing:.06em;color:var(--muted);margin-bottom:5px}.method-card summary strong{display:block;font-family:var(--serif);font-size:23px;font-weight:500;color:var(--ink)}.expand-icon{margin-left:auto;font-size:24px;font-weight:300;color:var(--muted);width:24px;text-align:center;flex-shrink:0;align-self:center;line-height:1}.method-card[open] .expand-icon,.source-card[open] .expand-icon{font-size:0}.method-card[open] .expand-icon::after,.source-card[open] .expand-icon::after{content:"−";font-size:24px}.method-card[open]{border-color:#a8b6a6}.method-body{padding:0 24px 24px 74px}.method-original{font-size:12px;color:var(--muted);padding-bottom:15px;border-bottom:1px solid var(--line);margin-bottom:20px}.method-columns{display:grid;grid-template-columns:1fr 1fr;gap:36px}.method-columns p{font-size:var(--reader-size);line-height:1.8;margin-bottom:18px}.limit-label{color:var(--accent)}.method-sources{display:flex;gap:15px;font-size:12px;align-items:baseline;padding-top:10px}.method-sources span{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}.method-sources p{margin:0}.decisions{margin:44px 0}.decision-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid var(--line);border-radius:4px;background:var(--paper)}.decision{padding:21px 19px;border-left:1px solid var(--line)}.decision:first-child{border-left:0}.decision h3{font-size:13px;margin-bottom:10px}.decision p{font-size:12px;color:var(--muted);line-height:1.9;margin:0}.reading-links{font-size:12px;margin-top:24px;display:flex;gap:20px;flex-wrap:wrap}
+.library-controls{margin:29px 0 24px}.search-row{display:flex;gap:13px;align-items:center}.search-field{position:relative;flex:1}.search-field svg{position:absolute;left:16px;top:17px;color:var(--muted);pointer-events:none}.search-field input{width:100%;border:1px solid var(--line);background:var(--paper);color:var(--ink);height:52px;border-radius:4px;padding:0 46px;font-size:13px;outline-offset:2px}input[type="search"]::-webkit-search-cancel-button{display:none}.search-field input::placeholder{color:var(--muted)}.clear-search{position:absolute;right:8px;top:9px;width:32px;height:32px;background:transparent;color:var(--muted);border:0;font-size:22px;border-radius:3px}.clear-search:hover{background:var(--soft)}.topic-select{height:52px;border:1px solid var(--line);border-radius:4px;background:var(--paper);color:var(--text);padding:0 32px 0 14px;font-size:12px;max-width:270px}.filter-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:17px;flex-wrap:wrap}.filter-chips{display:flex;gap:7px;flex-wrap:wrap}.filter-chip{border:1px solid transparent;border-radius:30px;padding:6px 13px;background:transparent;color:var(--muted);font-size:11px}.filter-chip:hover{background:var(--soft)}.filter-chip[aria-pressed="true"]{background:var(--green);color:var(--paper);border-color:var(--green)}.results-count{font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}.library-list{display:grid;gap:12px}.source-card{background:var(--paper);border:1px solid var(--line);border-radius:4px;scroll-margin-top:20px;overflow:hidden}.source-card summary{display:flex;align-items:start;gap:19px;list-style:none;padding:22px 24px;cursor:pointer}.source-card summary::-webkit-details-marker{display:none}.source-card summary:hover{background:var(--soft)}.source-id{font-size:10px;letter-spacing:.03em;line-height:1.7;padding:3px 7px;border:1px solid var(--line);border-radius:3px;color:var(--green);flex-shrink:0;margin-top:3px;background:var(--soft);min-width:38px;text-align:center}.technical-id{color:var(--accent);background:var(--accent-soft);border-color:transparent}.source-summary{min-width:0}.source-meta{display:block;font-size:10px;letter-spacing:.035em;color:var(--muted);margin-bottom:7px;line-height:1.6}.source-meta>span{padding:0 4px}.source-summary>strong{display:block;font-family:var(--serif);font-weight:500;font-size:24px;color:var(--ink);line-height:1.3;margin-bottom:8px}.source-excerpt{display:block;font-size:13px;line-height:1.85;color:var(--muted);max-width:85ch}.source-card[open]{border-color:#a8b6a6}.source-card[open] summary{border-bottom:1px solid var(--line)}.source-body{padding:25px 28px 20px 82px;font-size:var(--reader-size);line-height:1.85}.full-title{color:var(--muted);font-size:12px;line-height:1.8;margin-bottom:15px}.source-body>p:first-of-type{font-size:12px;line-height:2;color:var(--muted);margin-bottom:25px}.source-body>p:first-of-type strong{display:block;font-weight:500;margin-bottom:5px}.source-body ul{list-style:none;margin:0;padding:0}.source-body ul li{padding:0 0 0 15px;border-left:2px solid var(--line);margin:0 0 22px}.source-body li strong:first-child{display:block;font-size:10px;font-weight:650;letter-spacing:.09em;text-transform:uppercase;color:var(--green);margin-bottom:6px}.source-body ul li:nth-child(3){border-color:var(--accent)}.source-body ul li:nth-child(3) strong{color:var(--accent)}.source-body ul li:last-child{font-size:13px;color:var(--muted)}.source-body a{overflow-wrap:anywhere}.tech-detail{margin:22px 0 0}.tech-detail dt{font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--green);margin-bottom:7px;font-weight:600}.tech-detail dd{margin:0 0 22px;padding-left:15px;border-left:2px solid var(--line)}.tech-detail dt:nth-of-type(2){color:var(--accent)}.tech-detail dd:nth-of-type(2){border-color:var(--accent)}.empty-state{padding:55px 25px;border:1px dashed var(--line);text-align:center;background:var(--paper);border-radius:4px}.empty-state h3{font-family:var(--serif);font-weight:500;font-size:26px;margin-bottom:8px}.empty-state p{font-size:13px;color:var(--muted);margin-bottom:22px}.library-note{margin:35px 0;padding:0 0 24px;border-bottom:1px solid var(--line)}.library-note summary{font-size:12px;cursor:pointer;color:var(--muted);padding:8px 0}.library-note .prose{font-size:13px;padding-top:20px;line-height:1.9}.reading-order{margin-top:48px;padding-top:34px;border-top:1px solid var(--line)}.reading-order h2{font-family:var(--serif);font-size:28px;font-weight:500;margin-bottom:24px}.reading-order ol{padding-left:20px;counter-reset:item}.reading-order li{padding-left:12px;margin-bottom:18px;line-height:1.9}.reading-order .prose{font-size:14px}.reading-order .prose>p:last-child{font-size:12px;color:var(--muted)}.library-shortcuts{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-top:22px;font-size:11px;color:var(--muted)}.library-shortcuts a{font-size:11px;border-bottom:1px solid var(--line);text-decoration:none}.footer{margin-top:54px;padding:22px 0 0;border-top:1px solid var(--line);font-size:10px;color:var(--muted);display:flex;justify-content:space-between;align-items:center;gap:18px}.footer a{color:var(--muted)}.backdrop{display:none}.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media(min-width:1550px){.main{padding-top:65px}.hero{gap:70px}.source-body{padding-right:50px}}
+@media(max-width:1250px){:root{--sidebar-width:230px}.sidebar{padding:30px 18px}.topbar{padding:0 30px}.main{padding:40px 30px 30px}.hero{gap:28px;grid-template-columns:1.2fr 1fr}.hero-figure{padding:22px 20px 16px}.query-sample{font-size:21px}.reader-grid{grid-template-columns:minmax(0,1fr) 165px;gap:25px}.fact{padding:0 15px}.map-card{padding:21px 17px}.toc{padding-left:14px}}
+@media(max-width:1040px){.reader-grid{display:block}.toc{display:none}.toc-mobile{display:block;margin:0 0 30px;border:1px solid var(--line);padding:12px 17px;border-radius:3px;font-size:12px;background:var(--paper)}.toc-mobile summary{cursor:pointer;color:var(--green)}.toc-mobile nav{display:grid;gap:10px;padding:15px 0 4px}.toc-mobile nav a{display:flex;gap:10px;text-decoration:none;font-size:12px;line-height:1.7}.toc-mobile nav a span{color:var(--muted);font-size:10px}.hero{grid-template-columns:1fr}.hero .page-title{font-size:52px}.hero-figure{display:grid;grid-template-columns:1fr 1fr;gap:0 25px;padding-bottom:25px}.figure-label{grid-column:1/-1;margin-bottom:12px}.query-sample{border-bottom:0;border-right:1px dashed var(--line);grid-row:2/4;padding:8px 22px 8px 0}.sample-langs{padding-top:3px}.sample-doc{margin:10px 0 12px;padding:10px 12px}.sample-caption{grid-column:1/-1;margin-top:10px}.facts{flex-wrap:wrap;row-gap:17px}.fact{padding:0 15px}.status{margin-left:auto}.reading-map{grid-template-columns:1fr}.map-card{min-height:0;display:grid;grid-template-columns:35px 1fr;gap:0 15px;padding:21px}.map-card .map-no{grid-row:1/4;margin:0}.map-card p{margin-bottom:13px}.map-card .map-foot{grid-column:2}.decision-grid{grid-template-columns:1fr 1fr}.decision:nth-child(3){border-left:0;border-top:1px solid var(--line)}.decision:nth-child(4){border-top:1px solid var(--line)}.search-row{flex-wrap:wrap}.search-field{flex-basis:100%}.topic-select{max-width:100%;width:100%;height:42px}.filter-row{gap:13px}.library-shortcuts{gap:8px 12px}}
+@media(max-width:760px){:root{--sidebar-width:0px;--reader-size:16px}.sidebar{width:270px;transform:translateX(-100%);transition:transform .2s}.sidebar.open{transform:translateX(0)}.shell{margin-left:0}.topbar{height:62px;padding:0 17px}.reading-progress{top:61px;left:0}.main{padding:32px 21px 25px}.toolbar{gap:0}.tool-divider{margin:0 3px}.toolbar button{width:32px;height:34px}.breadcrumb{font-size:10px;gap:7px}.breadcrumb .crumb-root{display:none}.menu-toggle{display:grid!important}.menu-wrap{display:flex;align-items:center;gap:9px}.menu-wrap>button{border:0;color:var(--ink);background:none;padding:6px}.eyebrow{font-size:9px;margin-bottom:19px}.page-title{font-size:35px}.page-lede{font-size:14px;margin-bottom:24px}.hero{padding:4px 0 29px;gap:30px}.hero .page-title{font-size:45px}.hero-figure{display:block;padding:21px}.figure-label{margin-bottom:0}.query-sample{border-right:0;border-bottom:1px dashed var(--line);padding:18px 0 16px;font-size:22px}.sample-langs{padding-top:14px}.sample-doc{padding:13px;margin:12px 0 17px}.sample-caption{font-size:10px}.facts{padding:19px 0;gap:18px 0;margin-bottom:35px}.fact{padding:0 14px;gap:6px;font-size:10px}.fact strong{font-size:25px}.status{margin:0;font-size:10px}.section-head h2{font-size:24px}.section-head small{font-size:10px}.research-question{padding-left:18px}.research-question p{font-size:20px}.scope-note{padding:16px}.reading-links{gap:12px}.method-card summary{padding:19px 17px;gap:15px}.method-card summary strong{font-size:21px}.method-body{padding:0 18px 20px}.method-columns{grid-template-columns:1fr;gap:4px}.method-columns p{font-size:15px}.method-sources{flex-wrap:wrap;gap:7px 12px}.method-tag{font-size:9px}.source-card summary{padding:19px 16px;gap:12px}.source-id{min-width:33px;padding:3px 5px;font-size:9px}.source-summary>strong{font-size:23px}.source-meta{font-size:9px}.source-excerpt{font-size:12px}.source-body{padding:22px 20px}.source-body li{font-size:15px}.source-body ul li:last-child{font-size:12px}.full-title{font-size:11px}.filter-chip{font-size:10px;padding:6px 10px}.search-field input{font-size:12px}.filter-row{margin-top:14px}.doc-meta{font-size:10px;gap:8px 14px;margin-bottom:25px}.prose h2{font-size:26px;margin-top:39px}.prose{line-height:1.9}.prose th,.prose td{padding:13px;min-width:140px}.prose table{font-size:12px}.prose p{margin-bottom:20px}.footer{align-items:start;margin-top:40px;font-size:9px}.footer span{max-width:190px}.footer a{white-space:nowrap}.backdrop.show{display:block;position:fixed;inset:0;background:#10281f70;z-index:19}.toc-mobile{scroll-margin-top:80px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+@media print{.sidebar,.topbar,.toc,.toc-mobile,.footer,.reading-progress,.library-controls,.library-shortcuts,.reading-links,.actions,.backdrop{display:none!important}.shell{margin:0}.main{padding:0;max-width:none}.view.active{display:block!important}.view:not(.active){display:none!important}.reader-grid{display:block}body{background:white;color:black;font-size:11pt}.page-title{font-size:28pt}.prose{font-size:11pt}.prose h2{break-after:avoid;font-size:18pt}.source-card,.method-card{break-inside:avoid;margin-bottom:14px}.source-card:not([hidden])>.source-body,.method-body{display:block!important}.source-card summary,.method-card summary{padding:14px}.source-body,.method-body{padding:14px}.expand-icon{display:none}.table-scroll{overflow:visible}th,td{min-width:0;padding:8px;font-size:9pt}.hero{display:block}.hero-figure{display:none}.facts{margin-bottom:20px}a{color:inherit}html{color-scheme:light}}
+</style>
+<noscript><style>.view{display:block!important;margin-bottom:70px}.sidebar{display:none}.shell{margin-left:0}.toolbar{display:none}</style></noscript>
+</head>
+<body>
+<a class="skip" href="#content">İçeriğe geç</a>
+<div class="backdrop" id="backdrop"></div>
+<aside class="sidebar" id="sidebar" aria-label="Ana gezinme">
+<a class="brand" href="#genel"><span class="brand-mark" aria-hidden="true"><svg width="24" height="26" viewBox="0 0 24 26" fill="none"><path d="M5 5v16M5 5h5c5 0 3 16 8 16h1V5" stroke="currentColor" stroke-width="1.5"/><circle cx="5" cy="5" r="2.4" fill="#193b31" stroke="currentColor"/><circle cx="19" cy="21" r="2.4" fill="#193b31" stroke="currentColor"/></svg></span><span class="brand-text">NLP Araştırma Defteri<small>ÇOK DİLLİ KAYNAK BULMA</small></span></a>
+<div class="sidebar-label">Okuma alanı</div>
+<nav class="nav" id="main-nav">
+<a href="#genel" aria-current="page"><span class="nav-num">01</span>Genel bakış</a>
+<a href="#yontemler"><span class="nav-num">02</span>Modeller & yöntemler</a>
+<a href="#literatur"><span class="nav-num">03</span>Literatür notları</a>
+<a href="#kaynaklar"><span class="nav-num">04</span>Kaynak kütüphanesi</a>
+<a href="#ilk-hafta"><span class="nav-num">05</span>İlk hafta</a>
+<a href="bellek-sistemleri/index.html"><span class="nav-num">06</span>Bellek sistemleri ↗</a>
+<a href="model-karsilastirma/index.html"><span class="nav-num">07</span>Model karşılaştırması ↗</a>
+<a href="model-karsilastirma/index.html#bolum-10"><span class="nav-num">08</span>Yerel LLM araştırması ↗</a>
+</nav>
+<div class="nav-divider"></div>
+<p class="side-note"><strong>Araştırma aşaması</strong>Alternatifleri tanıma, kanıtları karşılaştırma ve yöntem seçimine hazırlık.</p>
+<div class="side-footer">BİL 4129 · DOĞAL DİL İŞLEME<span>Tarama: 12 Kasım 2026</span></div>
+</aside>
+<div class="shell">
+<header class="topbar">
+<div class="menu-wrap"><button class="menu-toggle" id="menu-toggle" aria-label="Gezinme menüsünü aç" aria-expanded="false" aria-controls="sidebar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button><div class="breadcrumb"><span class="crumb-root">Araştırma defteri</span><span class="crumb-root" aria-hidden="true">/</span><span class="crumb-section" id="crumb-section">Genel bakış</span></div></div>
+<div class="toolbar" aria-label="Okuma ayarları"><span class="size-label" aria-hidden="true">Aa</span><button id="font-down" aria-label="Yazıyı küçült" title="Yazıyı küçült">−</button><button id="font-up" aria-label="Yazıyı büyüt" title="Yazıyı büyüt">+</button><span class="tool-divider"></span><button id="theme-toggle" aria-label="Koyu temaya geç" title="Temayı değiştir"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.5 14.5A8.7 8.7 0 0 1 9.5 3.6a9 9 0 1 0 11 10.9Z"/></svg></button><button id="print-page" aria-label="Bu bölümü yazdır" title="Bu bölümü yazdır"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 8V3h10v5M7 17H4V8h16v9h-3M7 14h10v7H7z"/><path d="M17 11h.01"/></svg></button></div>
+</header>
+<div class="reading-progress" id="reading-progress" aria-hidden="true"></div>
+<main class="main" id="content" tabindex="-1">
+<section class="view active" id="view-genel" data-title="Genel bakış" aria-labelledby="title-genel">
+<div class="hero"><div><div class="eyebrow">Literatüre giriş · 12 Kasım 2026</div><h1 class="page-title" id="title-genel">Bilgiyi bulmanın<br>farklı yolları.</h1><p class="page-lede">Kişisel notlar içinde, farklı kelimelerle ve farklı dillerde sorulan bir soruyu doğru kaynakla buluşturmak.</p><div class="actions"><a class="button primary" href="#literatur">Literatürü oku <span aria-hidden="true">↗</span></a><a class="button ghost" href="#kaynaklar">Kaynakları keşfet <span aria-hidden="true">→</span></a></div></div>
+<figure class="hero-figure" style="margin:0"><div class="figure-label">Araştırılan ihtiyaç</div><div class="query-sample">“Bu kararı neden<br>almıştık?”</div><div class="sample-langs"><span class="lang">TR</span><span aria-hidden="true">→</span><span class="lang">EN</span><span>Farklı dil, ilgili kaynak</span></div><div class="sample-doc" lang="en">“We chose PostgreSQL for reliable transactions.”</div><figcaption class="sample-caption">Temsili soru ve kaynak metni. Bir model çıktısı veya ölçülmüş eşleşme değildir.</figcaption></figure></div>
+<div class="facts"><div class="fact"><strong>26</strong>akademik çalışma</div><div class="fact"><strong>6</strong>teknik kaynak</div><div class="fact"><strong>TR ↔ EN</strong></div><span class="status">Yöntem seçimi açık</span></div>
+<div class="scope-note"><p><strong>Yerel LLM ile kaynak seçimi:</strong> Qwen3-4B ve Gemma 3-4B adayları; doğrudan LLM, BM25 + LLM ve embedding erişimi için karşılaştırma protokolü. LLM ölçümü henüz yapılmadı. <a href="model-karsilastirma/index.html#bolum-10">Yerel LLM araştırmasını aç →</a></p></div>
+<div class="scope-note"><p><strong>Model seçimi için yeni sekme:</strong> 9 modelin çalışma mantığı, Apple M3 üzerinde 8 yerel ölçüm, değiştirilebilir puanlama ve gerçek cümle/sorgu örnekleri. <a href="model-karsilastirma/index.html">NLP model karşılaştırmasını aç →</a></p></div>
+<div class="scope-note"><p><strong>Yeni okuma: Problemin kökeni.</strong> Yapay zekâ belleği ve kişisel bilgi bankaları; Karpathy, Avenox, Mert Cobanov ve 12 yaklaşımın tasarım ve maliyet karşılaştırması. <a href="bellek-sistemleri/index.html">Bellek sistemleri araştırmasını aç →</a></p></div>
+<div class="section-head"><h2>Okuma haritası</h2><small>İhtiyacın olan yerden başla</small></div>
+<div class="reading-map"><a href="#yontemler" class="map-card"><span class="map-no">01</span><h3>Hangi yaklaşımlar var?</h3><p>Kelime tabanlı aramadan çok dilli temsillere, yedi yöntem ailesini karşılaştır.</p><span class="map-foot">Modeller & algoritmalar <span aria-hidden="true">↗</span></span></a><a href="#kaynaklar" class="map-card"><span class="map-no">02</span><h3>Hangi kanıtlara dayanıyor?</h3><p>Makaleleri ve örnek sistemleri; katkıları, sınırlılıkları ve projeye etkileriyle incele.</p><span class="map-foot">32 açıklamalı kaynak <span aria-hidden="true">↗</span></span></a><a href="#ilk-hafta" class="map-card"><span class="map-no">03</span><h3>Nasıl araştıracağız?</h3><p>Hipotezden sorgu senaryolarına, ilk hafta hazırlıklarını ve açık işleri gör.</p><span class="map-foot">Araştırma hazırlığı <span aria-hidden="true">↗</span></span></a></div>
+<div class="research-question"><span class="field-label">Çalışma sorusu</span><p>Türkçe ve İngilizce kişisel metin depolarında ilgili dosyaları, erişim kalitesi ve yerel kaynak tüketimini birlikte gözeterek nasıl bulabiliriz?</p></div>
+<div class="scope-note"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7h.01"/></svg><p>Bu rehber yöntem seçimine hazırlık niteliğinde. Kaynaklarda incelenen kanıt düzeyi açıkça belirtiliyor; deney sonuçları henüz üretilmedi. <a href="#literatur/literatur-tarama-yontemi-ve-sinirlar">Taramanın kapsamını oku →</a></p></div>
+</section>
+<section class="view" id="view-yontemler" data-title="Modeller & yöntemler" aria-labelledby="title-yontemler">
+<div class="eyebrow">Yaklaşımları karşılaştır</div><h1 class="page-title" id="title-yontemler">Aynı ihtiyaç,<br>farklı yöntem aileleri.</h1><p class="page-lede">Her yaklaşım farklı bir sinyali kullanır. Katkısını, maliyetini ve dayandığı kaynakları görmek için bir aileyi aç.</p>
+<div class="method-cards"><details class="method-card" open>
+<summary><span class="method-index">01</span><span><span class="method-tag">TF–IDF · BM25</span><strong>Sözcüksel erişim</strong></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="method-body"><p class="method-original">TF–IDF / BM25 ve dilsel normalizasyon</p><div class="method-columns"><div><span class="field-label">Araştırılacak katkı</span><p>Terim, dosya adı, teknik isim, hata kodu gibi kesin ipuçları; az model maliyeti.</p></div><div><span class="field-label limit-label">Sınır & maliyet</span><p>Eş anlam, dolaylı ifade ve diller arası uyuşmazlık. Kök bulma özel isimleri bozabilir.</p></div></div><div class="method-sources"><span>İlgili okumalar</span><p><a class="ref" href="#kaynaklar/K02">K02</a>, <a class="ref" href="#kaynaklar/U05">U05</a>, <a class="ref" href="#kaynaklar/U06">U06</a></p></div></div></details>
+<details class="method-card">
+<summary><span class="method-index">02</span><span><span class="method-tag">Sorgu / belge çevirisi</span><strong>Çeviri tabanlı erişim</strong></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="method-body"><p class="method-original">Sorgu/belge çevirisi + sözcüksel erişim</p><div class="method-columns"><div><span class="field-label">Araştırılacak katkı</span><p>Ortak temsil uzayı yerine metinleri aynı dile getirerek erişim.</p></div><div><span class="field-label limit-label">Sınır & maliyet</span><p>Çeviri hatası ve teknik terim kaybı. Sorgu çevirisi çevrimiçi gecikme; belge çevirisi ön işleme/depolama getirir.</p></div></div><div class="method-sources"><span>İlgili okumalar</span><p><a class="ref" href="#kaynaklar/K14">K14</a>’te özgün/çevrilmiş koleksiyon düzeni</p></div></div></details>
+<details class="method-card">
+<summary><span class="method-index">03</span><span><span class="method-tag">E5 · BGE-M3 · Qwen3 · LaBSE</span><strong>Çok dilli yoğun temsil</strong></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="method-body"><p class="method-original">Çok dilli tek vektörlü temsil</p><div class="method-columns"><div><span class="field-label">Araştırılacak katkı</span><p>Farklı ifadeler ve diller arasında ortak anlam yakınlığı.</p></div><div><span class="field-label limit-label">Sınır & maliyet</span><p>Benzer konu ile gerçek ilgililik karışabilir; uzun dosyada bilgi seyrelmesi olabilir.</p></div></div><div class="method-sources"><span>İlgili okumalar</span><p><a class="ref" href="#kaynaklar/K04">K04</a>–<a class="ref" href="#kaynaklar/K07">K07</a>, <a class="ref" href="#kaynaklar/K21">K21</a></p></div></div></details>
+<details class="method-card">
+<summary><span class="method-index">04</span><span><span class="method-tag">SPLADE · BGE-M3</span><strong>Öğrenilmiş seyrek temsil</strong></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="method-body"><p class="method-original">Öğrenilmiş seyrek temsil</p><div class="method-columns"><div><span class="field-label">Araştırılacak katkı</span><p>Öğrenilmiş terim ağırlığı/genişletmesi ile ters indeksin birleşimi.</p></div><div><span class="field-label limit-label">Sınır & maliyet</span><p>Dil uyumu ve eğitim verisi; genişletilen terimin kaynakta bulunmaması.</p></div></div><div class="method-sources"><span>İlgili okumalar</span><p><a class="ref" href="#kaynaklar/K20">K20</a>, <a class="ref" href="#kaynaklar/K06">K06</a></p></div></div></details>
+<details class="method-card">
+<summary><span class="method-index">05</span><span><span class="method-tag">ColBERT · TurkColBERT</span><strong>Geç etkileşim</strong></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="method-body"><p class="method-original">Geç etkileşim / çok vektör</p><div class="method-columns"><div><span class="field-label">Araştırılacak katkı</span><p>Sorgu ve belge içindeki daha ayrıntılı eşleşmeleri koruma.</p></div><div><span class="field-label limit-label">Sınır & maliyet</span><p>Daha fazla temsil ve arama işi; çok dilli model gereksinimi.</p></div></div><div class="method-sources"><span>İlgili okumalar</span><p><a class="ref" href="#kaynaklar/K19">K19</a>, <a class="ref" href="#kaynaklar/K06">K06</a>, <a class="ref" href="#kaynaklar/K25">K25</a></p></div></div></details>
+<details class="method-card">
+<summary><span class="method-index">06</span><span><span class="method-tag">RRF · Hibrit</span><strong>Sıra birleştirme</strong></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="method-body"><p class="method-original">Sıra birleştirme / hibrit</p><div class="method-columns"><div><span class="field-label">Araştırılacak katkı</span><p>Farklı sistemlerin tamamlayıcı hatalarından yararlanma.</p></div><div><span class="field-label limit-label">Sınır & maliyet</span><p>Bir yöntemin iyi sıralaması diğerinden zarar görebilir; aday havuzu ve ağırlık etkisi.</p></div></div><div class="method-sources"><span>İlgili okumalar</span><p><a class="ref" href="#kaynaklar/K03">K03</a>, <a class="ref" href="#kaynaklar/K11">K11</a></p></div></div></details>
+<details class="method-card">
+<summary><span class="method-index">07</span><span><span class="method-tag">Cross-encoder</span><strong>Yeniden sıralama</strong></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="method-body"><p class="method-original">İkinci aşama yeniden sıralama</p><div class="method-columns"><div><span class="field-label">Araştırılacak katkı</span><p>Dar aday kümesinde sorgu–belge etkileşimini daha ayrıntılı değerlendirme.</p></div><div><span class="field-label limit-label">Sınır & maliyet</span><p>Ek gecikme; ilk aşamada kaçan belge geri gelmez.</p></div></div><div class="method-sources"><span>İlgili okumalar</span><p><a class="ref" href="#kaynaklar/K07">K07</a>, <a class="ref" href="#kaynaklar/U04">U04</a></p></div></div></details></div>
+<div class="decisions"><div class="section-head"><h2>Dört ayrı karar</h2></div><div class="decision-grid"><div class="decision"><h3>Temsil</h3><p>Metin nasıl kodlanıyor?</p></div><div class="decision"><h3>Sıralama</h3><p>Sorguyla kaynak arasındaki ilişki nasıl puanlanıyor?</p></div><div class="decision"><h3>İndeks</h3><p>Adaylar nasıl bulunuyor ve saklanıyor?</p></div><div class="decision"><h3>Sonuç politikası</h3><p>Kaç dosya, hangi açıklama ve hangi ret kuralıyla dönüyor?</p></div></div></div>
+<div class="scope-note"><p><strong>Faiss ve HNSW</strong>, temsiller üzerinde arama yapma ve indeksleme tarafındadır. Bir NLP modelinin anlamsal temsil kalitesiyle indeksin komşu bulma hızını ayrı değerlendirmek gerekir. <a href="#kaynaklar/K09">Faiss’i incele</a> · <a href="#kaynaklar/K22">HNSW’yi incele</a></p></div>
+<div class="reading-links"><a href="#literatur/literatur-kararlarin-birbirinden-ayrilmasi">Yöntem karşılaştırmasının tam metni →</a><a href="#literatur/literatur-yontem-secimine-geciste-kullanilabilecek-karar-tablosu">Karar ölçütlerini oku →</a></div>
+</section>
+<section class="view" id="view-literatur" data-title="Literatür notları" aria-labelledby="title-literatur">
+<div class="eyebrow">Araştırma notları</div><h1 class="page-title" id="title-literatur">Literatür ne söylüyor?</h1><p class="page-lede">Problemin araştırmadaki yeri, yaklaşım aileleri ve hipotezi sınamak için gereken ayrımlar.</p><div class="doc-meta"><span>12 Kasım 2026</span><span>10 bölüm</span><span>Başlangıç taraması</span><a href="LITERATUR_TARAMASI.md">Kaynak belge ↗</a></div>
+<details class="toc-mobile"><summary>Bu sayfanın içindekileri göster</summary><nav aria-label="Literatür içindekiler (mobil)"><a href="#literatur/literatur-literaturun-isaret-ettigi-arastirma-konumu"><span>01</span>Literatürün işaret ettiği araştırma konumu</a><a href="#literatur/literatur-hipotezi-sinanabilir-parcalara-ayirma"><span>02</span>Hipotezi sınanabilir parçalara ayırma</a><a href="#literatur/literatur-kararlarin-birbirinden-ayrilmasi"><span>03</span>Kararların birbirinden ayrılması</a><a href="#literatur/literatur-cok-dillilik-ile-diller-arasi-erisim"><span>04</span>Çok dillilik ile diller arası erişim</a><a href="#literatur/literatur-parca-dosya-ve-aciklama"><span>05</span>Parça, dosya ve açıklama</a><a href="#literatur/literatur-kalicilik-guncelleme-ve-bagimsizlik"><span>06</span>Kalıcılık, güncelleme ve bağımsızlık</a><a href="#literatur/literatur-kalite-maliyet-olcumu"><span>07</span>Kalite–maliyet ölçümü</a><a href="#literatur/literatur-sonuc-vermeme-karari"><span>08</span>Sonuç vermeme kararı</a><a href="#literatur/literatur-yontem-secimine-geciste-kullanilabilecek-karar-tablosu"><span>09</span>Yöntem seçimine geçişte kullanılabilecek karar tablosu</a><a href="#literatur/literatur-tarama-yontemi-ve-sinirlar"><span>10</span>Tarama yöntemi ve sınırlar</a></nav></details>
+<div class="reader-grid"><article class="prose" id="literature-content">
+<p><strong>Tarih:</strong> 12 Kasım 2026<br/>
+<strong>Durum:</strong> Yöntem seçimine hazırlık; nihai yöntem, algoritma, model ve kütüphane kararı açık.<br/>
+<strong>Dayanak:</strong> Kullanıcının araştırma amacı ve <a href="../PROJE_TANIMI.md">proje tanımı</a>. Sunumdaki yöntem örnekleri karar veya kısıt olarak kullanılmadı.</p>
+<p><a href="#kaynaklar">Açıklamalı kaynakça</a> 26 akademik çalışma ve 6 teknik/uygulamalı kaynağı toplar. <a href="#ilk-hafta">İlk hafta kaydı</a> tamamlanan araştırma çıktılarıyla sonraki işleri ayırır.</p>
+<h2 id="literatur-literaturun-isaret-ettigi-arastirma-konumu" tabindex="-1">Literatürün işaret ettiği araştırma konumu</h2>
+<p>Bu problem; kişisel bilgi erişimi, diller arası bilgi erişimi, ilgililik sıralaması ve verimli indeksleme alanlarının kesişimindedir. Kalıcı yerel indeksleme, kişisel belgeleri yeniden bulmak için uzun süredir kullanılmaktadır. Modern örneklerde yerel indeksin embedding aramasıyla birleştirilmesi de vardır. Dolayısıyla “yerelde indeks oluşturmak” veya “anlamsal arama eklemek” tek başına özgünlük iddiası olmamalıdır. <a href="https://www.microsoft.com/en-us/research/publication/stuff-ive-seen-a-system-for-personal-information-retrieval-and-re-use/" rel="noopener noreferrer" target="_blank">Stuff I’ve Seen</a>, <a href="https://www.recoll.org/pages/recoll-semantic.html" rel="noopener noreferrer" target="_blank">Recoll anlamsal arama</a>.</p>
+<p><strong>Bu taramadan çıkan yorum:</strong> Araştırılabilir katkı; Türkçe–İngilizce kişisel notlarda doğru dosyayı bulma kalitesi, sorgu/güncelleme maliyeti, kısıtlı çıktı ve eşleşme yokluğu davranışının birlikte değerlendirilmesidir. Bu bir “literatürde hiç yapılmadı” iddiası değildir. Bu özel birleşimin ne ölçüde yeni olduğunu söylemek için daha kapsamlı atıf zinciri ve benzer sistem karşılaştırması gerekir.</p>
+<p>Mevcut kapsamda sistem nihai cevap üretmez. RAG literatürü, aramanın bir yapay zekâ iş akışına nasıl katkıda bulunabileceğini açıklar; üretim kalitesi sonuçları bizim dosya erişim başarımızın yerine geçmez. <a href="https://arxiv.org/abs/2005.11401" rel="noopener noreferrer" target="_blank">Lewis ve ark.</a>, <a href="https://aclanthology.org/2024.knowllm-1.15/" rel="noopener noreferrer" target="_blank">çok dilli RAG</a>.</p>
+<h2 id="literatur-hipotezi-sinanabilir-parcalara-ayirma" tabindex="-1">Hipotezi sınanabilir parçalara ayırma</h2>
+<p>Aşağıdaki maddeler ölçülmesi önerilen alt hipotezlerdir; kanıtlanmış sonuç veya yöntem kararı değildir.</p>
+<div aria-label="Karşılaştırma tablosu; yatay kaydırılabilir" class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Alt hipotez</th>
+<th>Gerekli karşılaştırma</th>
+<th>İddiayı zayıflatacak sonuç</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H1: Kalıcı indeks tekrar eden sorgularda kaynak okumasını azaltır.</td>
+<td>Aynı sıralama kuralının her sorguda metin okuyan ve önceden indekslenmiş sürümleri; indeks kurma/güncelleme ayrıca.</td>
+<td>Kurma ve güncelleme dahil hedef kullanımda maliyet karşılanmıyorsa veya indeks verisi maliyeti kazancı siliyorsa.</td>
+</tr>
+<tr>
+<td>H2: Dil/anlam ilişkisini işleyen bir yöntem ifade değişiminde ve TR↔EN erişimde yararlıdır.</td>
+<td>Aynı koleksiyon ve sorgularda sözcüksel, çeviri tabanlı ve çok dilli temsil aileleri.</td>
+<td>Kazanç yalnızca ortak özel ad içeren örneklerdeyse veya bir dil yönünde ciddi kayıp varsa.</td>
+</tr>
+<tr>
+<td>H3: Az içerikle yeterli kaynak seçimi yapılabilir.</td>
+<td>Aynı çıktı bütçesinde Recall/nDCG; benzer kalitede çıktı baytı ve çağıran aracın okuma davranışı.</td>
+<td>Kısa çıktı ilgili dosyaları kaçırıyor veya sonraki okumaları artırıyorsa.</td>
+</tr>
+<tr>
+<td>H4: İlgili kaynak bulunmayan sorgular ayırt edilebilir.</td>
+<td>Ayrılmış doğrulama/test verisinde yanlış kabul ve yanlış ret.</td>
+<td>İlgisiz sorguları reddetmek için cevaplanabilir sorguların büyük kısmı kaybediliyorsa.</td>
+</tr>
+</tbody>
+</table></div>
+<p>“Bütün belgeleri modele vermeye göre daha az çıktı” tek başına yeterli karşılaştırma değildir: kaliteyi de korumak gerekir. Ayrıca sıradan indeksli sözcüksel arama karşılaştırmaya alınmadan bütün kazancı NLP’ye bağlamak hatalı olur. BEIR, basit referansların güçlü olabileceğini gösterir. <a href="https://arxiv.org/abs/2104.08663" rel="noopener noreferrer" target="_blank">BEIR</a>.</p>
+<h2 id="literatur-kararlarin-birbirinden-ayrilmasi" tabindex="-1">Kararların birbirinden ayrılması</h2>
+<p><strong>Temsil</strong>, metnin nasıl kodlandığıdır; <strong>ilgililik modeli</strong>, sorgu–kaynak ilişkisinin nasıl puanlandığıdır; <strong>indeks</strong>, adayların nasıl bulunduğu ve saklandığıdır. <strong>Sonuç politikası</strong> ise kaç dosya döndürüleceğini, açıklamayı ve gerektiğinde sonuç vermemeyi belirler. Bunlar tek bir “algoritma seçimi” altında birbirine karıştırılmamalıdır.</p>
+<p>Örneğin aynı embedding modeliyle tam vektör taraması veya yaklaşık komşu araması kullanılabilir. Daha hızlı komşu bulmak, modelin anlamı daha iyi temsil ettiğini göstermez. <a href="https://arxiv.org/abs/2401.08281" rel="noopener noreferrer" target="_blank">Faiss</a>, <a href="https://arxiv.org/abs/1603.09320" rel="noopener noreferrer" target="_blank">HNSW</a>.</p>
+<div aria-label="Karşılaştırma tablosu; yatay kaydırılabilir" class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Yaklaşım ailesi</th>
+<th>Araştırılacak katkı</th>
+<th>Başlıca sınır / maliyet</th>
+<th>Kaynak</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>TF–IDF / BM25 ve dilsel normalizasyon</td>
+<td>Terim, dosya adı, teknik isim, hata kodu gibi kesin ipuçları; az model maliyeti.</td>
+<td>Eş anlam, dolaylı ifade ve diller arası uyuşmazlık. Kök bulma özel isimleri bozabilir.</td>
+<td><a class="ref" href="#kaynaklar/K02">K02</a>, <a class="ref" href="#kaynaklar/U05">U05</a>, <a class="ref" href="#kaynaklar/U06">U06</a></td>
+</tr>
+<tr>
+<td>Sorgu/belge çevirisi + sözcüksel erişim</td>
+<td>Ortak temsil uzayı yerine metinleri aynı dile getirerek erişim.</td>
+<td>Çeviri hatası ve teknik terim kaybı. Sorgu çevirisi çevrimiçi gecikme; belge çevirisi ön işleme/depolama getirir.</td>
+<td><a class="ref" href="#kaynaklar/K14">K14</a>’te özgün/çevrilmiş koleksiyon düzeni</td>
+</tr>
+<tr>
+<td>Çok dilli tek vektörlü temsil</td>
+<td>Farklı ifadeler ve diller arasında ortak anlam yakınlığı.</td>
+<td>Benzer konu ile gerçek ilgililik karışabilir; uzun dosyada bilgi seyrelmesi olabilir.</td>
+<td><a class="ref" href="#kaynaklar/K04">K04</a>–<a class="ref" href="#kaynaklar/K07">K07</a>, <a class="ref" href="#kaynaklar/K21">K21</a></td>
+</tr>
+<tr>
+<td>Öğrenilmiş seyrek temsil</td>
+<td>Öğrenilmiş terim ağırlığı/genişletmesi ile ters indeksin birleşimi.</td>
+<td>Dil uyumu ve eğitim verisi; genişletilen terimin kaynakta bulunmaması.</td>
+<td><a class="ref" href="#kaynaklar/K20">K20</a>, <a class="ref" href="#kaynaklar/K06">K06</a></td>
+</tr>
+<tr>
+<td>Geç etkileşim / çok vektör</td>
+<td>Sorgu ve belge içindeki daha ayrıntılı eşleşmeleri koruma.</td>
+<td>Daha fazla temsil ve arama işi; çok dilli model gereksinimi.</td>
+<td><a class="ref" href="#kaynaklar/K19">K19</a>, <a class="ref" href="#kaynaklar/K06">K06</a>, <a class="ref" href="#kaynaklar/K25">K25</a></td>
+</tr>
+<tr>
+<td>Sıra birleştirme / hibrit</td>
+<td>Farklı sistemlerin tamamlayıcı hatalarından yararlanma.</td>
+<td>Bir yöntemin iyi sıralaması diğerinden zarar görebilir; aday havuzu ve ağırlık etkisi.</td>
+<td><a class="ref" href="#kaynaklar/K03">K03</a>, <a class="ref" href="#kaynaklar/K11">K11</a></td>
+</tr>
+<tr>
+<td>İkinci aşama yeniden sıralama</td>
+<td>Dar aday kümesinde sorgu–belge etkileşimini daha ayrıntılı değerlendirme.</td>
+<td>Ek gecikme; ilk aşamada kaçan belge geri gelmez.</td>
+<td><a class="ref" href="#kaynaklar/K07">K07</a>, <a class="ref" href="#kaynaklar/U04">U04</a></td>
+</tr>
+</tbody>
+</table></div>
+<p>Çeviri seçeneği için buradaki maliyet ayrımı mühendislik çıkarımıdır; bu projede ölçülmedi. Bütün ailelerin ilk hafta uygulanması önerilmiyor. Önce hangi soruna hangi ailenin cevap verdiğini belirlemek, sonra uygulanabilir adayları seçmek gerekir.</p>
+<p>Türkçede yoğun ve geç etkileşimli modelleri doğrudan karşılaştıran TurkColBERT çalışması, aday aileleri geniş tutmayı destekler; çalışmanın çevrilmiş ve orta ölçekli veri sınırları korunmalıdır. RAGTurk ise Türkçe bir hatta daha çok bileşen eklemenin her zaman daha iyi sonuç vermediğini raporlar. Bu bulgular belirli bir modeli seçtirmez, karşılaştırılacak soruları güçlendirir. <a href="https://arxiv.org/abs/2511.16528" rel="noopener noreferrer" target="_blank">TurkColBERT</a>, <a href="https://arxiv.org/abs/2602.03652" rel="noopener noreferrer" target="_blank">RAGTurk</a>.</p>
+<p>Hazır model kullanımı, alana uyarlama ve sıfırdan model eğitimi de ayrı kararlardır. Uyarlama ancak eldeki veride sistematik bir eksik görülür ve yeterli etiket/veri sağlanırsa gerekçelendirilebilir. Hazır modelin başarısını ölçmeden özel eğitim zorunlu kabul edilmemelidir.</p>
+<h2 id="literatur-cok-dillilik-ile-diller-arasi-erisim" tabindex="-1">Çok dillilik ile diller arası erişim</h2>
+<p>Dört yön ayrı raporlanmalıdır: <strong>TR→TR, EN→EN, TR→EN, EN→TR</strong>. Karışık dilli dosyalar ayrıca işaretlenmelidir. İlk işaret sorgu, ikinci işaret hedef kaynağın dilidir.</p>
+<p>MIRACL ve Mr. TyDi birden fazla dil içerir; temel görevlerinde sorguyla kaynak aynı dildedir. Üstelik bu iki veri kümesinde Türkçe bulunmaz. Dolayısıyla ne doğrudan Türkçe dil içi test ne de Türkçe–İngilizce diller arası test kümesi olarak kullanılabilirler. NeuCLIRBench gerçek diller arası görev düzeni sağlar ancak Türkçe içermez. <a href="https://aclanthology.org/2023.tacl-1.63/" rel="noopener noreferrer" target="_blank">MIRACL</a>, <a href="https://aclanthology.org/2021.mrl-1.12/" rel="noopener noreferrer" target="_blank">Mr. TyDi</a>, <a href="https://arxiv.org/abs/2511.14758" rel="noopener noreferrer" target="_blank">NeuCLIRBench</a>.</p>
+<p>LaBSE gibi çeviri çifti bulmada başarılı modeller, aynı cümlenin diğer dildeki karşılığını bulmayı öğretir. “Bu proje neden veritabanını değiştirdi?” sorusuyla uzun bir karar notunu eşleştirmek farklı bir görevdir. <a href="https://aclanthology.org/2022.acl-long.62/" rel="noopener noreferrer" target="_blank">LaBSE</a>.</p>
+<p>Türkçe dil içi değerlendirme için <strong>TR-MTEB (2025)</strong> ve <strong>TR-TEB (2026)</strong> daha doğrudan kaynaklardır. İsimleri benzer olsa da ayrı çalışmalardır. Özgün/çevrilmiş veri ayrımı, erişim alt görevleri ve eğitim verisi örtüşmesi incelenmelidir; bunlar da kişisel TR↔EN testinin yerini otomatik olarak almaz. <a href="https://aclanthology.org/2025.findings-emnlp.471/" rel="noopener noreferrer" target="_blank">TR-MTEB</a>, <a href="https://lrec.elra.info/lrec2026-main-862" rel="noopener noreferrer" target="_blank">TR-TEB</a>.</p>
+<p>Önerilen veri yaklaşımı: Gerçek veya hassas bilgilerden arındırılmış notlar üzerinde doğal bilgi ihtiyaçları yazılmalı; aynı niyetin çevirileri ve paraphrase’leri aynı veri bölümünde tutulmalıdır. Hem bir dildeki tek kaynağı zorunlu kılan sorgular hem de iki dilde birden ilgili belge bulunabilen sorgular olmalıdır. Aksi halde sistem sürekli İngilizce sonucu seçerek başarılı görünebilir. Bunlar bu proje için deney tasarımı önerileridir.</p>
+<h2 id="literatur-parca-dosya-ve-aciklama" tabindex="-1">Parça, dosya ve açıklama</h2>
+<p>Dosya sonucu üretmek, dosyanın tek temsilini kullanmayı zorunlu kılmaz. Tam dosya, başlık/bölüm, sabit uzunluklu parça ve örtüşen parçalar karşılaştırılabilir. Parça uzunluğu modelin tokenizer’ı ile kontrol edilmeli; sessiz kırpma uzun dosyanın sonundaki kanıtı yok edebilir.</p>
+<p>Parça puanlarını dosya puanına dönüştürmek için maksimum, en iyi birkaç parçanın bileşimi veya öğrenilmiş toplama adaydır. PARADE, bilgi ihtiyacının tek parçada mı yoksa dosya boyunca mı karşılandığının seçimi etkileyebildiğini gösterir. Bu nedenle otomatik olarak “maksimum en iyidir” veya “öğrenilmiş toplama gerekir” sonucu çıkarılamaz. <a href="https://eprints.gla.ac.uk/298257/" rel="noopener noreferrer" target="_blank">PARADE</a>.</p>
+<p>Projenin açıklama gereksinimi için <strong>kaynakta bulunan kısa metin + dosya/bölüm konumu</strong> değerlendirilebilir. Bu, kullanıcıya kanıt gösterir; modelin iç kararının nedensel açıklaması olduğu iddia edilmemelidir. Birebir eşleşme ile anlamsal olarak getirilen ifade ayrı etiketlenmelidir. SPLADE benzeri bir modelin genişlettiği sözcük kaynakta yoksa alıntı yapılamaz. <a href="https://arxiv.org/abs/2107.05720" rel="noopener noreferrer" target="_blank">SPLADE</a>.</p>
+<h2 id="literatur-kalicilik-guncelleme-ve-bagimsizlik" tabindex="-1">Kalıcılık, güncelleme ve bağımsızlık</h2>
+<p>Aşağıdakiler algoritma seçimine değil, proje gereksinimlerinin karşılanmasına ilişkin tasarım sorularıdır:</p>
+<ul>
+<li>Kaynak kimliği, göreli yol, içerik özeti/hash, parça konumu ve indeks/model sürümü nasıl tutulacak?</li>
+<li>Ekleme, değiştirme, silme ve yeniden adlandırma hangi işlemlerle yansıtılacak? Güncelleme yarıda kesilirse eski ve yeni kayıtlar nasıl ayrılacak?</li>
+<li>Model veya parçalama kuralı değişince hangi indeksler yeniden üretilecek?</li>
+<li>İndeks, deney çıktıları ve aracın kendi dosyaları kaynak havuzundan nasıl dışlanacak?</li>
+<li>Model dosyaları temin edildikten sonra indeksleme ve sorgu ağ kapalıyken çalışabilecek mi? Çıktı herhangi bir yapay zekâ ürünü gerektirmeden okunabilecek mi?</li>
+</ul>
+<p>Bunlar henüz uygulanmış davranışlar değildir. SQLite FTS5 ve Faiss gibi bileşenler farklı parçaları sağlar; tek başlarına tüm kaynak yaşam döngüsünü çözmezler. <a href="https://www.sqlite.org/fts5.html" rel="noopener noreferrer" target="_blank">FTS5</a>, <a href="https://arxiv.org/abs/2401.08281" rel="noopener noreferrer" target="_blank">Faiss</a>.</p>
+<h2 id="literatur-kalite-maliyet-olcumu" tabindex="-1">Kalite–maliyet ölçümü</h2>
+<p>Birincil sonuç birimi <strong>benzersiz dosya</strong> olmalıdır. Aynı dosyanın beş parçasını ilk beş sonuçta görmek, beş ilgili dosya bulmak olarak sayılmaz.</p>
+<div aria-label="Karşılaştırma tablosu; yatay kaydırılabilir" class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Boyut</th>
+<th>Aday ölçüm</th>
+<th>Dikkat edilecek ayrım</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sıralama</td>
+<td>Recall@k, nDCG@k, MRR@k</td>
+<td>Recall: ilgili dosyaların kapsanması; nDCG: dereceli ilgililik/sıra; MRR: ilk ilgili dosya.</td>
+</tr>
+<tr>
+<td>Dil</td>
+<td>Dört dil yönünde ayrı skor ve örnek sayısı</td>
+<td>Tek ortalama zayıf yönü gizleyebilir.</td>
+</tr>
+<tr>
+<td>Sonuç vermeme</td>
+<td>Cevapsız sorgularda yanlış kabul; cevaplı sorgularda yanlış ret</td>
+<td>Cevapsız sorguda standart Recall paydası sıfırdır; ayrı ölçülmeli.</td>
+</tr>
+<tr>
+<td>Sorgu</td>
+<td>Gecikme dağılımı, kaynak okuma baytı, indeks/model yükleme, çıktı baytı</td>
+<td>Sıcak/soğuk çalıştırma ve işletim sistemi önbelleği ayrılmalı.</td>
+</tr>
+<tr>
+<td>Yaşam döngüsü</td>
+<td>İlk indeks süresi, değişiklik güncelleme süresi, disk ve tepe RAM</td>
+<td>Sadece sıcak sorgu hızını göstermek yeterli değildir.</td>
+</tr>
+<tr>
+<td>Çıktının yararı</td>
+<td>Aynı bayt/token bütçesinde erişim kalitesi</td>
+<td>Token sayısı kullanılıyorsa tokenizer belirtilmeli.</td>
+</tr>
+<tr>
+<td>İşlevsel doğruluk</td>
+<td>Silinen yolun çıkmaması, değişen parçanın yenilenmesi, tekrar sırası</td>
+<td>Sıralama puanı ile doğruluk/güncellik birbirinden ayrıdır.</td>
+</tr>
+</tbody>
+</table></div>
+<p>Sorgu maliyeti farkını NLP ile indekslemeye ayrı ayrı atfetmek için iki deney gerekir: (1) sıralama sabitken kalıcılığı değiştirmek, (2) kalıcı indeks koşulu sabitken erişim yöntemini değiştirmek. Böylece “yeniden dosya okumama” kazancı bir modelin anlamsal başarısı gibi raporlanmaz.</p>
+<p>Toplam süre için bir başlangıç hesabı:</p>
+<p><code>T_indeksli = T_kurma + toplam(T_güncelleme) + Q × ortalama(T_sorgu)</code></p>
+<p><code>T_tarama = Q × ortalama(T_her_sorguda_tarama)</code></p>
+<p>Bu basitleştirme aynı sorgu/kalite ve aynı güncelleme yükünde yapılmalıdır. Süre, bayt, RAM ve token ayrı birimlerdir; tek maliyet sayısında gelişigüzel toplanmamalıdır. “Kaynak dosyalar okunmadı” da “disk/indeks/model verisi okunmadı” anlamına gelmez.</p>
+<p>Lost in the Middle seçici bağlamın motivasyonunu sağlar; uzun bağlam karşılaştırmaları ise bazı koşullarda daha fazla bağlamın kalite yararı sağlayabildiğini gösterir. Bu ikisi birlikte okunmalıdır. Mevcut kapsamda ölçülen küçük arama çıktısı, çağıran yapay zekânın sonraki okumaları da ölçülmeden toplam token tasarrufu diye sunulamaz. <a href="https://aclanthology.org/2024.tacl-1.9/" rel="noopener noreferrer" target="_blank">Liu ve ark.</a>, <a href="https://aclanthology.org/2024.emnlp-industry.66/" rel="noopener noreferrer" target="_blank">Li ve ark.</a>.</p>
+<h2 id="literatur-sonuc-vermeme-karari" tabindex="-1">Sonuç vermeme kararı</h2>
+<p>En yüksek benzerlik, ilgili belge varlığını garanti etmez. Sabit bir cosine veya RRF eşiği bütün modeller ve diller için hazır doğruluk eşiği olarak alınmamalıdır. Aday eşik/politika, ayrı doğrulama kümesinde; hem ilgili hem ilgisiz sorgularla ayarlanmalı ve testte değiştirilmemelidir.</p>
+<p>Başlangıçta mutlak puan, ilk iki sonucun farkı veya ayrı ilgililik değerlendiricisi araştırılabilir. Bunlar <strong>aday fikirlerdir</strong>. Özellikle iki gerçekten ilgili dosyanın birbirine yakın puan alması, küçük puan farkını tek başına ret gerekçesi yapmayı riskli kılar. Bu tarama, sonuç vermeme veya anlamsal açıklama için doğrulanmış bir nihai yöntem ortaya koymamıştır; derinleştirilecek başlıklardır.</p>
+<h2 id="literatur-yontem-secimine-geciste-kullanilabilecek-karar-tablosu" tabindex="-1">Yöntem seçimine geçişte kullanılabilecek karar tablosu</h2>
+<p>Aşağıdaki tablo doldurulmadan bir kazanan ilan edilmemelidir. Ölçümler henüz yoktur.</p>
+<div aria-label="Karşılaştırma tablosu; yatay kaydırılabilir" class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Karar</th>
+<th>Açık seçenekler</th>
+<th>Seçimi destekleyecek kanıt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Erişim ailesi</td>
+<td>Sözcüksel, çeviri, yoğun, öğrenilmiş seyrek, geç etkileşim, birleşim</td>
+<td>Dil yönleri ve sorgu türlerine göre kalite/maliyet.</td>
+</tr>
+<tr>
+<td>Model</td>
+<td>E5, BGE-M3, Qwen3 ve araştırmayla bulunacak diğer uygun adaylar</td>
+<td>Aynı değerlendirme kümesinde sonuç, yerel RAM/gecikme, lisans ve çalıştırma koşulları.</td>
+</tr>
+<tr>
+<td>Temsil birimi</td>
+<td>Dosya, bölüm, parça</td>
+<td>Uzunluk gruplarında kaçırılan kaynaklar ve açıklama konumunun doğruluğu.</td>
+</tr>
+<tr>
+<td>İndeks</td>
+<td>Ters indeks, tam vektör arama, yaklaşık vektör arama</td>
+<td>Koleksiyon büyüklüğüne göre süre, disk, komşu recall’ı ve güncelleme kolaylığı.</td>
+</tr>
+<tr>
+<td>İkinci aşama</td>
+<td>Yok, yeniden sıralama, farklı toplama</td>
+<td>Ek maliyet karşılığında ölçülen kalite artışı.</td>
+</tr>
+<tr>
+<td>Sonuç politikası</td>
+<td>Sabit k, eşikli sonuç, bütçeli seçim</td>
+<td>Yanlış kabul/ret ve aynı bütçede dosya kapsama.</td>
+</tr>
+</tbody>
+</table></div>
+<p>İlk deneylerde tüm çapraz kombinasyonları çalıştırmak gerekmiyor. Amaç, önce temsil ailelerinin uygunluğunu görmek; daha sonra veri ve donanımın izin verdiği adayları daraltmaktır. <strong>Bu rapor herhangi bir sütundaki seçeneği nihai karar olarak işaretlemez.</strong></p>
+<h2 id="literatur-tarama-yontemi-ve-sinirlar" tabindex="-1">Tarama yöntemi ve sınırlar</h2>
+<p>Aramalar kişisel bilgi erişimi, çok dilli temsil, diller arası değerlendirme, sıralama birleşimi, parça–dosya toplama, vektör indeksleri ve RAG/uzun bağlam maliyet karşılaştırması eksenlerinde yapıldı. Örnek sorgular: <code>personal information retrieval Stuff I've Seen</code>, <code>multilingual E5 technical report</code>, <code>BGE M3 cross lingual retrieval</code>, <code>MIRACL multilingual retrieval</code>, <code>NeuCLIRBench</code>, <code>PARADE passage aggregation</code>, <code>ColBERT late interaction</code>, <code>SPLADE sparse lexical</code>, <code>RAG long context comprehensive study</code>, <code>Turkish information retrieval benchmark</code>, <code>TR-MTEB</code>, <code>TR-TEB</code>, <code>TurkColBERT</code>, <code>RAGTurk</code>.</p>
+<p>Birincil kaynaklara öncelik verildi: ACL Anthology, arXiv yazar kayıtları, yayıncı/yazar PDF’leri, araştırma kurumları, resmî dokümantasyon ve proje depoları. Blog/forum özetleri bilimsel kanıt olarak kullanılmadı. Yazılım örnekleri hakemli çalışmalarla aynı kanıt düzeyinde değerlendirilmedi.</p>
+<p>Bu, bütün literatürü kapsayan sistematik derleme veya meta-analiz değildir. Kaynak bazında inceleme düzeyi kaynakçada belirtilmiştir. Nicel sonuçlar yeniden üretilmedi; model veya sistem kurulmadı. Özellikle eşleşme yokluğu, açıklamaların doğrulanması ve Türkçe–İngilizce kişisel not veri kümesi için daha derin araştırma gerekir. Bu açık noktalar yöntem seçiminin girdileridir; tamamlanmış çözüm diye sunulmaz.</p></article><aside class="toc" aria-label="Literatür içindekiler"><div class="toc-title">Bu sayfada</div><a href="#literatur/literatur-literaturun-isaret-ettigi-arastirma-konumu"><span>01</span>Literatürün işaret ettiği araştırma konumu</a><a href="#literatur/literatur-hipotezi-sinanabilir-parcalara-ayirma"><span>02</span>Hipotezi sınanabilir parçalara ayırma</a><a href="#literatur/literatur-kararlarin-birbirinden-ayrilmasi"><span>03</span>Kararların birbirinden ayrılması</a><a href="#literatur/literatur-cok-dillilik-ile-diller-arasi-erisim"><span>04</span>Çok dillilik ile diller arası erişim</a><a href="#literatur/literatur-parca-dosya-ve-aciklama"><span>05</span>Parça, dosya ve açıklama</a><a href="#literatur/literatur-kalicilik-guncelleme-ve-bagimsizlik"><span>06</span>Kalıcılık, güncelleme ve bağımsızlık</a><a href="#literatur/literatur-kalite-maliyet-olcumu"><span>07</span>Kalite–maliyet ölçümü</a><a href="#literatur/literatur-sonuc-vermeme-karari"><span>08</span>Sonuç vermeme kararı</a><a href="#literatur/literatur-yontem-secimine-geciste-kullanilabilecek-karar-tablosu"><span>09</span>Yöntem seçimine geçişte kullanılabilecek karar tablosu</a><a href="#literatur/literatur-tarama-yontemi-ve-sinirlar"><span>10</span>Tarama yöntemi ve sınırlar</a></aside></div>
+</section>
+<section class="view" id="view-kaynaklar" data-title="Kaynak kütüphanesi" aria-labelledby="title-kaynaklar">
+<div class="eyebrow">Açıklamalı kaynakça</div><h1 class="page-title" id="title-kaynaklar">Bir kaynak, bir katkı.</h1><p class="page-lede">Makaleler, modeller ve örnek sistemler. Her kaynağın bu projeye ne kattığını ve nerede sınırlandığını birlikte oku.</p>
+<div class="library-controls"><div class="search-row"><div class="search-field"><label class="sr-only" for="source-search">Kaynaklarda ara</label><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4.5 4.5"/></svg><input id="source-search" type="search" placeholder="Model, konu, yazar ya da kaynak ara…" autocomplete="off" spellcheck="false"><button class="clear-search" id="clear-search" aria-label="Aramayı temizle" hidden>×</button></div><label class="sr-only" for="topic-select">Konuya göre filtrele</label><select class="topic-select" id="topic-select"><option value="all">Bütün konular</option><option>Kişisel erişim &amp; sözcüksel arama</option><option>Temsil &amp; sıralama</option><option>Değerlendirme &amp; veri</option><option>Türkçe odaklı çalışmalar</option><option>Yapay zekâ &amp; maliyet</option><option>Sistemler &amp; teknik kaynaklar</option></select></div><div class="filter-row"><div class="filter-chips" aria-label="Kaynak türü"><button class="filter-chip" data-filter="all" aria-pressed="true">Tümü <span>32</span></button><button class="filter-chip" data-filter="academic" aria-pressed="false">Akademik <span>26</span></button><button class="filter-chip" data-filter="turkish" aria-pressed="false">Türkçe odaklı <span>4</span></button><button class="filter-chip" data-filter="technical" aria-pressed="false">Teknik <span>6</span></button></div><span class="results-count" id="results-count" aria-live="polite" role="status">32 / 32 kaynak</span></div></div>
+<div class="library-shortcuts"><span>Hızlı erişim:</span><a href="#kaynaklar/K05">E5</a><a href="#kaynaklar/K06">BGE-M3</a><a href="#kaynaklar/K19">ColBERT</a><a href="#kaynaklar/K23">TR-MTEB</a><a href="#kaynaklar/U01">Recoll</a><span aria-hidden="true">·</span><a href="#kaynaklar/okuma-sirasi">Önerilen okuma sırası ↓</a></div>
+<details class="library-note"><summary>Taramanın kapsamı ve inceleme düzeyi</summary><div class="prose"><p>Tarama tarihi: 12 Kasım 2026. Amaç: yöntem seçimine giriş. <strong>Henüz nihai yöntem, algoritma, model veya kütüphane seçilmedi.</strong> Sunumdaki örnekler seçim dayanağı değildir.</p>
+<p>Bu dosya 26 akademik çalışma ile 6 uygulama/dokümantasyon kaynağı içerir. Hakemli yayın, teknik rapor ve yazılım dokümantasyonu ayrı belirtilmiştir. “İnceleme” alanı bu taramada gerçekten erişilen kanıtın düzeyidir; tüm çalışmaların tam metninin ayrıntılı okunduğu veya deneylerinin tekrarlandığı iddia edilmez. Özetler kendi ifadelerimizle yazılmıştır. Yayın sayfasındaki PDF bağlantıları tam metne erişim sağlar; PDF arşivi oluşturulmadı.</p>
+<p>Bu grupta teknik dokümantasyon, geliştirici yazısı ve ders kitabı bulunur; bunlar projenin deneysel başarı kanıtı değildir. Dokümantasyonda belirtilen yetenekler kaydedildi; kaynak kodu denetimi, kurulum veya uçtan uca test yapılmadı.</p></div></details>
+<div class="library-list" id="library-list"><details class="source-card" id="K01" data-kind="academic" data-group="Kişisel erişim &amp; sözcüksel arama" data-turkish="false">
+<summary><span class="source-id">K01</span><span class="source-summary"><span class="source-meta">Kişisel erişim &amp; sözcüksel arama <span>·</span> 2003</span><strong>Stuff I’ve Seen</strong><span class="source-excerpt">Kişinin daha önce gördüğü belgeleri, e-postaları ve diğer içerikleri ortak bir yerel indeks üzerinden yeniden bulmasını inceler. Zaman ve kişi gibi bağlamsal ipuçlarını değerlendirir.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">Stuff I’ve Seen: A System for Personal Information Retrieval and Re-Use</div><p><strong>Dumais ve ark., 2003 — SIGIR, hakemli konferans.</strong> <a href="https://www.microsoft.com/en-us/research/publication/stuff-ive-seen-a-system-for-personal-information-retrieval-and-re-use/" rel="noopener noreferrer" target="_blank">Yayın sayfası</a> · <a href="https://www.microsoft.com/en-us/research/wp-content/uploads/2003/01/siscore-sigir2003-final.pdf" rel="noopener noreferrer" target="_blank">Yazar PDF’i</a></p>
+<ul>
+<li><strong>Katkı:</strong> Kişinin daha önce gördüğü belgeleri, e-postaları ve diğer içerikleri ortak bir yerel indeks üzerinden yeniden bulmasını inceler. Zaman ve kişi gibi bağlamsal ipuçlarını değerlendirir.</li>
+<li><strong>Projeye karşılığı:</strong> Kişisel depolarda kalıcı indeksleme ve tekrar erişimin güçlü bir tarihsel dayanağıdır. İndekslemenin kendisi yeni bir araştırma iddiası olarak sunulmamalıdır.</li>
+<li><strong>Sınır:</strong> Modern çok dilli embedding veya LLM token tasarrufu deneyi değildir.</li>
+<li><strong>İnceleme:</strong> Yayın özeti ve PDF’in mimari/indeks güncelleme bölümleri.</li>
+</ul></div></details>
+<details class="source-card" id="K02" data-kind="academic" data-group="Kişisel erişim &amp; sözcüksel arama" data-turkish="false">
+<summary><span class="source-id">K02</span><span class="source-summary"><span class="source-meta">Kişisel erişim &amp; sözcüksel arama <span>·</span> 2009</span><strong>BM25 ve olasılıksal erişim</strong><span class="source-excerpt">Olasılıksal bilgi erişiminin ve BM25 ailesinin kuramsal temelini açıklar.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">The Probabilistic Relevance Framework: BM25 and Beyond</div><p><strong>Stephen Robertson ve Hugo Zaragoza, 2009 — Foundations and Trends in Information Retrieval, inceleme çalışması.</strong> <a href="https://doi.org/10.1561/1500000019" rel="noopener noreferrer" target="_blank">Yayın / DOI</a></p>
+<ul>
+<li><strong>Katkı:</strong> Olasılıksal bilgi erişiminin ve BM25 ailesinin kuramsal temelini açıklar.</li>
+<li><strong>Projeye karşılığı:</strong> Sözcüksel sıralamanın hangi varsayımlarla çalıştığını anlamak ve bir karşılaştırma yöntemi tanımlamak için okunmalıdır.</li>
+<li><strong>Sınır:</strong> Tek başına sorgu ve belge dilleri arasındaki anlam eşlemesini sağlamaz. Türkçe sözcük biçimleri ve normalizasyon ayrıca değerlendirilmelidir.</li>
+<li><strong>İnceleme:</strong> Bibliyografik kayıt ve aramada görünen yayıncı PDF kaydı doğrulandı; yayıncı tam metni doğrudan açma isteğine 403 verdi. Ayrıntılı tam metin incelemesi yapılmadı. Uygulama davranışı için <a class="ref" href="#kaynaklar/U05">U05</a> ayrıca erişilebilir.</li>
+</ul></div></details>
+<details class="source-card" id="K03" data-kind="academic" data-group="Kişisel erişim &amp; sözcüksel arama" data-turkish="false">
+<summary><span class="source-id">K03</span><span class="source-summary"><span class="source-meta">Kişisel erişim &amp; sözcüksel arama <span>·</span> 2009</span><strong>Reciprocal Rank Fusion</strong><span class="source-excerpt">Birden fazla sıralamayı ham puanlar yerine sıra konumları üzerinden birleştiren RRF yöntemini değerlendirir.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">Reciprocal Rank Fusion outperforms Condorcet and individual Rank Learning Methods</div><p><strong>Gordon V. Cormack, Charles L. A. Clarke ve Stefan Büttcher, 2009 — SIGIR, hakemli konferans.</strong> <a href="https://cormack.uwaterloo.ca/cormacksigir09-rrf.pdf" rel="noopener noreferrer" target="_blank">Yazar PDF’i</a></p>
+<ul>
+<li><strong>Katkı:</strong> Birden fazla sıralamayı ham puanlar yerine sıra konumları üzerinden birleştiren RRF yöntemini değerlendirir.</li>
+<li><strong>Projeye karşılığı:</strong> Farklı puan ölçekleri üreten yöntemlerin sonuçlarını birleştirmek için adaydır.</li>
+<li><strong>Sınır:</strong> Birleşim her koleksiyonda üstün değildir; ilgisiz bir listenin katkısı sonucu bozabilir. RRF puanı ilgililik olasılığı değildir.</li>
+<li><strong>İnceleme:</strong> Yazar PDF’inin yöntem ve deney özeti.</li>
+</ul></div></details>
+<details class="source-card" id="K04" data-kind="academic" data-group="Temsil &amp; sıralama" data-turkish="false">
+<summary><span class="source-id">K04</span><span class="source-summary"><span class="source-meta">Temsil &amp; sıralama <span>·</span> 2020</span><strong>Çok dilli cümle temsilleri</strong><span class="source-excerpt">Çeviri karşılıklarını ortak bir temsil uzayında yakınlaştırmak için öğretmen–öğrenci eğitimini kullanır.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">Making Monolingual Sentence Embeddings Multilingual using Knowledge Distillation</div><p><strong>Nils Reimers ve Iryna Gurevych, 2020 — EMNLP, hakemli konferans.</strong> <a href="https://aclanthology.org/2020.emnlp-main.365/" rel="noopener noreferrer" target="_blank">Yayın ve PDF</a></p>
+<ul>
+<li><strong>Katkı:</strong> Çeviri karşılıklarını ortak bir temsil uzayında yakınlaştırmak için öğretmen–öğrenci eğitimini kullanır.</li>
+<li><strong>Projeye karşılığı:</strong> Farklı dillerde aynı anlama erişmenin NLP temelini açıklar; hazır model ile uyarlama seçeneklerini anlamaya yardımcı olur.</li>
+<li><strong>Sınır:</strong> Cümle benzerliği başarısı, kişisel dosyalarda sorgu–belge ilgililiğini veya güncel karar bulmayı doğrudan kanıtlamaz.</li>
+<li><strong>İnceleme:</strong> Yayın kaydı ve özet.</li>
+</ul></div></details>
+<details class="source-card" id="K05" data-kind="academic" data-group="Temsil &amp; sıralama" data-turkish="false">
+<summary><span class="source-id">K05</span><span class="source-summary"><span class="source-meta">Temsil &amp; sıralama <span>·</span> 2024</span><strong>Multilingual E5</strong><span class="source-excerpt">Farklı boyutlarda çok dilli erişim modellerinin eğitimini ve değerlendirmesini açıklar. MIRACL ile bitext mining sonuçlarını ayrı raporlar.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">Multilingual E5 Text Embeddings: A Technical Report</div><p><strong>Liang Wang ve ark., 2024 — teknik rapor / arXiv.</strong> <a href="https://arxiv.org/html/2402.05672v1" rel="noopener noreferrer" target="_blank">Tam metin</a> · <a href="https://huggingface.co/intfloat/multilingual-e5-small" rel="noopener noreferrer" target="_blank">Model kartı</a></p>
+<ul>
+<li><strong>Katkı:</strong> Farklı boyutlarda çok dilli erişim modellerinin eğitimini ve değerlendirmesini açıklar. MIRACL ile bitext mining sonuçlarını ayrı raporlar.</li>
+<li><strong>Projeye karşılığı:</strong> Yerel kaynak tüketimi ile erişim kalitesini karşılaştırmak için bir model ailesi adayıdır.</li>
+<li><strong>Sınır:</strong> Eğitim karışımında MIRACL ve Mr. TyDi bulunur; bu veri kümelerindeki sonucu tamamen görülmemiş alana genelleme diye sunmamak gerekir. Çeviri çifti eşleme, doğal bilgi ihtiyacına göre dosya bulma ile aynı görev değildir.</li>
+<li><strong>İnceleme:</strong> Tam metinde eğitim, değerlendirme tabloları ve model kartının kullanım koşulları.</li>
+</ul></div></details>
+<details class="source-card" id="K06" data-kind="academic" data-group="Temsil &amp; sıralama" data-turkish="false">
+<summary><span class="source-id">K06</span><span class="source-summary"><span class="source-meta">Temsil &amp; sıralama <span>·</span> 2024</span><strong>BGE-M3</strong><span class="source-excerpt">Aynı model ailesinde yoğun, seyrek ve çok vektörlü erişimi; çok dilliliği ve uzun girdileri bir araya getirir.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">M3-Embedding: Multi-Linguality, Multi-Functionality, Multi-Granularity Text Embeddings Through Self-Knowledge Distillation</div><p><strong>Jianlyu Chen ve ark., 2024 — Findings of ACL, hakemli yayın.</strong> <a href="https://aclanthology.org/2024.findings-acl.137/" rel="noopener noreferrer" target="_blank">Yayın ve PDF</a> · <a href="https://huggingface.co/BAAI/bge-m3" rel="noopener noreferrer" target="_blank">Model kartı</a></p>
+<ul>
+<li><strong>Katkı:</strong> Aynı model ailesinde yoğun, seyrek ve çok vektörlü erişimi; çok dilliliği ve uzun girdileri bir araya getirir.</li>
+<li><strong>Projeye karşılığı:</strong> Temsil türlerinin karşılaştırılması için güçlü bir araştırma kaynağıdır. BGE-M3 bir adaydır; seçilmiş model değildir.</li>
+<li><strong>Sınır:</strong> Uzun girdi kabul etmesi dosyanın tamamını tek vektörle temsil etmenin uygun olduğunu göstermez. Model kartında MIRACL sonuçları için düzeltme notu vardır; sürüm/deney ayarı kaydedilmelidir.</li>
+<li><strong>İnceleme:</strong> Hakemli yayın özeti, PDF’in giriş kısmı ve güncel model kartı.</li>
+</ul></div></details>
+<details class="source-card" id="K07" data-kind="academic" data-group="Temsil &amp; sıralama" data-turkish="false">
+<summary><span class="source-id">K07</span><span class="source-summary"><span class="source-meta">Temsil &amp; sıralama <span>·</span> 2025</span><strong>Qwen3 Embedding</strong><span class="source-excerpt">Çok dilli embedding ve yeniden sıralama için 0.6B, 4B ve 8B boyutlarında modeller sunar.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">Qwen3 Embedding: Advancing Text Embedding and Reranking Through Foundation Models</div><p><strong>Yanzhao Zhang ve ark., 2025 — teknik rapor / arXiv.</strong> <a href="https://arxiv.org/abs/2506.05176" rel="noopener noreferrer" target="_blank">Çalışma</a></p>
+<ul>
+<li><strong>Katkı:</strong> Çok dilli embedding ve yeniden sıralama için 0.6B, 4B ve 8B boyutlarında modeller sunar.</li>
+<li><strong>Projeye karşılığı:</strong> Daha yeni, farklı kapasitedeki modelleri aday havuzuna dahil eder; embedding ve reranking kararlarını ayırmayı sağlar.</li>
+<li><strong>Sınır:</strong> Büyük modelin benchmark başarısı yerel cihazda uygun gecikme veya bellek tüketimi sağlayacağını göstermez. Raporun üstünlük iddiaları kendi deney koşullarına aittir.</li>
+<li><strong>İnceleme:</strong> Yazarların arXiv özeti. Çalıştırılmadı.</li>
+</ul></div></details>
+<details class="source-card" id="K08" data-kind="academic" data-group="Temsil &amp; sıralama" data-turkish="false">
+<summary><span class="source-id">K08</span><span class="source-summary"><span class="source-meta">Temsil &amp; sıralama <span>·</span> 2024</span><strong>PARADE</strong><span class="source-excerpt">Bir belgenin parçalarından gelen sinyallerin belge sıralamasına nasıl dönüştürüleceğini karşılaştırır. Dağınık kanıt gerektiren ve tek parçada cevaplanan ihtiyaçlar farklı davranır.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">PARADE: Passage Representation Aggregation for Document Reranking</div><p><strong>Canjia Li ve ark., 2024 dergi cildi; 2023 çevrimiçi yayın — ACM TOIS, hakemli dergi.</strong> <a href="https://eprints.gla.ac.uk/298257/" rel="noopener noreferrer" target="_blank">Kurumsal yayın kaydı ve kabul edilmiş metin</a> · <a href="https://arxiv.org/abs/2008.09093" rel="noopener noreferrer" target="_blank">arXiv sürümleri</a></p>
+<ul>
+<li><strong>Katkı:</strong> Bir belgenin parçalarından gelen sinyallerin belge sıralamasına nasıl dönüştürüleceğini karşılaştırır. Dağınık kanıt gerektiren ve tek parçada cevaplanan ihtiyaçlar farklı davranır.</li>
+<li><strong>Projeye karşılığı:</strong> Sonuç birimi dosya olduğu için parça→dosya toplama kuralı başlı başına bir yöntem kararıdır.</li>
+<li><strong>Sınır:</strong> Makaledeki eğitilmiş toplama modelini küçük kişisel depoya doğrudan taşımak zorunlu değildir; basit maksimum puan gibi yöntemler de adaydır.</li>
+<li><strong>İnceleme:</strong> Kurumsal özet ve kabul edilmiş metnin deney düzeninden erişilen bölümler.</li>
+</ul></div></details>
+<details class="source-card" id="K09" data-kind="academic" data-group="Temsil &amp; sıralama" data-turkish="false">
+<summary><span class="source-id">K09</span><span class="source-summary"><span class="source-meta">Temsil &amp; sıralama <span>·</span> 2024</span><strong>Faiss</strong><span class="source-excerpt">Vektör arama yöntemlerinin hız, bellek ve doğruluk ödünleşimlerini ve Faiss tasarımını açıklar.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">The Faiss library</div><p><strong>Matthijs Douze ve ark., 2024 ilk arXiv sürümü; 2025 revizyonları — teknik çalışma.</strong> <a href="https://arxiv.org/abs/2401.08281" rel="noopener noreferrer" target="_blank">Çalışma</a></p>
+<ul>
+<li><strong>Katkı:</strong> Vektör arama yöntemlerinin hız, bellek ve doğruluk ödünleşimlerini ve Faiss tasarımını açıklar.</li>
+<li><strong>Projeye karşılığı:</strong> Temsil üretimi ile o temsiller üzerinde arama yapmanın farklı kararlar olduğunu gösterir. Tam tarama ve yaklaşık arama seçeneklerini incelemek için kullanılır.</li>
+<li><strong>Sınır:</strong> Vektör arama kütüphanesi, dosya sürümü, silme, açıklama ve güncelleme tutarlılığını tek başına çözmez.</li>
+<li><strong>İnceleme:</strong> arXiv kayıt/özet ve sürüm bilgisi.</li>
+</ul></div></details>
+<details class="source-card" id="K19" data-kind="academic" data-group="Temsil &amp; sıralama" data-turkish="false">
+<summary><span class="source-id">K19</span><span class="source-summary"><span class="source-meta">Temsil &amp; sıralama <span>·</span> 2020</span><strong>ColBERT</strong><span class="source-excerpt">Sorgu ve belgeyi ayrı kodlayıp token düzeyindeki etkileşimi daha sonra hesaplar; belge temsilleri önceden üretilebilir.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">ColBERT: Efficient and Effective Passage Search via Contextualized Late Interaction over BERT</div><p><strong>Omar Khattab ve Matei Zaharia, 2020 — SIGIR çalışması; erişilen kaynak arXiv.</strong> <a href="https://arxiv.org/abs/2004.12832" rel="noopener noreferrer" target="_blank">Çalışma</a></p>
+<ul>
+<li><strong>Katkı:</strong> Sorgu ve belgeyi ayrı kodlayıp token düzeyindeki etkileşimi daha sonra hesaplar; belge temsilleri önceden üretilebilir.</li>
+<li><strong>Projeye karşılığı:</strong> Tek vektörlü anlamsal aramanın alternatifidir. Ayrıntılı terim ilişkilerinin katkısı araştırılabilir.</li>
+<li><strong>Sınır:</strong> Orijinal çalışmadan Türkçe–İngilizce başarı çıkarılamaz; uygun çok dilli model gerekir. Birden fazla vektörün depolama ve arama maliyeti ölçülmelidir.</li>
+<li><strong>İnceleme:</strong> Yazarların arXiv özeti.</li>
+</ul></div></details>
+<details class="source-card" id="K20" data-kind="academic" data-group="Temsil &amp; sıralama" data-turkish="false">
+<summary><span class="source-id">K20</span><span class="source-summary"><span class="source-meta">Temsil &amp; sıralama <span>·</span> 2021</span><strong>SPLADE</strong><span class="source-excerpt">Öğrenilmiş terim ağırlıkları ve genişletmelerle seyrek temsiller üretir; ters indeksle aramayı korur.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">SPLADE: Sparse Lexical and Expansion Model for First Stage Ranking</div><p><strong>Thibault Formal, Benjamin Piwowarski ve Stéphane Clinchant, 2021 — SIGIR, hakemli konferans.</strong> <a href="https://arxiv.org/abs/2107.05720" rel="noopener noreferrer" target="_blank">Çalışma</a> · <a href="https://www.piwowarski.fr/publication/formal_splade_2021-lwjxesk9/formal_splade_2021-LWJXESK9.pdf" rel="noopener noreferrer" target="_blank">Yazar PDF’i</a></p>
+<ul>
+<li><strong>Katkı:</strong> Öğrenilmiş terim ağırlıkları ve genişletmelerle seyrek temsiller üretir; ters indeksle aramayı korur.</li>
+<li><strong>Projeye karşılığı:</strong> Yöntem alanı yalnızca BM25 ve yoğun embedding seçeneklerinden oluşmaz. Öğrenilmiş seyrek erişim ayrı bir aday ailesidir.</li>
+<li><strong>Sınır:</strong> Modelin ürettiği genişletme terimleri kaynakta bulunmayabilir; bunlar birebir alıntı gibi sunulamaz. Çok dilli yeterlik ayrı doğrulanmalıdır.</li>
+<li><strong>İnceleme:</strong> arXiv özeti ve yazar PDF’inin giriş/özet bölümü.</li>
+</ul></div></details>
+<details class="source-card" id="K21" data-kind="academic" data-group="Temsil &amp; sıralama" data-turkish="false">
+<summary><span class="source-id">K21</span><span class="source-summary"><span class="source-meta">Temsil &amp; sıralama <span>·</span> 2022</span><strong>LaBSE</strong><span class="source-excerpt">LaBSE ile çok dilli cümle temsili ve çeviri çifti erişimini inceler.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">Language-agnostic BERT Sentence Embedding</div><p><strong>Fangxiaoyu Feng ve ark., 2022 — ACL, hakemli konferans.</strong> <a href="https://aclanthology.org/2022.acl-long.62/" rel="noopener noreferrer" target="_blank">Yayın ve PDF</a></p>
+<ul>
+<li><strong>Katkı:</strong> LaBSE ile çok dilli cümle temsili ve çeviri çifti erişimini inceler.</li>
+<li><strong>Projeye karşılığı:</strong> Ortak temsil uzayı yaklaşımının temel çalışmalarındandır; çeviri eşleme ile sorguya ilgili kanıt bulmayı ayırt etmek için okunmalıdır.</li>
+<li><strong>Sınır:</strong> Bitext başarısı, kişisel notlarda asimetrik soru→belge erişimi başarısı değildir.</li>
+<li><strong>İnceleme:</strong> Yayın kaydı ve özet.</li>
+</ul></div></details>
+<details class="source-card" id="K22" data-kind="academic" data-group="Temsil &amp; sıralama" data-turkish="false">
+<summary><span class="source-id">K22</span><span class="source-summary"><span class="source-meta">Temsil &amp; sıralama <span>·</span> 2016</span><strong>HNSW</strong><span class="source-excerpt">Vektör komşuluğunu katmanlı graf üzerinde yaklaşık aramayla bulur.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">Efficient and robust approximate nearest neighbor search using Hierarchical Navigable Small World graphs</div><p><strong>Yu. A. Malkov ve D. A. Yashunin, 2016 ilk arXiv sürümü — HNSW temel çalışması.</strong> <a href="https://arxiv.org/abs/1603.09320" rel="noopener noreferrer" target="_blank">Çalışma ve yayın bilgileri</a></p>
+<ul>
+<li><strong>Katkı:</strong> Vektör komşuluğunu katmanlı graf üzerinde yaklaşık aramayla bulur.</li>
+<li><strong>Projeye karşılığı:</strong> Koleksiyon büyüdüğünde tam vektör taramasının alternatifi olarak incelenebilir.</li>
+<li><strong>Sınır:</strong> Yaklaşık komşu bulma doğruluğu ile sorguya anlamsal olarak doğru belge bulma doğruluğu farklıdır. Küçük depoda ek indeks karmaşıklığının karşılığı olmayabilir.</li>
+<li><strong>İnceleme:</strong> Yazarların arXiv özeti. Tarih ilk ön baskı içindir; dergi atfı için bağlantıdaki yayın kaydı kullanılmalıdır.</li>
+</ul></div></details>
+<details class="source-card" id="K10" data-kind="academic" data-group="Değerlendirme &amp; veri" data-turkish="false">
+<summary><span class="source-id">K10</span><span class="source-summary"><span class="source-meta">Değerlendirme &amp; veri <span>·</span> 2021</span><strong>BEIR</strong><span class="source-excerpt">Farklı alan ve görevlerde sözcüksel, seyrek, yoğun, geç etkileşimli ve yeniden sıralamalı yöntemleri karşılaştırır. BM25’in güçlü bir referans olabildiğini gösterir.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">BEIR: A Heterogeneous Benchmark for Zero-shot Evaluation of Information Retrieval Models</div><p><strong>Nandan Thakur ve ark., 2021 — NeurIPS Datasets and Benchmarks.</strong> <a href="https://datasets-benchmarks-proceedings.neurips.cc/paper_files/paper/2021/file/65b9eea6e1cc6bb9f0cd2a47751a186f-Paper-round2.pdf" rel="noopener noreferrer" target="_blank">Hakemli metin</a> · <a href="https://arxiv.org/abs/2104.08663" rel="noopener noreferrer" target="_blank">arXiv kaydı</a></p>
+<ul>
+<li><strong>Katkı:</strong> Farklı alan ve görevlerde sözcüksel, seyrek, yoğun, geç etkileşimli ve yeniden sıralamalı yöntemleri karşılaştırır. BM25’in güçlü bir referans olabildiğini gösterir.</li>
+<li><strong>Projeye karşılığı:</strong> Tek veri kümesi veya birkaç kolay örnekle model seçmeme gerekçesidir.</li>
+<li><strong>Sınır:</strong> Bu deneyler Türkçe–İngilizce kişisel bellek erişiminin doğrudan kanıtı değildir; dönemin modellerine aittir.</li>
+<li><strong>İnceleme:</strong> Yayın kaydı ve arXiv özeti.</li>
+</ul></div></details>
+<details class="source-card" id="K11" data-kind="academic" data-group="Değerlendirme &amp; veri" data-turkish="false">
+<summary><span class="source-id">K11</span><span class="source-summary"><span class="source-meta">Değerlendirme &amp; veri <span>·</span> 2021</span><strong>Mr. TyDi</strong><span class="source-excerpt">On bir dilde, sorguyla kaynağın aynı dilde olduğu erişimi inceler. Deneyde zayıf kalan yoğun modelin hibrite yararlı sinyal ekleyebilmesi dikkat çekicidir.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">Mr. TyDi: A Multi-lingual Benchmark for Dense Retrieval</div><p><strong>Xinyu Zhang, Xueguang Ma, Peng Shi ve Jimmy Lin, 2021 — MRL Workshop.</strong> <a href="https://aclanthology.org/2021.mrl-1.12/" rel="noopener noreferrer" target="_blank">Yayın ve veri bağlantıları</a></p>
+<ul>
+<li><strong>Katkı:</strong> On bir dilde, sorguyla kaynağın aynı dilde olduğu erişimi inceler. Deneyde zayıf kalan yoğun modelin hibrite yararlı sinyal ekleyebilmesi dikkat çekicidir.</li>
+<li><strong>Projeye karşılığı:</strong> İngilizce ve kapsanan diğer dillerde dış değerlendirme adayıdır; hibritin hangi koşulda yarar sağladığını sorgulatır. Türkçe içermez.</li>
+<li><strong>Sınır:</strong> TR→EN / EN→TR benchmark’ı değildir. Wikipedia’dan kişisel notlara geçiş alan değişimidir.</li>
+<li><strong>İnceleme:</strong> Yayın özeti, PDF’in görev tanımı/karşılaştırma bölümleri ve <a href="https://github.com/castorini/mr.tydi" rel="noopener noreferrer" target="_blank">resmî deponun dil listesi</a>.</li>
+</ul></div></details>
+<details class="source-card" id="K12" data-kind="academic" data-group="Değerlendirme &amp; veri" data-turkish="false">
+<summary><span class="source-id">K12</span><span class="source-summary"><span class="source-meta">Değerlendirme &amp; veri <span>·</span> 2023</span><strong>MIRACL</strong><span class="source-excerpt">On sekiz dil için insan değerlendirmeli Wikipedia erişim verisi sağlar.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">MIRACL: A Multilingual Retrieval Dataset Covering 18 Diverse Languages</div><p><strong>Xinyu Zhang ve ark., 2023 — TACL, hakemli dergi.</strong> <a href="https://aclanthology.org/2023.tacl-1.63/" rel="noopener noreferrer" target="_blank">Yayın ve PDF</a></p>
+<ul>
+<li><strong>Katkı:</strong> On sekiz dil için insan değerlendirmeli Wikipedia erişim verisi sağlar.</li>
+<li><strong>Projeye karşılığı:</strong> İngilizce ve kapsanan diğer dillerde dil içi kaliteyi izlemek ve insan ilgililik etiketleme düzenini incelemek için adaydır. Türkçe içermez.</li>
+<li><strong>Sınır:</strong> Tasarım gereği sorgu ile koleksiyon aynı dildedir. Burada iyi sonuç almak diller arası başarıyı kanıtlamaz.</li>
+<li><strong>İnceleme:</strong> Hakemli yayın kaydı, özeti ve <a href="https://github.com/project-miracl/miracl" rel="noopener noreferrer" target="_blank">resmî deponun dil listesi</a>.</li>
+</ul></div></details>
+<details class="source-card" id="K13" data-kind="academic" data-group="Değerlendirme &amp; veri" data-turkish="false">
+<summary><span class="source-id">K13</span><span class="source-summary"><span class="source-meta">Değerlendirme &amp; veri <span>·</span> 2025</span><strong>MMTEB</strong><span class="source-excerpt">Çok sayıda dil ve görev üzerinden embedding değerlendirmesini genişletir.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">MMTEB: Massive Multilingual Text Embedding Benchmark</div><p><strong>Kenneth Enevoldsen ve ark., 2025 — erişilen kaynak arXiv çalışması.</strong> <a href="https://arxiv.org/abs/2502.13595" rel="noopener noreferrer" target="_blank">Çalışma</a></p>
+<ul>
+<li><strong>Katkı:</strong> Çok sayıda dil ve görev üzerinden embedding değerlendirmesini genişletir.</li>
+<li><strong>Projeye karşılığı:</strong> Aday model havuzunu ve farklı görevlerdeki davranışı incelemek için yararlıdır.</li>
+<li><strong>Sınır:</strong> Sınıflandırma, benzerlik ve erişimin toplu ortalaması bu projenin hedef ölçümü değildir. Dil, görev, veri sürümü ve modelin eğitim verisi kontrol edilmelidir. Makaledeki sıralama güncel liderlik tablosu diye sunulamaz.</li>
+<li><strong>İnceleme:</strong> Yazarların arXiv özeti ve kayıt bilgisi.</li>
+</ul></div></details>
+<details class="source-card" id="K14" data-kind="academic" data-group="Değerlendirme &amp; veri" data-turkish="false">
+<summary><span class="source-id">K14</span><span class="source-summary"><span class="source-meta">Değerlendirme &amp; veri <span>·</span> 2025</span><strong>NeuCLIRBench</strong><span class="source-excerpt">Dil içi, diller arası ve çok dilli koleksiyon erişimini ayrı senaryolar olarak sunar. İngilizce sorgular; Çince, Farsça ve Rusça belgeler ile İngilizce çeviriler bulunur.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">NeuCLIRBench: A Modern Evaluation Collection for Monolingual, Cross-Language, and Multilingual Information Retrieval</div><p><strong>Dawn Lawrie ve ark., 2025 — erişilen kaynak arXiv ön baskısı.</strong> <a href="https://arxiv.org/abs/2511.14758" rel="noopener noreferrer" target="_blank">Çalışma</a> · <a href="https://huggingface.co/datasets/neuclir/bench" rel="noopener noreferrer" target="_blank">Veri kartı</a></p>
+<ul>
+<li><strong>Katkı:</strong> Dil içi, diller arası ve çok dilli koleksiyon erişimini ayrı senaryolar olarak sunar. İngilizce sorgular; Çince, Farsça ve Rusça belgeler ile İngilizce çeviriler bulunur.</li>
+<li><strong>Projeye karşılığı:</strong> Diller arası deneyin nasıl kurulacağı ve çeviri tabanlı erişimin nasıl karşılaştırılacağı için örnektir.</li>
+<li><strong>Sınır:</strong> Türkçe içermez; proje için doğrudan TR–EN test kümesi olamaz.</li>
+<li><strong>İnceleme:</strong> arXiv özeti ve veri kartı bilgisi.</li>
+</ul></div></details>
+<details class="source-card" id="K23" data-kind="academic" data-group="Türkçe odaklı çalışmalar" data-turkish="true">
+<summary><span class="source-id">K23</span><span class="source-summary"><span class="source-meta">Türkçe odaklı çalışmalar <span>·</span> 2025</span><strong>TR-MTEB</strong><span class="source-excerpt">Türkçe için erişim dahil altı görev türünde 26 veri kümesini ve Türkçeye özel embedding modellerini sunar; özgün ve çevrilmiş kaynakları birlikte kullanır.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">TR-MTEB: A Comprehensive Benchmark and Embedding Model Suite for Turkish Sentence Representations</div><p><strong>Mehmet Selman Baysan ve Tunga Güngör, 2025 — Findings of EMNLP, hakemli yayın.</strong> <a href="https://aclanthology.org/2025.findings-emnlp.471/" rel="noopener noreferrer" target="_blank">Yayın ve PDF</a> · <a href="https://huggingface.co/trmteb" rel="noopener noreferrer" target="_blank">Resmî veri/model koleksiyonu</a></p>
+<ul>
+<li><strong>Katkı:</strong> Türkçe için erişim dahil altı görev türünde 26 veri kümesini ve Türkçeye özel embedding modellerini sunar; özgün ve çevrilmiş kaynakları birlikte kullanır.</li>
+<li><strong>Projeye karşılığı:</strong> Türkçe değerlendirme ve aday veri seçimi için doğrudan ilgili bir başlangıç kaynağıdır.</li>
+<li><strong>Sınır:</strong> Toplu embedding skoru yerine erişim alt görevleri incelenmelidir. Türkçe benchmark olması, TR→EN ve EN→TR kişisel belge erişimini ölçtüğü anlamına gelmez; çevrilmiş verinin etkisi ayrılmalıdır.</li>
+<li><strong>İnceleme:</strong> Hakemli yayın özeti, PDF’in giriş kısmı ve resmî koleksiyon açıklaması.</li>
+</ul></div></details>
+<details class="source-card" id="K24" data-kind="academic" data-group="Türkçe odaklı çalışmalar" data-turkish="true">
+<summary><span class="source-id">K24</span><span class="source-summary"><span class="source-meta">Türkçe odaklı çalışmalar <span>·</span> 2026</span><strong>TR-TEB</strong><span class="source-excerpt">Beş görev türünde Türkçe embedding değerlendirmesi; açık kaynak, çevrilmiş ve yeni Türkçe veri kümelerini bir araya getirir.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">TR-TEB: Turkish Text Embedding Benchmark</div><p><strong>Ömer Arslan ve ark., 2026 — LREC, hakemli konferans.</strong> <a href="https://lrec.elra.info/lrec2026-main-862" rel="noopener noreferrer" target="_blank">Yayın, PDF ve yazarlar</a></p>
+<ul>
+<li><strong>Katkı:</strong> Beş görev türünde Türkçe embedding değerlendirmesi; açık kaynak, çevrilmiş ve yeni Türkçe veri kümelerini bir araya getirir.</li>
+<li><strong>Projeye karşılığı:</strong> <a class="ref" href="#kaynaklar/K23">K23</a>’ten ayrı bir çalışmadır. Erişim verilerini ve değerlendirme düzenini karşılaştırmak, Türkçe değerlendirme havuzunu genişletir.</li>
+<li><strong>Sınır:</strong> Kişisel not alanına ve diller arası erişime doğrudan genellenemez. Görevler arası ortalama yerine ilgili alt görevler seçilmelidir.</li>
+<li><strong>İnceleme:</strong> Resmî LREC yayın kaydı ve özet. Yazarların “ilk” nitelemesi özgünlük kanıtı olarak benimsenmedi.</li>
+</ul></div></details>
+<details class="source-card" id="K25" data-kind="academic" data-group="Türkçe odaklı çalışmalar" data-turkish="true">
+<summary><span class="source-id">K25</span><span class="source-summary"><span class="source-meta">Türkçe odaklı çalışmalar <span>·</span> 2026</span><strong>TurkColBERT</strong><span class="source-excerpt">Türkçe erişimde yoğun kodlayıcılarla geç etkileşimli modelleri, ayrıca indeksleme yöntemlerini karşılaştırır.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">TurkColBERT: A Benchmark of Dense and Late-Interaction Models for Turkish Information Retrieval</div><p><strong>Özay Ezerceli ve ark., 2026 — Procedia Computer Science; ön baskı 2025.</strong> <a href="https://www.sciencedirect.com/science/article/pii/S1877050926000487" rel="noopener noreferrer" target="_blank">Yayıncı kaydı</a> · <a href="https://arxiv.org/abs/2511.16528" rel="noopener noreferrer" target="_blank">Yazar ön baskısı</a></p>
+<ul>
+<li><strong>Katkı:</strong> Türkçe erişimde yoğun kodlayıcılarla geç etkileşimli modelleri, ayrıca indeksleme yöntemlerini karşılaştırır.</li>
+<li><strong>Projeye karşılığı:</strong> Tek vektörlü modellere erken bağlanmamak ve Türkçe için temsil–indeks maliyetini birlikte incelemek açısından doğrudan ilgilidir.</li>
+<li><strong>Sınır:</strong> Yazarlar çevrilmiş benchmark’ları ve en fazla 50 bin belgeli deneyleri sınır olarak belirtir. Rapordaki sorgu süreleri bizim donanımımızda beklenen süre değildir; diller arası başarıyı da göstermez.</li>
+<li><strong>İnceleme:</strong> Yayıncı ve arXiv özetleri; sonuçlar yeniden üretilmedi.</li>
+</ul></div></details>
+<details class="source-card" id="K26" data-kind="academic" data-group="Türkçe odaklı çalışmalar" data-turkish="true">
+<summary><span class="source-id">K26</span><span class="source-summary"><span class="source-meta">Türkçe odaklı çalışmalar <span>·</span> 2026</span><strong>RAGTurk</strong><span class="source-excerpt">Türkçe RAG hattındaki sorgu dönüşümü, yeniden sıralama ve diğer aşamaları kalite/maliyet açısından karşılaştırır; ek modüllerin her zaman yararlı olmadığını gösterir.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">RAGTurk: Best Practices for Retrieval Augmented Generation in Turkish</div><p><strong>Süha Kağan Köse ve ark., 2026 — erişilen arXiv kaydında EACL 2026 SIGTURK kabul bilgisi.</strong> <a href="https://arxiv.org/abs/2602.03652" rel="noopener noreferrer" target="_blank">Çalışma</a></p>
+<ul>
+<li><strong>Katkı:</strong> Türkçe RAG hattındaki sorgu dönüşümü, yeniden sıralama ve diğer aşamaları kalite/maliyet açısından karşılaştırır; ek modüllerin her zaman yararlı olmadığını gösterir.</li>
+<li><strong>Projeye karşılığı:</strong> Türkçe için bileşen katkısını ayrı ölçme ve karmaşıklığın karşılığını sorgulama örneğidir.</li>
+<li><strong>Sınır:</strong> Tam RAG hattındaki cevap doğruluğu, bizim dosya sıralama başarımızla aynı ölçüm değildir. Üretim modülleri bu projede gereksinim haline gelmez.</li>
+<li><strong>İnceleme:</strong> Yazarların arXiv özeti ve kabul notu.</li>
+</ul></div></details>
+<details class="source-card" id="K15" data-kind="academic" data-group="Yapay zekâ &amp; maliyet" data-turkish="false">
+<summary><span class="source-id">K15</span><span class="source-summary"><span class="source-meta">Yapay zekâ &amp; maliyet <span>·</span> 2020</span><strong>Retrieval-Augmented Generation</strong><span class="source-excerpt">Parametrik model belleği ile dış yoğun indeks üzerinden getirilen bilgiyi birlikte kullanır.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks</div><p><strong>Patrick Lewis ve ark., 2020 — NeurIPS.</strong> <a href="https://arxiv.org/abs/2005.11401" rel="noopener noreferrer" target="_blank">Çalışma</a></p>
+<ul>
+<li><strong>Katkı:</strong> Parametrik model belleği ile dış yoğun indeks üzerinden getirilen bilgiyi birlikte kullanır.</li>
+<li><strong>Projeye karşılığı:</strong> Haricî bilgi erişiminin yapay zekâya kaynak sağlayabilmesinin temel dayanaklarından biridir.</li>
+<li><strong>Sınır:</strong> Projemiz cevap üretmiyor. Bu makalenin üretim kalitesi bulguları, bizim dosya seçimi veya toplam token tasarrufumuz olarak aktarılamaz.</li>
+<li><strong>İnceleme:</strong> Yazarların yayın özeti.</li>
+</ul></div></details>
+<details class="source-card" id="K16" data-kind="academic" data-group="Yapay zekâ &amp; maliyet" data-turkish="false">
+<summary><span class="source-id">K16</span><span class="source-summary"><span class="source-meta">Yapay zekâ &amp; maliyet <span>·</span> 2024</span><strong>Çok dilli RAG</strong><span class="source-excerpt">Çok dilli RAG hattında erişim, üretim dili ve değerlendirme sorunlarını birlikte inceler.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">Retrieval-augmented generation in multilingual settings</div><p><strong>Nadezhda Chirkova ve ark., 2024 — KnowLLM Workshop.</strong> <a href="https://aclanthology.org/2024.knowllm-1.15/" rel="noopener noreferrer" target="_blank">Yayın ve PDF</a> · <a href="https://arxiv.org/abs/2407.01463" rel="noopener noreferrer" target="_blank">arXiv</a></p>
+<ul>
+<li><strong>Katkı:</strong> Çok dilli RAG hattında erişim, üretim dili ve değerlendirme sorunlarını birlikte inceler.</li>
+<li><strong>Projeye karşılığı:</strong> Doğru kaynak bulunması ile çağıran modelin onu doğru kullanmasının ayrı aşamalar olduğunu gösterir.</li>
+<li><strong>Sınır:</strong> Üretime ilişkin problemler ilk sürümün kapsamı dışındadır; kaynak bulma deneyine doğrudan başarı ölçütü yapılamaz.</li>
+<li><strong>İnceleme:</strong> Yazarların özet ve yayın kaydı.</li>
+</ul></div></details>
+<details class="source-card" id="K17" data-kind="academic" data-group="Yapay zekâ &amp; maliyet" data-turkish="false">
+<summary><span class="source-id">K17</span><span class="source-summary"><span class="source-meta">Yapay zekâ &amp; maliyet <span>·</span> 2024</span><strong>Lost in the Middle</strong><span class="source-excerpt">İlgili bilginin uzun bağlam içindeki konumunun, incelenen modellerin başarısını etkileyebildiğini gösterir.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">Lost in the Middle: How Language Models Use Long Contexts</div><p><strong>Nelson F. Liu ve ark., 2024 — TACL; ön baskı 2023.</strong> <a href="https://aclanthology.org/2024.tacl-1.9/" rel="noopener noreferrer" target="_blank">Hakemli yayın</a></p>
+<ul>
+<li><strong>Katkı:</strong> İlgili bilginin uzun bağlam içindeki konumunun, incelenen modellerin başarısını etkileyebildiğini gösterir.</li>
+<li><strong>Projeye karşılığı:</strong> Seçici kaynak aktarımının araştırılmasını destekleyen motivasyondur.</li>
+<li><strong>Sınır:</strong> Her güncel model veya her görev için aynı etkiyi kanıtlamaz; kendi başına maliyet tasarrufu sonucu değildir.</li>
+<li><strong>İnceleme:</strong> Yayın kaydı ve özet.</li>
+</ul></div></details>
+<details class="source-card" id="K18" data-kind="academic" data-group="Yapay zekâ &amp; maliyet" data-turkish="false">
+<summary><span class="source-id">K18</span><span class="source-summary"><span class="source-meta">Yapay zekâ &amp; maliyet <span>·</span> 2024</span><strong>RAG mi, uzun bağlam mı?</strong><span class="source-excerpt">Kendi deneylerinde yeterli kaynak sağlandığında uzun bağlamın ortalama kalite avantajı, RAG’in ise maliyet avantajı olabildiğini raporlar.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><div class="full-title">Retrieval Augmented Generation or Long-Context LLMs? A Comprehensive Study and Hybrid Approach</div><p><strong>Zhuowan Li ve ark., 2024 — EMNLP Industry Track.</strong> <a href="https://aclanthology.org/2024.emnlp-industry.66/" rel="noopener noreferrer" target="_blank">Yayın ve PDF</a></p>
+<ul>
+<li><strong>Katkı:</strong> Kendi deneylerinde yeterli kaynak sağlandığında uzun bağlamın ortalama kalite avantajı, RAG’in ise maliyet avantajı olabildiğini raporlar.</li>
+<li><strong>Projeye karşılığı:</strong> Daha az içerik okumanın bedelsiz olmadığını ve kalite–maliyet ilişkisinin birlikte ölçülmesi gerektiğini gösteren karşı kanıttır.</li>
+<li><strong>Sınır:</strong> Üretim sistemi karşılaştırmasıdır; buradaki tasarruf oranları dosya bulma aracına taşınamaz.</li>
+<li><strong>İnceleme:</strong> Hakemli yayın kaydı, özet ve PDF’in giriş kısmı.</li>
+</ul></div></details>
+<details class="source-card" id="U01" data-kind="technical" data-group="Sistemler & teknik kaynaklar" data-turkish="false">
+<summary><span class="source-id technical-id">U01</span><span class="source-summary"><span class="source-meta">Sistemler & teknik kaynaklar</span><strong>Recoll</strong><span class="source-excerpt">Yerel belge indeksi, parçalara ayırma, embedding saklama ve CLI sorgusu. Yazı Ollama/Chroma ile deneysel entegrasyonu anlatır.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><p><a href="https://www.recoll.org/" rel="noopener noreferrer" target="_blank">Recoll</a> ve <a href="https://www.recoll.org/pages/recoll-semantic.html" rel="noopener noreferrer" target="_blank">geliştiricinin anlamsal arama yazısı</a></p><dl class="tech-detail"><dt>İncelenecek yön</dt><dd>Yerel belge indeksi, parçalara ayırma, embedding saklama ve CLI sorgusu. Yazı Ollama/Chroma ile deneysel entegrasyonu anlatır.</dd><dt>Projeye aktarım sınırı</dt><dd>Projeye yakın öncül örnek. Türkçe–İngilizce başarısı gösterilmiş sayılmaz; geliştirici CPU maliyetini ve deneysel niteliği belirtiyor.</dd><dt>İnceleme düzeyi</dt><dd>Resmî dokümantasyon ve proje açıklaması. Kaynak kodu denetimi veya uçtan uca test yapılmadı.</dd></dl></div></details>
+<details class="source-card" id="U02" data-kind="technical" data-group="Sistemler & teknik kaynaklar" data-turkish="false">
+<summary><span class="source-id technical-id">U02</span><span class="source-summary"><span class="source-meta">Sistemler & teknik kaynaklar</span><strong>txtai — resmî depo</strong><span class="source-excerpt">Yerel embedding veritabanı, seyrek/yoğun indeksler ve ilişkisel verinin birlikte kullanımı.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><p><a href="https://github.com/neuml/txtai" rel="noopener noreferrer" target="_blank">txtai — resmî depo</a> ve <a href="https://neuml.github.io/txtai/examples/" rel="noopener noreferrer" target="_blank">örnekler</a></p><dl class="tech-detail"><dt>İncelenecek yön</dt><dd>Yerel embedding veritabanı, seyrek/yoğun indeksler ve ilişkisel verinin birlikte kullanımı.</dd><dt>Projeye aktarım sınırı</dt><dd>Kütüphane adayı ve örnek mimari; varsayılan modelin bu projeye uygun olduğu kabul edilmez.</dd><dt>İnceleme düzeyi</dt><dd>Resmî dokümantasyon ve proje açıklaması. Kaynak kodu denetimi veya uçtan uca test yapılmadı.</dd></dl></div></details>
+<details class="source-card" id="U03" data-kind="technical" data-group="Sistemler & teknik kaynaklar" data-turkish="false">
+<summary><span class="source-id technical-id">U03</span><span class="source-summary"><span class="source-meta">Sistemler & teknik kaynaklar</span><strong>Khoj — resmî depo</strong><span class="source-excerpt">Kişisel belgelerde anlamsal arama, Markdown desteği ve self-hosting.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><p><a href="https://github.com/khoj-ai/khoj" rel="noopener noreferrer" target="_blank">Khoj — resmî depo</a></p><dl class="tech-detail"><dt>İncelenecek yön</dt><dd>Kişisel belgelerde anlamsal arama, Markdown desteği ve self-hosting.</dd><dt>Projeye aktarım sınırı</dt><dd>Ürün kapsamı bu projeden geniştir. Self-hosting seçeneği, her yapılandırmanın internetsiz çalıştığını kanıtlamaz.</dd><dt>İnceleme düzeyi</dt><dd>Resmî dokümantasyon ve proje açıklaması. Kaynak kodu denetimi veya uçtan uca test yapılmadı.</dd></dl></div></details>
+<details class="source-card" id="U04" data-kind="technical" data-group="Sistemler & teknik kaynaklar" data-turkish="false">
+<summary><span class="source-id technical-id">U04</span><span class="source-summary"><span class="source-meta">Sistemler & teknik kaynaklar</span><strong>Sentence Transformers: Retrieve &amp; Re-Rank</strong><span class="source-excerpt">Aday getirme ile sorgu–belge çiftini yeniden puanlamanın ayrılması.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><p><a href="https://www.sbert.net/examples/sentence_transformer/applications/retrieve_rerank/README.html" rel="noopener noreferrer" target="_blank">Sentence Transformers: Retrieve &amp; Re-Rank</a></p><dl class="tech-detail"><dt>İncelenecek yön</dt><dd>Aday getirme ile sorgu–belge çiftini yeniden puanlamanın ayrılması.</dd><dt>Projeye aktarım sınırı</dt><dd>Yeniden sıralama ek hesaplama ister ve ilk aşamanın kaçırdığı belgeyi geri getiremez. Model dil kapsamı ayrıca kontrol edilir.</dd><dt>İnceleme düzeyi</dt><dd>Resmî dokümantasyon ve proje açıklaması. Kaynak kodu denetimi veya uçtan uca test yapılmadı.</dd></dl></div></details>
+<details class="source-card" id="U05" data-kind="technical" data-group="Sistemler & teknik kaynaklar" data-turkish="false">
+<summary><span class="source-id technical-id">U05</span><span class="source-summary"><span class="source-meta">Sistemler & teknik kaynaklar</span><strong>SQLite FTS5</strong><span class="source-excerpt">Kalıcı tam metin indeksi, BM25, highlight/snippet ve güncelleme işlemleri.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><p><a href="https://www.sqlite.org/fts5.html" rel="noopener noreferrer" target="_blank">SQLite FTS5</a></p><dl class="tech-detail"><dt>İncelenecek yön</dt><dd>Kalıcı tam metin indeksi, BM25, highlight/snippet ve güncelleme işlemleri.</dd><dt>Projeye aktarım sınırı</dt><dd>Unicode desteği Türkçe kök bulma değildir. FTS5 BM25 puan yönü ve MATCH sorgu anlamı deneyde doğru ele alınmalıdır.</dd><dt>İnceleme düzeyi</dt><dd>Resmî dokümantasyon ve proje açıklaması. Kaynak kodu denetimi veya uçtan uca test yapılmadı.</dd></dl></div></details>
+<details class="source-card" id="U06" data-kind="technical" data-group="Sistemler & teknik kaynaklar" data-turkish="false">
+<summary><span class="source-id technical-id">U06</span><span class="source-summary"><span class="source-meta">Sistemler & teknik kaynaklar</span><strong>Stanford: Introduction to Information Retrieval</strong><span class="source-excerpt">Ters indeks, vektör uzayı, TF–IDF ve erişim değerlendirmesinin ders kitabı temeli.</span></span><span class="expand-icon" aria-hidden="true">+</span></summary>
+<div class="source-body"><p><a href="https://nlp.stanford.edu/IR-book/html/htmledition/irbook.html" rel="noopener noreferrer" target="_blank">Stanford: Introduction to Information Retrieval</a></p><dl class="tech-detail"><dt>İncelenecek yön</dt><dd>Ters indeks, vektör uzayı, TF–IDF ve erişim değerlendirmesinin ders kitabı temeli.</dd><dt>Projeye aktarım sınırı</dt><dd>Sinirsel çok dilli erişimi tek başına karşılamaz; yöntemleri doğru kavramsallaştırmak için temel okuma.</dd><dt>İnceleme düzeyi</dt><dd>Resmî dokümantasyon ve proje açıklaması. Kaynak kodu denetimi veya uçtan uca test yapılmadı.</dd></dl></div></details></div>
+<div class="empty-state" id="empty-state" hidden><h3>Bu aramada kaynak bulunamadı.</h3><p>Farklı bir sözcük dene veya filtreleri kaldır.</p><button class="button" id="reset-filters">Bütün kaynakları göster</button></div>
+<div class="reading-order" id="okuma-sirasi"><h2>Önerilen okuma sırası</h2><div class="prose"><ol>
+<li><strong>Problemin konumu:</strong> <a class="ref" href="#kaynaklar/K01">K01</a>, <a class="ref" href="#kaynaklar/K15">K15</a>, <a class="ref" href="#kaynaklar/K17">K17</a> ve <a class="ref" href="#kaynaklar/K18">K18</a>. Kişisel bilgi erişimi geçmişi, dış kaynak kullanımı ve kalite–maliyet gerilimi.</li>
+<li><strong>Yöntem aileleri:</strong> <a class="ref" href="#kaynaklar/K02">K02</a>, <a class="ref" href="#kaynaklar/K04">K04</a>, <a class="ref" href="#kaynaklar/K19">K19</a>, <a class="ref" href="#kaynaklar/K20">K20</a> ve <a class="ref" href="#kaynaklar/K03">K03</a>. Sözcüksel, yoğun, geç etkileşimli, öğrenilmiş seyrek ve birleşim yaklaşımları.</li>
+<li><strong>Dil ve değerlendirme:</strong> <a class="ref" href="#kaynaklar/K05">K05</a>, <a class="ref" href="#kaynaklar/K06">K06</a>, <a class="ref" href="#kaynaklar/K11">K11</a>, <a class="ref" href="#kaynaklar/K12">K12</a>, <a class="ref" href="#kaynaklar/K14">K14</a>, <a class="ref" href="#kaynaklar/K23">K23</a> ve <a class="ref" href="#kaynaklar/K24">K24</a>. Modelin dil etiketi ile gerçek diller arası görevi ayırma.</li>
+<li><strong>Dosya ve ölçek:</strong> <a class="ref" href="#kaynaklar/K08">K08</a>, <a class="ref" href="#kaynaklar/K09">K09</a>, <a class="ref" href="#kaynaklar/K22">K22</a>; ardından <a class="ref" href="#kaynaklar/U01">U01</a>–<a class="ref" href="#kaynaklar/U05">U05</a>. Parçadan dosyaya geçiş, arama maliyeti ve kalıcılık.</li>
+<li><strong>Aday havuzunu genişletme:</strong> <a class="ref" href="#kaynaklar/K07">K07</a>, <a class="ref" href="#kaynaklar/K10">K10</a>, <a class="ref" href="#kaynaklar/K13">K13</a>, <a class="ref" href="#kaynaklar/K21">K21</a>, <a class="ref" href="#kaynaklar/K25">K25</a> ve <a class="ref" href="#kaynaklar/K26">K26</a>. İlk okumalar sonrasında eksik kalan soruya göre derinleşme.</li>
+</ol>
+<p>Bu sıra bir model seçimi değildir; okumaların birbirini anlamlandırması içindir.</p></div></div>
+</section>
+<section class="view" id="view-ilk-hafta" data-title="İlk hafta" aria-labelledby="title-ilk-hafta">
+<div class="eyebrow">Araştırmaya başlangıç</div><h1 class="page-title" id="title-ilk-hafta">Sorudan deneye<br>ilk adımlar.</h1><p class="page-lede">Tamamlanan araştırma hazırlıkları, değerlendirme senaryoları ve yöntem kararından önce açık kalan işler.</p><div class="doc-meta"><span>12 Kasım 2026</span><span>Araştırma hazırlığı</span><a href="ILK_HAFTA.md">Kaynak belge ↗</a></div>
+<details class="toc-mobile"><summary>Bu sayfanın içindekileri göster</summary><nav aria-label="İlk hafta içindekiler (mobil)"><a href="#ilk-hafta/ilk-hafta-bu-calismada-tamamlananlar"><span>01</span>Bu çalışmada tamamlananlar</a><a href="#ilk-hafta/ilk-hafta-calisma-problem-cumlesi"><span>02</span>Çalışma problem cümlesi</a><a href="#ilk-hafta/ilk-hafta-veri-tasarimina-baslangic-senaryolari"><span>03</span>Veri tasarımına başlangıç senaryoları</a><a href="#ilk-hafta/ilk-hafta-degerlendirme-kaydi-taslagi"><span>04</span>Değerlendirme kaydı taslağı</a><a href="#ilk-hafta/ilk-hafta-yontem-kararindan-once-kalan-isler"><span>05</span>Yöntem kararından önce kalan işler</a><a href="#ilk-hafta/ilk-hafta-okuma-karti-sablonu"><span>06</span>Okuma kartı şablonu</a></nav></details>
+<div class="reader-grid"><article class="prose" id="week-content">
+<p><strong>Tarih:</strong> 12 Kasım 2026<br/>
+<strong>Amaç:</strong> Kaynakları toplamak, problemle ilişkilerini kurmak ve yöntem seçimine hazırlanmak.<br/>
+<strong>Karar durumu:</strong> Nihai yöntem, algoritma, model, indeks veya kütüphane seçilmedi. Sunumdaki yöntemler başlangıç örnekleridir ve taramayı sınırlandırmaz.</p>
+<p>Bu kayıt, mevcut araştırma talebini somutlaştırır. Bağımsız bir resmî haftalık görev listesi doğrulanmadığı için aşağıdaki işler öğretim elemanının kesin haftalık teslim listesi olarak sunulmaz. Proje tanımındaki yöntem araştırması aşamasına giriş niteliğindedir.</p>
+<h2 id="ilk-hafta-bu-calismada-tamamlananlar" tabindex="-1">Bu çalışmada tamamlananlar</h2>
+<ul>
+<li class="done-item">Mevcut <a href="../PROJE_TANIMI.md">proje tanımı</a> okundu; kaynak bulma ile cevap üretme sınırı korundu.</li>
+<li class="done-item"><a href="#kaynaklar">26 akademik kaynak ve 6 teknik/uygulamalı kaynak</a> toplandı; bağlantı, katkı, projeye karşılık, sınır ve inceleme düzeyleri kaydedildi.</li>
+<li class="done-item"><a href="#literatur">Yöntem aileleri karşılaştırması</a> yazıldı; temsiller, sıralama, indeksleme ve sonuç politikası ayrı kararlar olarak ele alındı.</li>
+<li class="done-item">Hipotez; indeksleme maliyeti, diller arası kalite, çıktı bütçesi ve sonuç vermeme davranışına ayrıldı.</li>
+<li class="done-item">Veri ve ölçüm tasarımına giriş için aşağıdaki senaryolar ve kayıt şeması hazırlandı.</li>
+</ul>
+<p>Bunlar araştırma hazırlığı çıktılarıdır. Makalelerin tümünün ayrıntılı okunduğu, veri kümesinin hazırlandığı, modellerin çalıştırıldığı veya hipotezin doğrulandığı anlamına gelmez.</p>
+<h2 id="ilk-hafta-calisma-problem-cumlesi" tabindex="-1">Çalışma problem cümlesi</h2>
+<blockquote>
+<p>Türkçe ve İngilizce kişisel metin depolarında, farklı dil ve ifadelerle sorulan bir bilgi ihtiyacı için ilgili kaynak dosyalarını; erişim kalitesi, güncelleme gereksinimi ve yerel kaynak tüketimi birlikte gözetilerek nasıl bulabiliriz? Önceden oluşturulan indeks ve NLP yöntemlerinin katkıları hangi koşullarda ortaya çıkar?</p>
+</blockquote>
+<p>Bu ifade yöntem belirtmez. Test edilecek olan yalnızca “anlamsal arama çalışıyor mu?” değildir; hangi yaklaşımın hangi sorgu türünde, ne maliyetle yeterli olduğu araştırılır.</p>
+<h2 id="ilk-hafta-veri-tasarimina-baslangic-senaryolari" tabindex="-1">Veri tasarımına başlangıç senaryoları</h2>
+<p><strong>Aşağıdaki örnekler tasarım için üretilmiş sentetik senaryolardır.</strong> Gerçek kişisel notlardan alınmadılar; mevcut dosyalar veya ölçülmüş sonuçlar değiller. Bunlar değerlendirme kümesinin yerini tutmaz.</p>
+<div aria-label="Karşılaştırma tablosu; yatay kaydırılabilir" class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Senaryo</th>
+<th>Örnek sorgu</th>
+<th>Hazırlanacak kaynak/etiket durumu</th>
+<th>Sınadığı ayrım</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aynı dilde farklı ifade</td>
+<td>“Bütün değişiklikler neden birlikte kaydedilmeli?”</td>
+<td>Türkçe işlem atomikliği notu; ortak sözcükleri taşıyan ilgisiz not</td>
+<td>Kelime benzerliği / bilgi ihtiyacı</td>
+</tr>
+<tr>
+<td>TR→EN</td>
+<td>“Veritabanını seçmemizin gerekçesi neydi?”</td>
+<td>Gerekçeyi yalnızca İngilizce anlatan karar notu</td>
+<td>Gerçek diller arası erişim</td>
+</tr>
+<tr>
+<td>EN→TR</td>
+<td>“Why did we stop using the previous storage engine?”</td>
+<td>Değişiklik nedenini yalnızca Türkçe anlatan not</td>
+<td>Ters yönde diller arası erişim</td>
+</tr>
+<tr>
+<td>Özel terim</td>
+<td>“ERR_CONNECTION_RESET için çözüm notu”</td>
+<td>Hata kodunu ve çözümü içeren dosya; benzer hata kodlu karşı örnek</td>
+<td>Kesin terim eşleşmesinin önemi</td>
+</tr>
+<tr>
+<td>Karışık dil</td>
+<td>“Deployment sonrası geri dönüş için ne yapıyorduk?”</td>
+<td>Türkçe–İngilizce karışık rollback notu</td>
+<td>Kod değişimi / karışık dil</td>
+</tr>
+<tr>
+<td>Yanlış proje</td>
+<td>“A projesinde Redis’i neden kaldırdık?”</td>
+<td>A ve B projesinde benzer terimler; farklı karar gerekçeleri</td>
+<td>Konu benzerliği / proje ilgililiği</td>
+</tr>
+<tr>
+<td>Birden fazla kaynak</td>
+<td>“İlk kararla sonraki değişikliğin gerekçelerini bul.”</td>
+<td>İki ilgili dosya; her ikisi de etiketli</td>
+<td>İlk sonucu bulmak / ilgili kaynakları kapsamak</td>
+</tr>
+<tr>
+<td>Kaynak yok</td>
+<td>“Hiç kaydetmediğimiz servis için lisans kararı neydi?”</td>
+<td>Benzer konulu fakat soruyu karşılamayan dosyalar</td>
+<td>Yanlış kabul / sonuç vermeme</td>
+</tr>
+<tr>
+<td>Uzun dosya</td>
+<td>“Denemenin sonundaki iptal gerekçesi neydi?”</td>
+<td>Kanıt dosyanın sonunda; başta benzer konu</td>
+<td>Kırpma ve parça→dosya sıralaması</td>
+</tr>
+<tr>
+<td>Güncelleme</td>
+<td>Aynı sorguyu indeks güncellemesinden önce/sonra çalıştırma</td>
+<td>Dosya ekleme, değiştirme, silme ve yeniden adlandırma</td>
+<td>İndeks yaşam döngüsü</td>
+</tr>
+</tbody>
+</table></div>
+<p>Çelişen iki notun ikisi de sorguya ilgili olabilir. Etiketleme sırasında “arama için ilgili” ile “halen geçerli karar” ayrı tutulmalı; sistemin kapsam dışı olan yetkili kayıt seçimini otomatik yaptığı varsayılmamalıdır.</p>
+<h2 id="ilk-hafta-degerlendirme-kaydi-taslagi" tabindex="-1">Değerlendirme kaydı taslağı</h2>
+<p>Her sorgu için önerilen alanlar:</p>
+<div aria-label="Karşılaştırma tablosu; yatay kaydırılabilir" class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>Alan</th>
+<th>İçerik</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>query_id / intent_group</td>
+<td>Sorgu kimliği; çeviri ve paraphrase’lerin ortak niyet grubu</td>
+</tr>
+<tr>
+<td>query_text / query_language</td>
+<td>Gerçek sorgu metni ve dili</td>
+</tr>
+<tr>
+<td>target_language / scenario</td>
+<td>Hedef kaynak dili ve sınanan durum</td>
+</tr>
+<tr>
+<td>relevant_documents</td>
+<td>İlgili dosya kimlikleri, 0/1/2 ilgililik dereceleri ve kısa etiket gerekçesi</td>
+</tr>
+<tr>
+<td>evidence_location</td>
+<td>Kaynak içinde ilgili bölüm veya satır aralığı</td>
+</tr>
+<tr>
+<td>answerable</td>
+<td>Koleksiyonda ihtiyacı karşılayan kaynak var mı?</td>
+</tr>
+<tr>
+<td>split</td>
+<td>Geliştirme, doğrulama veya test</td>
+</tr>
+<tr>
+<td>corpus_version</td>
+<td>Dosya kimliği ve içerik sürümüyle belirlenen koleksiyon durumu</td>
+</tr>
+</tbody>
+</table></div>
+<p>Bu bir şema taslağıdır, doldurulmuş veri değildir. Etiketler yalnızca modelin ilk sonuçlarından kopyalanmamalı; farklı yöntemlerin adayları bir araya getirilerek insan kontrolü yapılmalıdır. Küçük pilotta ilgili dosyaları kaçırmamak için koleksiyonun tamamı incelenebilir. Aynı niyetin çevirileri/paraphrase’leri farklı bölümlere dağıtılmamalıdır.</p>
+<h2 id="ilk-hafta-yontem-kararindan-once-kalan-isler" tabindex="-1">Yöntem kararından önce kalan işler</h2>
+<div aria-label="Karşılaştırma tablosu; yatay kaydırılabilir" class="table-scroll" role="region" tabindex="0"><table>
+<thead>
+<tr>
+<th>İş</th>
+<th>Beklenen somut çıktı</th>
+<th>Durum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Öncelikli makaleleri ayrıntılı okuma</td>
+<td>Görev, veri, yöntem, karşılaştırma, sınırlılık ve projeye etkisi bulunan okuma kartları</td>
+<td>Kaynak bazındaki mevcut okuma düzeyi kaynakçada; derin okuma devam edecek</td>
+</tr>
+<tr>
+<td>Veri kapsamını belirleme</td>
+<td>Kullanılabilir notlar, izin/mahremiyet açısından uygun içerik, dil ve uzunluk dağılımı</td>
+<td>Başlanmadı</td>
+</tr>
+<tr>
+<td>Etiketli pilot hazırlama</td>
+<td>Gerçekçi sorgular, benzersiz dosya etiketleri, ayrılmış doğrulama/test grupları</td>
+<td>Şema ve senaryolar hazır; veri yok</td>
+</tr>
+<tr>
+<td>Yerel uygulanabilirliği inceleme</td>
+<td>Donanım sınırları, adayların lisansı, bağımlılık ve çevrimdışı çalışma koşulları</td>
+<td>Aday kaynaklar toplandı; çalıştırma yok</td>
+</tr>
+<tr>
+<td>Karşılaştırmayı sabitleme</td>
+<td>Referanslar, k/çıktı bütçesi, kalite ölçümleri, maliyet kayıtları ve önceden yazılmış karar ölçütleri</td>
+<td>Kavramsal çerçeve hazır; deney ayarları açık</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Bir sonraki küçük adım:</strong> Kaynakçadaki <a class="ref" href="#kaynaklar/K01">K01</a> ve <a class="ref" href="#kaynaklar/K04">K04</a>’ün tam metinlerini okuyup “kişisel bilgi erişimi” ile “diller arası temsil” için birer okuma kartı çıkarmak. Ardından diğer yöntem aileleri aynı şablonla incelenebilir; bu adım bir model seçimi değildir.</p>
+<h2 id="ilk-hafta-okuma-karti-sablonu" tabindex="-1">Okuma kartı şablonu</h2>
+<ul>
+<li>Kaynak kimliği, tam künye ve incelenen sayfalar/bölümler:</li>
+<li>Çözdüğü problem ve varsayımları:</li>
+<li>Kullanılan veri; dil içi mi, diller arası mı?</li>
+<li>Temsil, sıralama ve indeksleme yöntemi:</li>
+<li>Karşılaştırmalar; kalite ve maliyet ölçümleri:</li>
+<li>Yazarın gösterdiği sonuç / bizim projeye ilişkin çıkarımımız:</li>
+<li>Sınırlılıklar ve bu projede ayrıca sınanacak nokta:</li>
+</ul>
+<p>Kaynak bulma çalışması tamamlandı; proje geliştirme ve deney aşamaları sürüyor. Bu kayıt literatürle yöntem seçimine giriş içindir, ilk çalışan sürümün tamamlanma raporu değildir.</p></article><aside class="toc" aria-label="İlk hafta içindekiler"><div class="toc-title">Bu sayfada</div><a href="#ilk-hafta/ilk-hafta-bu-calismada-tamamlananlar"><span>01</span>Bu çalışmada tamamlananlar</a><a href="#ilk-hafta/ilk-hafta-calisma-problem-cumlesi"><span>02</span>Çalışma problem cümlesi</a><a href="#ilk-hafta/ilk-hafta-veri-tasarimina-baslangic-senaryolari"><span>03</span>Veri tasarımına başlangıç senaryoları</a><a href="#ilk-hafta/ilk-hafta-degerlendirme-kaydi-taslagi"><span>04</span>Değerlendirme kaydı taslağı</a><a href="#ilk-hafta/ilk-hafta-yontem-kararindan-once-kalan-isler"><span>05</span>Yöntem kararından önce kalan işler</a><a href="#ilk-hafta/ilk-hafta-okuma-karti-sablonu"><span>06</span>Okuma kartı şablonu</a></aside></div>
+</section>
+<footer class="footer"><span>NLP Araştırma Defteri · BİL 4129<br>Yerel ve çok dilli kaynak bulma</span><a href="#genel">Genel bakışa dön ↑</a></footer>
+</main></div>
+<script>
+(function(){
+'use strict';
+const $ = (s, root=document) => root.querySelector(s);
+const $$ = (s, root=document) => Array.from(root.querySelectorAll(s));
+const store = {get(k){try{return localStorage.getItem('nlp-reader-'+k)}catch{return null}},set(k,v){try{localStorage.setItem('nlp-reader-'+k,v)}catch{}}};
+const views = $$('.view');
+let activeView = 'genel', filter = 'all', size = Number(store.get('size')) || 17;
+size = Math.max(15, Math.min(21, size));
+function applySize(){document.documentElement.style.setProperty('--reader-size',size+'px');$('#font-down').disabled=size<=15;$('#font-up').disabled=size>=21;}
+applySize();
+$('#font-up').addEventListener('click',()=>{size=Math.min(21,size+1);applySize();store.set('size',String(size))});
+$('#font-down').addEventListener('click',()=>{size=Math.max(15,size-1);applySize();store.set('size',String(size))});
+function setTheme(theme){document.documentElement.dataset.theme=theme;$('#theme-toggle').setAttribute('aria-label',theme==='dark'?'Açık temaya geç':'Koyu temaya geç');$('#theme-toggle').setAttribute('aria-pressed',String(theme==='dark'));}
+setTheme(store.get('theme')||'light');
+$('#theme-toggle').addEventListener('click',()=>{const theme=document.documentElement.dataset.theme==='dark'?'light':'dark';setTheme(theme);store.set('theme',theme)});
+const sidebar=$('#sidebar'), menu=$('#menu-toggle');
+function syncSidebar(){sidebar.inert=window.innerWidth<=760&&!sidebar.classList.contains('open');}
+function closeMenu(){sidebar.classList.remove('open');syncSidebar();$('#backdrop').classList.remove('show');menu.setAttribute('aria-expanded','false');menu.setAttribute('aria-label','Gezinme menüsünü aç');}
+menu.addEventListener('click',()=>{const open=!sidebar.classList.contains('open');sidebar.classList.toggle('open',open);syncSidebar();$('#backdrop').classList.toggle('show',open);menu.setAttribute('aria-expanded',String(open));menu.setAttribute('aria-label',open?'Gezinme menüsünü kapat':'Gezinme menüsünü aç');if(open)$('#main-nav a').focus()});
+$('#backdrop').addEventListener('click',closeMenu);
+syncSidebar();window.addEventListener('resize',syncSidebar);
+$('.skip').addEventListener('click',e=>{e.preventDefault();$('#content').focus();window.scrollTo({top:0,behavior:'instant'})});
+document.addEventListener('keydown',e=>{if(e.key==='Tab'&&sidebar.classList.contains('open')){const links=[menu,...$$('a[href]',sidebar)];const i=links.indexOf(document.activeElement);if(e.shiftKey&&i<=0){e.preventDefault();links.at(-1).focus()}else if(!e.shiftKey&&(i===links.length-1||i<0)){e.preventDefault();links[0].focus()}}if(e.key==='Escape'&&sidebar.classList.contains('open')){closeMenu();menu.focus()}});
+const cards=$$('.source-card');
+function normalize(text){return text.toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ı/g,'i');}
+const searchText=new Map(cards.map(card=>[card,normalize(card.textContent)]));
+const search=$('#source-search'), topic=$('#topic-select');
+function applyFilters(){
+ const terms=normalize(search.value.trim()).split(/\s+/).filter(Boolean);let shown=0;
+ for(const card of cards){
+  const byKind=filter==='all'||(filter==='turkish'?card.dataset.turkish==='true':card.dataset.kind===filter);
+  const byTopic=topic.value==='all'||card.dataset.group===topic.value;
+  const byText=terms.every(term=>searchText.get(card).includes(term));
+  card.hidden=!(byKind&&byTopic&&byText);if(!card.hidden)shown++;
+ }
+ $('#results-count').textContent=shown+' / '+cards.length+' kaynak';
+ $('#empty-state').hidden=shown!==0;
+ $('#clear-search').hidden=!search.value;
+}
+function resetFilters(){filter='all';search.value='';topic.value='all';$$('.filter-chip').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.filter==='all')));applyFilters();}
+search.addEventListener('input',applyFilters);topic.addEventListener('change',applyFilters);
+$('#clear-search').addEventListener('click',()=>{search.value='';applyFilters();search.focus()});
+$('#reset-filters').addEventListener('click',()=>{resetFilters();search.focus()});
+$$('.filter-chip').forEach(b=>b.addEventListener('click',()=>{filter=b.dataset.filter;$$('.filter-chip').forEach(x=>x.setAttribute('aria-pressed',String(x===b)));applyFilters()}));
+function goToElement(el){if(!el)return;el.scrollIntoView({behavior:'instant',block:'start'});}
+function route(){
+ let [view, target]=decodeURIComponent(location.hash.slice(1)).split('/');
+ if(!views.some(v=>v.id==='view-'+view)){view='genel';target=null;}
+ const changed=activeView!==view;
+ activeView=view;
+ views.forEach(v=>{const show=v.id==='view-'+view;v.classList.toggle('active',show);v.hidden=!show});
+ $$('#main-nav a').forEach(a=>{if(a.hash==='#'+view)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+ const title=$('#view-'+view).dataset.title;$('#crumb-section').textContent=title;
+ document.title=title+' — NLP Araştırma Defteri';
+ closeMenu();
+ if(target){
+  if(view==='kaynaklar'){
+   const card=document.getElementById(target);
+   if(card&&card.classList.contains('source-card')){resetFilters();card.open=true;requestAnimationFrame(()=>{goToElement(card);$('summary',card).focus({preventScroll:true})});}
+   else if(target==='okuma-sirasi')requestAnimationFrame(()=>goToElement($('#okuma-sirasi')));
+  } else {
+   const el=document.getElementById(target);if(el&&$('#view-'+view).contains(el))requestAnimationFrame(()=>{goToElement(el);el.focus({preventScroll:true})});
+  }
+ } else {window.scrollTo({top:0,behavior:'instant'});if(changed)$('#title-'+view).setAttribute('tabindex','-1');if(changed)$('#title-'+view).focus({preventScroll:true});}
+ requestAnimationFrame(updateReading);
+}
+window.addEventListener('hashchange',route);
+function updateReading(){
+ const max=document.documentElement.scrollHeight-window.innerHeight;
+ $('#reading-progress').style.transform='scaleX('+(max>0?Math.min(1,window.scrollY/max):0)+')';
+ const view=$('#view-'+activeView), headings=$$('.prose>h2',view);
+ let current=null;for(const h of headings){if(h.getBoundingClientRect().top<165)current=h.id;}
+ $$('.toc a',view).forEach(a=>a.classList.toggle('current',!!current&&a.hash.endsWith('/'+current)));
+}
+let tick=false;window.addEventListener('scroll',()=>{if(!tick){requestAnimationFrame(()=>{updateReading();tick=false});tick=true}},{passive:true});window.addEventListener('resize',updateReading);
+$('#print-page').addEventListener('click',()=>window.print());
+let printClosed=[];
+window.addEventListener('beforeprint',()=>{printClosed=$$('details:not([open])',$('#view-'+activeView));printClosed.forEach(d=>d.open=true)});
+window.addEventListener('afterprint',()=>{printClosed.forEach(d=>d.open=false);printClosed=[]});
+// Aynı kaynağa yeniden tıklama, kart kapatılmış olsa bile hedefi açar.
+document.addEventListener('click',e=>{const a=e.target.closest('a[href^="#"]');if(a&&a.hash===location.hash){e.preventDefault();route()}});
+route();applyFilters();
+})();
+</script>
+</body>
+</html>
