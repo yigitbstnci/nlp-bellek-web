@@ -1,9 +1,10 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="tr">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/>
 <title>Bellek Sistemleri — NLP Araştırma Defteri</title>
-<meta name="description" content="Kişisel bilgi bankaları ve yapay zekâ belleği: çıkış hedefleri, tasarımlar, farklar ve token maliyeti üzerine kaynaklı araştırma.">
+<meta content="Kişisel bilgi bankaları ve yapay zekâ belleği: çıkış hedefleri, tasarımlar, farklar ve token maliyeti üzerine kaynaklı araştırma." name="description"/>
 <style>
 :root{color-scheme:light;--bg:#f6f5f0;--paper:#fffefa;--ink:#223c35;--text:#39483f;--muted:#64736a;--line:#dedfd5;--soft:#edeee6;--accent:#ad4c2d;--font:18px}
 html[data-theme=dark]{color-scheme:dark;--bg:#17251f;--paper:#1e3028;--ink:#e5ecdd;--text:#ced8cd;--muted:#a4b5a6;--line:#3c5144;--soft:#263b30;--accent:#e0a282}
@@ -15,12 +16,68 @@ html[data-theme=dark]{color-scheme:dark;--bg:#17251f;--paper:#1e3028;--ink:#e5ec
 @media(max-width:760px){.sidebar{display:none}.shell{margin-left:0}.progress{left:0}.topbar{padding:10px 18px}.crumb{font-size:11px;max-width:100px;line-height:1.5}.toolbar{gap:4px}.toolbar button{padding:6px 10px}.toolbar .print{display:none}main{padding:30px 20px 50px}.lede{font-size:16px}.hero-meta{gap:13px}.hero-meta strong{font-size:17px}.mobile-toc{display:block;border:1px solid var(--line);padding:12px 16px;background:var(--paper);border-radius:4px;margin-top:25px;font-size:14px}.mobile-toc summary{cursor:pointer;color:var(--ink)}.mobile-toc nav{display:grid;gap:10px;margin-top:15px}.mobile-toc nav a{text-decoration:none;font-size:13px;line-height:1.7}.mobile-toc nav span{margin-right:10px}.prose{font-size:calc(var(--font) - 1px)}.prose h2{font-size:28px}.system summary{padding:19px 43px 19px 18px}.system summary strong{font-size:22px}.expand{right:17px}.system-body{padding:5px 18px 17px}.system-tools{grid-template-columns:1fr;padding:15px}.system-tools button,.system-tools #count{grid-column:auto;grid-row:auto}.pathway div{padding:14px}.pathway strong{font-size:13px}.hero-links a{font-size:12px}.prose pre{padding:15px;font-size:12px}}
 @media print{.sidebar,.topbar,.mobile-toc,.progress,.hero-links,.system-tools,#empty,.skip{display:none!important}.shell{margin:0}main{padding:0;max-width:none}body{background:white;color:black}.prose{font-size:11pt}.prose h2{break-after:avoid}.system{break-inside:avoid}.table-wrap{overflow:visible}table{min-width:0;font-size:9pt}a{color:inherit}.system-body{font-size:11pt}.pathway{break-inside:avoid}}
 </style>
-</head><body>
-<a href="#content" class="skip">İçeriğe geç</a>
-<aside class="sidebar" aria-label="Bölümler"><a class="brand" href="../index.html">NLP Araştırma Defteri<small>BELLEK SİSTEMLERİ</small></a><div class="sidebar-label">PROBLEMİN KÖKENİ</div><nav><a href="#bolum-1"><span>01</span>Problemin çıkış noktası</a><a href="#bolum-2"><span>02</span>Hatırladığın üç referans</a><a href="#bolum-3"><span>03</span>Kim, neyi, nasıl tasarlamış?</a><a href="#bolum-4"><span>04</span>Temel farklar aynı tabloda</a><a href="#bolum-5"><span>05</span>Token maliyetini nasıl azaltıyorlar?</a><a href="#bolum-6"><span>06</span>Sayısal iddiaların kanıtı ve sınırı</a><a href="#bolum-7"><span>07</span>Bizim araştırmamız için neyi gerekçelendiriyor?</a><a href="#bolum-8"><span>08</span>Okuma sırası ve inceleme sınırı</a></nav><p class="side-note">Sistemlerin amaçlarını ve tasarımlarını karşılaştıran başlangıç taraması.<br><br>Yöntem seçimi açık.</p><a href="../index.html" class="side-back">← NLP yöntem taramasına dön</a></aside>
-<div class="shell"><header class="topbar"><span class="crumb">Araştırma defteri / Bellek sistemleri</span><div class="toolbar" aria-label="Okuma ayarları"><button id="smaller" aria-label="Yazıyı küçült">A−</button><button id="larger" aria-label="Yazıyı büyüt">A+</button><button id="theme" aria-pressed="false">Koyu</button><button class="print" id="print">Yazdır</button></div></header><div class="progress" aria-hidden="true"></div>
-<main id="content" tabindex="-1"><div class="eyebrow">Problemin kökeni · 12 Kasım 2026</div><h1>Kaydetmekten<br>hatırlamaya.</h1><p class="lede">Yapay zekâ belleği ve kişisel bilgi bankaları neden ortaya çıktı? Kim nasıl tasarlıyor, neleri farklı yapıyor ve maliyet nerede oluşuyor?</p><div class="hero-meta"><span><strong>12</strong> yaklaşım</span><span><strong>3</strong> tanıdık referans</span><span>Birincil kaynaklar · Açık kanıt sınırları</span></div><div class="hero-links"><a href="#bolum-2">Karpathy, Avenox, Cobanov ↗</a><a href="#bolum-3">Sistemleri karşılaştır →</a><a href="#bolum-6">Token iddialarını incele →</a></div>
-<div class="pathway" role="group" aria-label="Bellek yaşam döngüsünün dört ayrı işi"><div><small>01 / KORU</small><strong>Kaynak ve deneyim</strong><span>Ne saklanacak?</span></div><div><small>02 / DÜZENLE</small><strong>Not, profil, grafik</strong><span>Ne çıkarılacak ve güncellenecek?</span></div><div><small>03 / BUL</small><strong>İlgili kaynak</strong><span>Bu soruda hangisi gerekli?</span></div><div><small>04 / KULLAN</small><strong>Sınırlı bağlam</strong><span>Modele ne kadar taşınacak?</span></div></div><p class="caption">Araştırmanın kavramsal ayrımı. Bir ürün mimarisi veya seçilmiş uygulama planı değildir.</p>
+<style id="site-navigation-style">
+:root{--site-sidebar-width:260px;--site-header-height:74px}
+#sidebar.site-sidebar{position:fixed;inset:0 auto 0 0;z-index:40;width:var(--site-sidebar-width);padding:30px 22px 24px;background:#193b31;color:#dbe5dc;display:flex;flex-direction:column;overflow-y:auto;font:14px/1.5 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+html[data-theme=dark] #sidebar.site-sidebar{background:#11261e}
+#sidebar .site-brand{display:block;color:#f0f2e8;text-decoration:none;font-size:16px;font-weight:650;line-height:1.5;margin:0 10px 30px}
+#sidebar .site-brand small{display:block;font-size:10px;letter-spacing:.13em;color:#afc3b3;font-weight:400;margin-top:5px}
+#sidebar .site-nav-label{margin:0 10px 12px;font-size:10px;letter-spacing:.15em;color:#afc3b3;text-transform:uppercase}
+#main-nav{display:grid;gap:6px;margin:0}
+#main-nav a{display:flex;align-items:baseline;gap:11px;padding:11px 10px;border:1px solid transparent;border-radius:4px;color:#dbe5dc;font-size:13px;line-height:1.5;text-decoration:none;overflow-wrap:normal}
+#main-nav a .site-nav-num{flex:none;width:18px;color:#afc3b3;font-size:10px;font-variant-numeric:tabular-nums}
+#main-nav a:hover{background:#ffffff0d}
+#main-nav a[aria-current=page]{background:#ffffff0e;border-color:#5b7766;color:#fff}
+#sidebar .site-nav-note{border-top:1px solid #365548;padding:20px 10px 0;margin:25px 0 0;color:#afc3b3;font-size:12px;line-height:1.8}
+#sidebar .site-close{display:none}
+body>.shell{margin-left:var(--site-sidebar-width);min-height:100vh}
+#site-header{position:sticky;top:0;z-index:20;box-sizing:border-box;height:var(--site-header-height);min-height:var(--site-header-height);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 30px;border-bottom:1px solid var(--line);background:var(--bg);font:14px/1.5 ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}
+#site-header .site-location{display:flex;align-items:center;gap:16px;min-width:0}
+#site-header .site-home{flex:none;color:var(--ink);font-size:13px;white-space:nowrap;text-decoration:none;padding:8px 0}
+#site-header .site-home:hover{text-decoration:underline}
+#site-header .site-section{font-size:12px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#site-header .site-tools{display:flex;align-items:center;gap:4px;flex:none}
+#site-header button{box-sizing:border-box;display:grid;place-items:center;min-width:36px;width:36px;height:40px;min-height:40px;margin:0;padding:0;border:1px solid transparent;border-radius:4px;background:transparent;color:var(--ink);font-size:14px;line-height:1;cursor:pointer}
+#site-header button:hover{background:var(--soft)}
+#site-header .site-print{width:54px;font-size:12px}
+#site-header #menu-toggle{display:none}
+#backdrop.site-backdrop{display:none}
+.progress,.reading-progress{top:73px;left:var(--site-sidebar-width)}
+.mobile-toc{display:block;margin-top:25px;border:1px solid var(--line);padding:12px 16px;background:var(--paper);border-radius:4px;font-size:14px}
+.mobile-toc summary{cursor:pointer;color:var(--ink)}
+.mobile-toc nav{display:grid;gap:10px;margin-top:15px}
+.mobile-toc nav a{display:flex;gap:10px;font-size:13px;line-height:1.7;text-decoration:none}
+.mobile-toc nav a span{flex:none;margin:0}
+@media(max-width:760px){
+ body>.shell{margin-left:0}
+ #sidebar.site-sidebar{width:min(290px,calc(100vw - 48px));visibility:hidden;transform:translateX(-100%);transition:transform .18s ease,visibility .18s}
+ #sidebar.site-sidebar.open{visibility:visible;transform:translateX(0)}
+ #sidebar .site-close{display:grid;place-items:center;align-self:flex-end;width:40px;height:40px;min-height:40px;margin:0 0 12px;padding:0;border:1px solid #5b7766;border-radius:4px;background:transparent;color:#f0f2e8;font-size:24px;line-height:1;cursor:pointer}
+ #sidebar .site-brand{margin-bottom:22px}
+ #backdrop.site-backdrop.show{display:block;position:fixed;inset:0;z-index:30;background:#071b12aa}
+ body.site-menu-open{overflow:hidden}
+ #site-header{padding:0 12px;gap:8px}
+ #site-header .site-location{gap:8px}
+ #site-header #menu-toggle{display:grid;font-size:22px}
+ #site-header .site-section,#site-header .site-print{display:none}
+ #site-header .site-home{font-size:12px}
+ .progress,.reading-progress{left:0}
+}
+@media(prefers-reduced-motion:reduce){#sidebar.site-sidebar{transition:none}}
+@media print{#sidebar.site-sidebar,#site-header,#backdrop.site-backdrop,.mobile-toc{display:none!important}body>.shell{margin-left:0}}
+</style></head><body>
+<a class="skip" href="#content">İçeriğe geç</a>
+<aside aria-label="Ana gezinme" class="site-sidebar" data-page="bellek" id="sidebar">
+<button aria-label="Gezinme menüsünü kapat" class="site-close" type="button">×</button>
+<a class="site-brand" href="../index.html#genel">NLP Araştırma Defteri<small>ÇOK DİLLİ KAYNAK BULMA</small></a>
+<div class="site-nav-label">Okuma alanı</div><nav aria-label="Sayfalar" id="main-nav"><a data-nav-key="genel" href="../index.html#genel"><span class="site-nav-num">01</span>Genel bakış</a><a data-nav-key="yontemler" href="../index.html#yontemler"><span class="site-nav-num">02</span>Modeller &amp; yöntemler</a><a data-nav-key="literatur" href="../index.html#literatur"><span class="site-nav-num">03</span>Literatür notları</a><a data-nav-key="kaynaklar" href="../index.html#kaynaklar"><span class="site-nav-num">04</span>Kaynak kütüphanesi</a><a data-nav-key="ilk-hafta" href="../index.html#ilk-hafta"><span class="site-nav-num">05</span>İlk hafta</a><a aria-current="page" data-nav-key="bellek" href="../bellek-sistemleri/index.html"><span class="site-nav-num">06</span>Bellek sistemleri</a><a data-nav-key="modeller" href="../model-karsilastirma/index.html"><span class="site-nav-num">07</span>Model karşılaştırması</a><a data-nav-key="llm" href="../model-karsilastirma/index.html#bolum-10"><span class="site-nav-num">08</span>Yerel LLM araştırması</a></nav>
+<p class="site-nav-note">BİL 4129 · Doğal Dil İşleme<br/>Kaynaklı araştırma ve yöntem karşılaştırması.</p></aside><div aria-hidden="true" class="site-backdrop" id="backdrop"></div>
+<div class="shell"><header id="site-header"><div class="site-location">
+<button aria-controls="sidebar" aria-expanded="false" aria-label="Gezinme menüsünü aç" id="menu-toggle" type="button">☰</button>
+<a class="site-home" href="../index.html#genel">← Ana sayfa</a><span class="site-section" id="crumb-section">Bellek sistemleri</span></div>
+<div aria-label="Okuma ayarları" class="site-tools"><button aria-label="Yazıyı küçült" id="smaller" type="button">A−</button><button aria-label="Yazıyı büyüt" id="larger" type="button">A+</button><button aria-label="Koyu temaya geç" aria-pressed="false" id="theme" type="button">◐</button><button aria-label="Bu bölümü yazdır" class="site-print" id="print" type="button">Yazdır</button></div></header><div aria-hidden="true" class="progress"></div>
+<main id="content" tabindex="-1"><div class="eyebrow">Problemin kökeni · 12 Kasım 2026</div><h1>Kaydetmekten<br/>hatırlamaya.</h1><p class="lede">Yapay zekâ belleği ve kişisel bilgi bankaları neden ortaya çıktı? Kim nasıl tasarlıyor, neleri farklı yapıyor ve maliyet nerede oluşuyor?</p><div class="hero-meta"><span><strong>12</strong> yaklaşım</span><span><strong>3</strong> tanıdık referans</span><span>Birincil kaynaklar · Açık kanıt sınırları</span></div><div class="hero-links"><a href="#bolum-2">Karpathy, Avenox, Cobanov ↗</a><a href="#bolum-3">Sistemleri karşılaştır →</a><a href="#bolum-6">Token iddialarını incele →</a></div>
+<div aria-label="Bellek yaşam döngüsünün dört ayrı işi" class="pathway" role="group"><div><small>01 / KORU</small><strong>Kaynak ve deneyim</strong><span>Ne saklanacak?</span></div><div><small>02 / DÜZENLE</small><strong>Not, profil, grafik</strong><span>Ne çıkarılacak ve güncellenecek?</span></div><div><small>03 / BUL</small><strong>İlgili kaynak</strong><span>Bu soruda hangisi gerekli?</span></div><div><small>04 / KULLAN</small><strong>Sınırlı bağlam</strong><span>Modele ne kadar taşınacak?</span></div></div><p class="caption">Araştırmanın kavramsal ayrımı. Bir ürün mimarisi veya seçilmiş uygulama planı değildir.</p>
 <details class="mobile-toc"><summary>Bu bölümde neler var?</summary><nav><a href="#bolum-1"><span>01</span>Problemin çıkış noktası</a><a href="#bolum-2"><span>02</span>Hatırladığın üç referans</a><a href="#bolum-3"><span>03</span>Kim, neyi, nasıl tasarlamış?</a><a href="#bolum-4"><span>04</span>Temel farklar aynı tabloda</a><a href="#bolum-5"><span>05</span>Token maliyetini nasıl azaltıyorlar?</a><a href="#bolum-6"><span>06</span>Sayısal iddiaların kanıtı ve sınırı</a><a href="#bolum-7"><span>07</span>Bizim araştırmamız için neyi gerekçelendiriyor?</a><a href="#bolum-8"><span>08</span>Okuma sırası ve inceleme sınırı</a></nav><a href="../index.html">← NLP yöntem taramasına dön</a></details>
 <article class="prose">
 <p>Kişisel bilgi bankaları, ajan belleği ve token maliyeti üzerine karşılaştırmalı araştırma. <strong>Tarama tarihi: 12 Kasım 2026.</strong> Bu çalışma problem gerekçesine ve yöntem seçimine girdidir; nihai model veya algoritma seçilmedi.</p>
@@ -368,11 +425,43 @@ Ayrıca: embedding + yeniden sıralama + araç çağrıları
 (()=>{'use strict';const $=s=>document.querySelector(s),all=s=>[...document.querySelectorAll(s)];
 const storage={get(k){try{return localStorage.getItem('nlp-reader-'+k)}catch{return null}},set(k,v){try{localStorage.setItem('nlp-reader-'+k,v)}catch{}}};
 let size=Math.min(21,Math.max(15,Number(storage.get('size'))||18));function font(){document.documentElement.style.setProperty('--font',size+'px');$('#smaller').disabled=size<=15;$('#larger').disabled=size>=21;storage.set('size',size)}font();$('#smaller').onclick=()=>{size=Math.max(15,size-1);font()};$('#larger').onclick=()=>{size=Math.min(21,size+1);font()};
-function theme(value){document.documentElement.dataset.theme=value;$('#theme').textContent=value==='dark'?'Açık':'Koyu';$('#theme').setAttribute('aria-label',value==='dark'?'Açık temaya geç':'Koyu temaya geç');$('#theme').setAttribute('aria-pressed',String(value==='dark'));storage.set('theme',value)}theme(storage.get('theme')||'light');$('#theme').onclick=()=>theme(document.documentElement.dataset.theme==='dark'?'light':'dark');
+function theme(value){document.documentElement.dataset.theme=value;$('#theme').textContent='◐';$('#theme').setAttribute('aria-label',value==='dark'?'Açık temaya geç':'Koyu temaya geç');$('#theme').setAttribute('aria-pressed',String(value==='dark'));storage.set('theme',value)}theme(storage.get('theme')||'light');$('#theme').onclick=()=>theme(document.documentElement.dataset.theme==='dark'?'light':'dark');
 const cards=all('.system');const norm=t=>t.toLocaleLowerCase('tr-TR').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/ı/g,'i');const texts=new Map(cards.map(c=>[c,norm(c.textContent)]));function filter(){const terms=norm($('#search').value.trim()).split(/\s+/).filter(Boolean);let count=0;cards.forEach(c=>{c.hidden=!(terms.every(t=>texts.get(c).includes(t))&&($('#family').value==='all'||c.dataset.family===$('#family').value));if(!c.hidden)count++});$('#count').textContent=count+' / 12 yaklaşım';$('#empty').hidden=count!==0}$('#search').oninput=filter;$('#family').onchange=filter;$('#reset').onclick=()=>{$('#search').value='';$('#family').value='all';filter();$('#search').focus()};
 function deepLink(){const el=document.getElementById(location.hash.slice(1));if(el?.classList.contains('system')){$('#search').value='';$('#family').value='all';filter();el.open=true;el.scrollIntoView()}}window.addEventListener('hashchange',deepLink);deepLink();
 all('.mobile-toc a').forEach(a=>a.addEventListener('click',()=>{$('.mobile-toc').open=false}));
-let queued=false;function progress(){const max=document.documentElement.scrollHeight-innerHeight;$('.progress').style.transform='scaleX('+(max>0?Math.min(1,scrollY/max):0)+')';let current='';all('.prose h2').forEach(h=>{if(h.getBoundingClientRect().top<180)current=h.id});all('.sidebar nav a').forEach(a=>{if(a.hash==='#'+current)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')});queued=false}addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(progress)}},{passive:true});addEventListener('resize',progress);progress();
+let queued=false;function progress(){const max=document.documentElement.scrollHeight-innerHeight;$('.progress').style.transform='scaleX('+(max>0?Math.min(1,scrollY/max):0)+')';let current='';all('.prose h2').forEach(h=>{if(h.getBoundingClientRect().top<180)current=h.id});all('.mobile-toc nav a').forEach(a=>{if(a.hash==='#'+current)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current')});queued=false}addEventListener('scroll',()=>{if(!queued){queued=true;requestAnimationFrame(progress)}},{passive:true});addEventListener('resize',progress);progress();
 let before=[];addEventListener('beforeprint',()=>{before=cards.map(c=>({c,open:c.open,hidden:c.hidden}));cards.forEach(c=>{c.open=true;c.hidden=false})});addEventListener('afterprint',()=>{before.forEach(x=>{x.c.open=x.open;x.c.hidden=x.hidden});before=[]});$('#print').onclick=()=>print();
+})();
+</script><script id="site-navigation-script">
+(()=>{'use strict';
+const sidebar=document.getElementById('sidebar'),menu=document.getElementById('menu-toggle'),backdrop=document.getElementById('backdrop'),close=sidebar.querySelector('.site-close'),mobile=matchMedia('(max-width:760px)');
+function setOpen(open,restore=false){
+ open=mobile.matches&&open;
+ sidebar.classList.toggle('open',open);sidebar.inert=mobile.matches&&!open;
+ backdrop.classList.toggle('show',open);document.body.classList.toggle('site-menu-open',open);document.querySelector('.shell').inert=open;
+ menu.setAttribute('aria-expanded',String(open));
+ if(open){sidebar.setAttribute('role','dialog');sidebar.setAttribute('aria-modal','true');close.focus()}
+ else{sidebar.removeAttribute('role');sidebar.removeAttribute('aria-modal');if(restore)menu.focus()}
+}
+menu.addEventListener('click',()=>setOpen(!sidebar.classList.contains('open')));
+close.addEventListener('click',()=>setOpen(false,true));backdrop.addEventListener('click',()=>setOpen(false,true));
+sidebar.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setOpen(false)));
+document.addEventListener('keydown',e=>{
+ if(!sidebar.classList.contains('open'))return;
+ if(e.key==='Escape'){e.preventDefault();setOpen(false,true)}
+ if(e.key==='Tab'){
+  const items=[close,...sidebar.querySelectorAll('a[href]')],first=items[0],last=items.at(-1);
+  if(e.shiftKey&&(document.activeElement===first||!sidebar.contains(document.activeElement))){e.preventDefault();last.focus()}
+  else if(!e.shiftKey&&(document.activeElement===last||!sidebar.contains(document.activeElement))){e.preventDefault();first.focus()}
+ }
+});
+mobile.addEventListener('change',()=>setOpen(false));setOpen(false);
+function current(){
+ const page=sidebar.dataset.page,hash=location.hash.slice(1);
+ const key=page==='genel'?(hash.split('/')[0]||'genel'):page==='modeller'&&hash==='bolum-10'?'llm':page;
+ sidebar.querySelectorAll('[data-nav-key]').forEach(a=>{if(a.dataset.navKey===key)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
+}
+addEventListener('hashchange',()=>{setOpen(false);current()});current();
+document.querySelector('.skip')?.addEventListener('click',e=>{e.preventDefault();document.getElementById('content').focus();window.scrollTo({top:0,behavior:'instant'})});
 })();
 </script></body></html>
