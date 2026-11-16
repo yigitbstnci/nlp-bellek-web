@@ -319,4 +319,4 @@ Bu senaryolar değerlendirme girdisidir. Geçerli kararı otomatik seçmek, bell
 
 **Güncellik:** Akademik bulgular bağlantıdaki tarih/sürüme aittir; güncel ürün özelliği gibi sunulmamalı. Letta’nın tarihsel MemGPT yaklaşımı ile güncel SDK belgesi ayrıldı. Avenox için eski araştırma notlarına dayanmak yerine güncel depo yeniden kontrol edildi. Belgelerde açıklanan her davranışın canlı istemcide gerçekleştiği ayrıca doğrulanmadı.
 
-Bu bölüm önceki NLP yöntem taramasını tamamlar. [NLP araştırma defterine dön](../index.html).
+Bu bölüm önceki NLP yöntem taramasını tamamlar. [NLP literatür taramasına dön](../LITERATUR_TARAMASI.md).

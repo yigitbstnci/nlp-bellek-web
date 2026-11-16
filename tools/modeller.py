@@ -1,0 +1,105 @@
+"""Kaynaklı aday profilleri. Ölçüm sonuçlarından bağımsız teknik ön değerlendirme."""
+MODELS = [
+dict(key='minilm',name='Multilingual MiniLM-L12',repo='sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2',family='Damıtılmış cümle modeli',params=117654272,dim=384,tokens=128,languages=50,license='Apache-2.0',
+ mechanics='12 katmanlı çok dilli MiniLM kodlayıcısı, token çıktılarını ortalayarak 384 boyutlu cümle vektörü üretir. Öğretmen–öğrenci yaklaşımında farklı dillerdeki benzer ifadelerin ortak temsile yaklaşması hedeflenir.',
+ training='Çok dilli cümle benzerliği / paraphrase kullanımı; doğrudan soru–belge erişimi için E5 ile aynı eğitim amacı varsayılmamalı.',
+ recipe='İki metin ayrı kodlanır; ortalama havuzlama ve L2 normalleştirme sonrası kosinüs kullanılır. query:/passage: ön eki eklenmez.',
+ tradeoff='Küçük gizli boyutu kısa cümleler için düşük hesap yükü sağlar. Paket varsayılanı 128 token olduğundan uzun paragraflar kırpılabilir.',
+ tr='Türkçe ve İngilizce desteklenen diller arasında. TR-MTEB sonucu var; diller arası bilgi ihtiyacı için yerel pilot ayrıca gösteriliyor.',
+ source='https://huggingface.co/sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2',paper='https://aclanthology.org/2020.emnlp-main.365/',fit=3,integration=5,
+ trmteb=dict(retrieval=46.57,sts=78.41,bitext=93.67)),
+dict(key='mpnet',name='Multilingual MPNet-base-v2',repo='sentence-transformers/paraphrase-multilingual-mpnet-base-v2',family='Damıtılmış cümle modeli',params=278044162,dim=768,tokens=128,languages=50,license='Apache-2.0',
+ mechanics='Adında MPNet geçmesine rağmen dağıtılan çok dilli öğrenci modelin omurgası XLM-RoBERTa’dır. 12 katman ve ortalama havuzlama ile 768 boyutlu vektör oluşturur.',
+ training='Cümle benzerliği için çok dilli temsil aktarımı. Model adından hareketle çalışma sırasında MPNet mimarisi kullandığı söylenmemeli; yayımlanan modül yapısı esas alınır.',
+ recipe='Metinleri ayrı kodla, ortalama havuzla ve normalleştir; önek yok. Yerel deneyde doğrudan Sentence Transformers paketi kullanıldı.',
+ tradeoff='MiniLM’den geniş ara temsiller daha çok hesap gerektirir. Varsayılan 128 token sınırı sürer; büyük vektör tek başına daha iyi erişim demek değildir.',
+ tr='TR-MTEB’de STS ve retrieval ayrı raporlanır; cümle benzerliği başarısı kaynak erişimi başarısıyla aynı değildir.',
+ source='https://huggingface.co/sentence-transformers/paraphrase-multilingual-mpnet-base-v2',paper='https://aclanthology.org/2020.emnlp-main.365/',fit=3,integration=5,
+ trmteb=dict(retrieval=49.27,sts=82.18,bitext=96.06)),
+dict(key='e5-small',name='Multilingual E5-small',repo='intfloat/multilingual-e5-small',family='Erişim için eğitilmiş kodlayıcı',params=117654272,dim=384,tokens=512,languages=100,license='MIT',
+ mechanics='MiniLM tabanlı 12 katmanlı kodlayıcı. Tokenların dikkat maskeli ortalaması cümle vektörünü oluşturur. Sorgu ve ilgili kaynak, karşılaştırmalı eğitimde yakınlaştırılır; ilgisiz örnekler uzaklaştırılır.',
+ training='Zayıf gözetimli çok dilli metin çiftleriyle ön eğitim, ardından etiketli veriyle ince ayar. Soru ve kaynak rollerini ayıran erişim düzeni vardır.',
+ recipe='Türkçe dahil soruya query: , kaynağa passage: ekle; 384 boyutlu çıktıyı normalleştir. Simetrik cümle çifti tanısında ikisine de query: kullanıldı.',
+ tradeoff='MiniLM ile aynı parametre mertebesi, farklı eğitim hedefi. 512 token metin sınırı; az katman genişliği kaliteyi sınırlayabilir.',
+ tr='Çok dillilik iddiası ile TR-MTEB/TR-TEB Türkçe erişim sonuçları ayrı kanıtlar. Bu benchmarklar TR↔EN açık uçlu erişimi bütünüyle doğrulamaz.',
+ source='https://huggingface.co/intfloat/multilingual-e5-small',paper='https://arxiv.org/html/2402.05672v1',fit=5,integration=5,
+ trmteb=dict(retrieval=56.53,sts=76.18,bitext=97.46),trteb=dict(retrieval=55.40,sts=72.69)),
+dict(key='e5-base',name='Multilingual E5-base',repo='intfloat/multilingual-e5-base',family='Erişim için eğitilmiş kodlayıcı',params=278044162,dim=768,tokens=512,languages=100,license='MIT',
+ mechanics='XLM-RoBERTa-base tabanlı 12 katmanlı kodlayıcı; 768 boyutlu token temsilleri ortalanır. E5-small ile aynı erişim ailesindedir; ağ daha geniştir.',
+ training='Çok dilli karşılaştırmalı ön eğitim ve gözetimli ince ayar. Pozitif soru–kaynak çiftini ayırt etmek için negatif örneklerden yararlanır.',
+ recipe='Soru query: , kaynak passage: önekiyle kodlanır; normalleştirilmiş vektörlerin nokta çarpımı kosinüse eşittir.',
+ tradeoff='Small’a göre daha geniş ağ ve daha büyük ağırlıklar. 512 token sınırı değişmez. Önceki sohbet önerisi başlangıç adayıydı; nihai seçim değildir.',
+ tr='Türkçe için iki ayrı hakemli benchmarkta sonuç var. İngilizce ve diller arası kullanım desteği kendi veri kümemizde ayrıca sınanmalıdır.',
+ source='https://huggingface.co/intfloat/multilingual-e5-base',paper='https://arxiv.org/html/2402.05672v1',fit=5,integration=5,
+ trmteb=dict(retrieval=58.29,sts=78.37,bitext=98.51),trteb=dict(retrieval=56.79,sts=73.58)),
+dict(key='e5-large',name='Multilingual E5-large',repo='intfloat/multilingual-e5-large',family='Erişim için eğitilmiş kodlayıcı',params=559890946,dim=1024,tokens=512,languages=100,license='MIT',
+ mechanics='XLM-RoBERTa-large omurgasında 24 katman ve 1024 boyutlu temsil. Ortalama havuzlama ile tek vektör üretir; small/base ile yöntem ailesi aynıdır.',
+ training='E5’in çok dilli karşılaştırmalı eğitim tarifinin daha büyük ağ üzerindeki uygulaması. Daha büyük ağ, veri kümesindeki her soru için daha iyi sonuç garantilemez.',
+ recipe='query:/passage: rolleri; dikkat maskeli ortalama, ardından normalleştirme. Bu model large-instruct sürümüyle karıştırılmamalı.',
+ tradeoff='Daha derin ve geniş ağ daha çok işlem ve ağırlık belleği gerektirir. Buna rağmen giriş sınırı 512 token olarak kalır.',
+ tr='TR-MTEB ve TR-TEB’de large/base/small aynı çalışma içinde karşılaştırılabilir. Çalışmalar arasındaki ham puanlar birleştirilemez.',
+ source='https://huggingface.co/intfloat/multilingual-e5-large',paper='https://arxiv.org/html/2402.05672v1',fit=5,integration=5,
+ trmteb=dict(retrieval=60.62,sts=81.18,bitext=99.43),trteb=dict(retrieval=58.57,sts=75.85)),
+dict(key='bge-m3',name='BGE-M3',repo='BAAI/bge-m3',family='Çok işlevli erişim kodlayıcısı',params=567754752,dim=1024,tokens=8192,languages=100,license='MIT',
+ mechanics='XLM-RoBERTa-large tabanlı ortak omurga üç erişim çıktısını destekler: yoğun tek vektör, öğrenilmiş seyrek terim ağırlıkları ve token düzeyinde çok vektör. Yoğun çıkışta CLS temsili kullanılır.',
+ training='Birlikte öğrenilen farklı erişim sinyalleri, öz damıtma ile birbirini besler. Bu raporun yerel deneyi yalnız yoğun çıkışı sınar.',
+ recipe='Standart dense kullanımında query:/passage: öneki eklenmez. Yoğun vektör normalleştirilir. Seyrek/çok vektörlü kullanımı ayrı deney gerektirir.',
+ tradeoff='8192 token alabilmesi kısa sorunun o uzunlukta işleneceği anlamına gelmez. Uzun girdi seçildiğinde hesap ve RAM artar; başlık/bölüm ayrımı hâlâ değerlidir.',
+ tr='TR-TEB’de Türkçe erişim sonucu mevcut. MIRACL model kartı değerlendirmesi sonradan düzeltilmiştir; kart/sürüm kaydı önemlidir.',
+ source='https://huggingface.co/BAAI/bge-m3',paper='https://aclanthology.org/2024.findings-acl.137/',fit=5,integration=5,
+ trteb=dict(retrieval=59.30,sts=77.08)),
+dict(key='qwen-06',name='Qwen3 Embedding 0.6B',repo='Qwen/Qwen3-Embedding-0.6B',family='Talimatlı decoder embedding',params=595776512,dim=1024,tokens=32768,languages=100,license='Apache-2.0',
+ mechanics='28 katmanlı Qwen3 decoder omurgası, nedensel dikkat kullanır. Embedding, son geçerli tokenın son katman durumundan elde edilir. Her giriş için vektör üretir; bu kullanımda yanıt metni üretmez.',
+ training='Talimat içeren karşılaştırmalı eğitim; sentetik ve etiketli veri aşamaları. Matryoshka eğitimi farklı çıktı boyutlarını destekler.',
+ recipe='Sorunun önüne İngilizce görev talimatı eklenir, kaynak yalın kalır. Pilot aynı talimatı bütün sorularda kullanır; 1024 boyut ve FP32 seçildi.',
+ tradeoff='Talimatın tokenları da işlenir. Üretici model kökeni, bu modelin sohbet modeli gibi kullanılacağı anlamına gelmez. Yerel CPU maliyeti ölçülmeli.',
+ tr='100+ dil desteği ve TR-TEB sonucu var. Çok dilli MTEB ortalaması doğrudan Türkçe erişim veya TR↔EN başarı puanı değildir.',
+ source='https://huggingface.co/Qwen/Qwen3-Embedding-0.6B',paper='https://arxiv.org/html/2506.05176v3',fit=5,integration=5,
+ trteb=dict(retrieval=50.81,sts=70.21)),
+dict(key='labse',name='LaBSE',repo='sentence-transformers/LaBSE',family='Çeviri eşleme odaklı kodlayıcı',params=470927360,dim=768,tokens=256,languages=109,license='Apache-2.0',
+ mechanics='Çok dilli BERT tabanlı çift kodlayıcı. Sentence Transformers paketinde CLS havuzlama, dense+tanh dönüşümü ve normalleştirme bulunur.',
+ training='Maskeli dil modelleme, çeviri dili modelleme ve çift kodlayıcı çeviri sıralaması; ek marjlı amaçla diller arası cümle hizalama.',
+ recipe='Önek olmadan iki metni aynı ortak uzaya kodla. Paket varsayılanı 256 token; omurganın daha büyük pozisyon kapasitesiyle karıştırılmamalı.',
+ tradeoff='12 katman olmasına karşın geniş sözlük ağırlık belleğini artırır. Çeviri karşılığı bulma, bir sorunun gerekçesini belge içinde bulmayla aynı görev değildir.',
+ tr='TR-MTEB’de bitext ve retrieval ayrı ölçülür; yüksek bitext puanını kaynak erişimi kalitesi diye yorumlamamalı.',
+ source='https://huggingface.co/sentence-transformers/LaBSE',paper='https://aclanthology.org/2022.acl-long.62/',fit=2,integration=5,
+ trmteb=dict(retrieval=46.47,sts=71.75,bitext=99.53)),
+dict(key='jina-v3',name='Jina Embeddings v3',repo='jinaai/jina-embeddings-v3',family='Göreve özel LoRA kodlayıcısı',params=572310396,dim=1024,tokens=8192,languages=100,license='CC BY-NC 4.0',
+ mechanics='XLM-RoBERTa türevi omurgada RoPE ve göreve özel küçük LoRA adaptörleri. Ortalama havuzlama ile tek vektör; Matryoshka eğitimi boyut azaltmayı destekler.',
+ training='Erişim, eşleme ve diğer işler için farklı adaptörlerle çok görevli embedding eğitimi. Her görevde aynı adaptörü kullanmak doğru kullanım değildir.',
+ recipe='Soru için retrieval.query, kaynak için retrieval.passage seçilir. Kaynak kartı özel model kodu yüklemeyi gerektirir; bu pilotta çalıştırılmadı.',
+ tradeoff='Türkçe, odaklanılan 30 dil arasındadır; omurga yaklaşık 100 dil destekler. CC BY-NC lisansı ve özel kod gereksinimi uygulama seçiminde dikkate alınmalı.',
+ tr='TR-TEB’de Türkçe sonuç mevcut. Yerel hız ve TR↔EN tanı puanı eksik; ölçülmüş modellerin deney sıralamasına katılmaz.',
+ source='https://huggingface.co/jinaai/jina-embeddings-v3',paper='https://arxiv.org/abs/2409.10173',fit=5,integration=3,
+ trteb=dict(retrieval=57.90,sts=79.31)),
+]
+
+SOURCES = [
+('S01','Çok dilli öğretmen–öğrenci eğitimi','https://aclanthology.org/2020.emnlp-main.365/','Reimers & Gurevych, EMNLP 2020. Dil hizalama mantığı; görev başarısı ayrıca ölçülür.'),
+('S02','Multilingual E5 teknik raporu','https://arxiv.org/html/2402.05672v1','Wang ve ark., 2024. Karşılaştırmalı eğitim, small/base/large ayrımı.'),
+('S03','M3-Embedding','https://aclanthology.org/2024.findings-acl.137/','Chen ve ark., Findings ACL 2024. Yoğun, seyrek ve çok vektörlü erişim.'),
+('S04','Qwen3 Embedding teknik raporu','https://arxiv.org/html/2506.05176v3','Zhang ve ark., 2025 v3. Decoder, son-token havuzlama ve talimatlı eğitim.'),
+('S05','LaBSE','https://aclanthology.org/2022.acl-long.62/','Feng ve ark., ACL 2022. Çeviri sıralaması ve ortak dil uzayı.'),
+('S06','Jina Embeddings v3','https://arxiv.org/abs/2409.10173','Sturua ve ark., 2024. Göreve özgü LoRA ve Matryoshka.'),
+('S07','TR-MTEB','https://aclanthology.org/2025.findings-emnlp.471/','Baysan & Güngör, Findings EMNLP 2025. Tablo 2; retrieval, STS ve bitext ayrı sütunlar.'),
+('S08','TR-TEB','https://lrec.elra.info/lrec2026-main-862/','Arslan ve ark., LREC 2026. Tablo 2/4; Türkçe görevler, çeviri ve yerel veri karışımı.'),
+('S09','TR-MTEB tam metin','https://aclanthology.org/2025.findings-emnlp.471.pdf','Tablo 2, s. 8. MiniLM boyutu sütunundaki 768 ile model kartındaki 384 çelişir; boyut için model config/kartı kullanıldı.'),
+('S10','TR-TEB tam metin','https://www.lrec-conf.org/proceedings/lrec2026/pdf/2026.lrec2026-1.862.pdf','Tablo 2/4 ve §3.3. Jina-ColBERT özgün çok vektörlü çıkarım yerine tek vektörle değerlendirilmiş; bu sonucu gerçek ColBERT kalitesi olarak kullanmadık.'),
+('S11','Retrieve & Re-rank','https://sbert.net/examples/sentence_transformer/applications/retrieve_rerank/README.html','Bi-encoder ve cross-encoder görevlerinin farkı.'),
+('S12','BGE Reranker v2 M3','https://huggingface.co/BAAI/bge-reranker-v2-m3','Sorgu ve adayı birlikte puanlayan çok dilli yardımcı model.'),
+('S13','Jina ColBERT v2','https://huggingface.co/jinaai/jina-colbert-v2','Token düzeyinde geç etkileşim alternatifi; ayrı çıkarım ve ölçüm gerekir.'),
+]
+
+def prior(m):
+    """Kalite tahmini değil; açık eşiklere dayanan mühendislik öncelik puanı."""
+    # Non-embedding parameter count approximates arithmetic burden at equal token length.
+    h={'minilm':384,'mpnet':768,'e5-small':384,'e5-base':768,'e5-large':1024,'bge-m3':1024,'qwen-06':1024,'labse':768,'jina-v3':1024}[m['key']]
+    vocab={'minilm':250037,'mpnet':250002,'e5-small':250037,'e5-base':250002,'e5-large':250002,'bge-m3':250002,'qwen-06':151669,'labse':501153,'jina-v3':250002}[m['key']]
+    active=m['params']-h*vocab
+    speed=5 if active<=30e6 else 4 if active<=100e6 else 3 if active<=200e6 else 2 if active<=450e6 else 1
+    gib=m['params']*4/(1024**3)
+    memory=5 if gib<=.6 else 4 if gib<=1.2 else 3 if gib<=2.4 else 2 if gib<=4 else 1
+    dims=dict(task=m['fit'],speed=speed,memory=memory,tr_en_support=5,integration=m['integration'])
+    weights=dict(task=35,speed=25,memory=15,tr_en_support=15,integration=10)
+    total=sum(dims[k]*weights[k]/5 for k in dims)
+    return dict(scores=dims,weights=weights,total=total,fp32_weights_gib=gib,non_embedding_params=active)

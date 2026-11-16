@@ -1,0 +1,23 @@
+{
+  "PROJE_TANIMI.md": "e765b170adfa40c519663111eb649fce48b64fb0d856957ef07e89dd445a6097",
+  "arastirma/KAYNAKLAR.md": "e7c53961687d3fb2fceb8cf5baf76b90b5b573ce4005effd189b807b09268b20",
+  "arastirma/LITERATUR_TARAMASI.md": "7afbc62195646605314b27fb5e93a8b30d53620adc326ab5bea56c4a945f4579",
+  "arastirma/ILK_HAFTA.md": "79b83a03b6d56e733eb094ec58da573bba8a619d5b4fd35e1e30b7342a3f4a74",
+  "arastirma/bellek-sistemleri/ARASTIRMA.md": "c179540f16987b0bf94b9f16817d5e71f17363baf6ed08d4e12cdbda99fc8c76",
+  "arastirma/model-karsilastirma/RAPOR.md": "eba47af140e3455167bde3101b2aff2dc5f5152cc25eeed9136850039f5d8dab",
+  "arastirma/model-karsilastirma/YEREL_LLM.md": "b7147d5db953b25f78187d5ca5990bb4ad2ee44602e54a3c495b6c1b77bf6cbe",
+  "arastirma/model-karsilastirma/kaynak-metadata.json": "97a5faf26c93d15935b4f16d565941c58c4d49e8ac7eb068f316ee8f30580a61",
+  "arastirma/model-karsilastirma/deney/veri.json": "9b6ed5637e7b2e04fe1b7698b42d65dcd4c6dbd341af435100404ec894e4f086",
+  "arastirma/model-karsilastirma/deney/veri.sha256": "48c94514c07f842c0693ad9c93879caa86e25e208d7be4bba23391c80f1c97ce",
+  "arastirma/model-karsilastirma/deney/calistir.py": "6278e5e3ebd0f8edaab15eae7b150836ac3a2702184984ae21c3a0abfea8c0f5",
+  "arastirma/model-karsilastirma/deney/veri_olustur.py": "f39f996b245f42d108d193ecb02d77a05fd666ca75a667c054431a72e43824c2",
+  "arastirma/model-karsilastirma/deney/requirements-lock.txt": "7bf31ee29df9e1958943aa012cebffcf22b43cf63c4f88002f8f89e28d94a390",
+  "arastirma/model-karsilastirma/deney/sonuclar/minilm.json": "c0477d15af25960835aff54743e666268886f7a1d3a505f98b350fb3b27ae5bd",
+  "arastirma/model-karsilastirma/deney/sonuclar/mpnet.json": "029ad7919163dadbdadb3c55c547b9507aaee533ce8c34741b0fb7cf18ed60d3",
+  "arastirma/model-karsilastirma/deney/sonuclar/e5-small.json": "69c313191bccd4e18a4d467492a5d6beb73ec422d9dc000bb43a7d675fb5860d",
+  "arastirma/model-karsilastirma/deney/sonuclar/e5-base.json": "f5bcfdebe5a33e62ffa1ef86ae79f5139d9cb7dcb7fb65c65864b6d73fef6bf2",
+  "arastirma/model-karsilastirma/deney/sonuclar/e5-large.json": "bbee7e348ad1125f9fcb36618312171acfbaf1f0f09f5d1105b5578b1c2730c2",
+  "arastirma/model-karsilastirma/deney/sonuclar/bge-m3.json": "795928fe6eb17320c270afab73ea0ec8ee24a698ff0f94ec3059c56dda47a514",
+  "arastirma/model-karsilastirma/deney/sonuclar/qwen-06.json": "476083d2f90d261465bad83d41073c6cee23498791ffa19ebd85ebfc29457351",
+  "arastirma/model-karsilastirma/deney/sonuclar/labse.json": "feb1b3cd7c7d472c39cc9f5fcc4d03a82e35f2817b92004c35323537f19ea344"
+}
